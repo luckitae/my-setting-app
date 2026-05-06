@@ -1,7 +1,4 @@
-﻿<!doctype html>
-
-
-
+<!doctype html>
 
 <html lang="ko">
 <head>
@@ -29,90 +26,65 @@
       --shadow: 0 18px 40px rgba(0,0,0,.38);
     }
 
-
-
-
-
-* { box-sizing: border-box; }
-html, body {
+- { box-sizing: border-box; }
+  html, body {
   margin: 0; min-height: 100%;
-  background: var(--bg); color: var(--text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(–bg); color: var(–text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, “Segoe UI”, sans-serif;
   -webkit-font-smoothing: antialiased;
-}
-
-
-
+  }
 
 .screen { display: none; width: 100%; min-height: 100vh; max-width: 440px; margin: 0 auto; padding: 10px 14px 20px; }
 .screen.active { display: block; }
 
-
-
-
 /* TOP */
 .top { display: flex; align-items: center; justify-content: space-between; padding: 8px 2px 14px; min-height: 64px; }
 .top-left { display: flex; align-items: center; gap: 12px; }
-.back, .search, .gear { border: 0; background: transparent; color: var(--text); padding: 0; line-height: 1; cursor: pointer; }
+.back, .search, .gear { border: 0; background: transparent; color: var(–text); padding: 0; line-height: 1; cursor: pointer; }
 .back { font-size: 34px; width: 40px; height: 40px; }
 .search, .gear { font-size: 26px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
 .title { font-size: 28px; font-weight: 800; letter-spacing: -.04em; }
 
-
-
-
 /* CARD (일반 카드 영역) */
-.card { background: linear-gradient(180deg,rgba(255,255,255,.02),transparent),var(--panel); border: 1px solid rgba(255,255,255,.04); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.card { background: linear-gradient(180deg,rgba(255,255,255,.02),transparent),var(–panel); border: 1px solid rgba(255,255,255,.04); border-radius: var(–radius); box-shadow: var(–shadow); overflow: hidden; }
 .group { margin-top: 16px; }
 .item, .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 78px; padding: 18px; position: relative; user-select: none; -webkit-tap-highlight-color: transparent; }
 .item.clickable { cursor: pointer; }
-.item:not(:last-child)::after, .toggle-row:not(:last-child)::after { content:""; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(--line); }
+.item:not(:last-child)::after, .toggle-row:not(:last-child)::after { content:””; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(–line); }
 .item-main { min-width:0; flex:1 1 auto; }
 .item-title { font-size:24px; font-weight:500; letter-spacing:-.03em; }
-.item-sub { margin-top:6px; font-size:16px; color:var(--muted); }
+.item-sub { margin-top:6px; font-size:16px; color:var(–muted); }
 .toggle-wrap { display:flex; align-items:center; gap:16px; flex:0 0 auto; }
-.divider-v { width:1px; height:26px; background:var(--line); }
+.divider-v { width:1px; height:26px; background:var(–line); }
 .switch { width:56px; height:32px; border-radius:999px; background:#666; position:relative; transition:background .18s; flex:0 0 auto; cursor:pointer; }
-.switch::after { content:""; position:absolute; top:4px; left:4px; width:24px; height:24px; border-radius:50%; background:#fff; transition:transform .18s; box-shadow:0 2px 6px rgba(0,0,0,.3); }
-.switch.on { background:var(--blue); }
+.switch::after { content:””; position:absolute; top:4px; left:4px; width:24px; height:24px; border-radius:50%; background:#fff; transition:transform .18s; box-shadow:0 2px 6px rgba(0,0,0,.3); }
+.switch.on { background:var(–blue); }
 .switch.on::after { transform:translateX(24px); }
 .switch-row { cursor:pointer; }
-.blue-card { background:linear-gradient(180deg,rgba(60,90,170,.26),rgba(18,30,62,.95)); border:1px solid rgba(86,122,211,.15); border-radius:30px; box-shadow:var(--shadow); padding:18px; margin-top:18px; }
+.blue-card { background:linear-gradient(180deg,rgba(60,90,170,.26),rgba(18,30,62,.95)); border:1px solid rgba(86,122,211,.15); border-radius:30px; box-shadow:var(–shadow); padding:18px; margin-top:18px; }
 .blue-card .big { font-size:24px; font-weight:700; line-height:1.25; }
 .blue-links { display:grid; gap:18px; margin-top:18px; color:#6aa0ff; font-size:19px; font-weight:500; }
-
-
-
 
 /* ── 설정 홈 화면 전용 스타일 ── */
 .home-header { padding: 40px 14px 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
 .home-title-large { font-size: 34px; font-weight: 700; margin-bottom: 20px; text-align: center; }
 .home-search-btn { position: absolute; right: 14px; top: 85px; background: transparent; border: none; color: #fff; font-size: 28px; cursor: pointer; }
 
-
-
-
 .account-card { display: flex; align-items: center; justify-content: space-between; padding: 22px 20px; }
 .account-info { flex: 1; min-width: 0; }
 /* 고정된 이름용 스타일 */
 .account-name { color: #fff; font-size: 22px; font-weight: 600; margin-bottom: 4px; }
-.account-sub { font-size: 14px; color: var(--muted); }
+.account-sub { font-size: 14px; color: var(–muted); }
 .account-avatar { width: 56px; height: 56px; border-radius: 50%; background: #9bbcf8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 16px; }
 .account-avatar svg { width: 32px; height: 32px; fill: rgba(0,0,0,0.15); }
 
-
-
-
 .setting-item { display: flex; align-items: center; gap: 16px; padding: 14px 18px; position: relative; user-select: none; -webkit-tap-highlight-color: transparent; }
 .setting-item.clickable { cursor: pointer; }
-.setting-item:not(:last-child)::after { content: ""; position: absolute; left: 70px; right: 18px; bottom: 0; height: 1px; background: var(--line); }
+.setting-item:not(:last-child)::after { content: “”; position: absolute; left: 70px; right: 18px; bottom: 0; height: 1px; background: var(–line); }
 .si-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; font-size: 18px; font-weight: bold; }
 .si-text { display: flex; flex-direction: column; justify-content: center; min-width: 0; flex: 1; }
-.si-title { font-size: 17px; font-weight: 500; color: var(--text); }
-.si-sub { font-size: 13px; color: var(--muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-
-
+.si-title { font-size: 17px; font-weight: 500; color: var(–text); }
+.si-sub { font-size: 13px; color: var(–muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .bg-blue { background: #1c73e8; }
 .bg-purple { background: #7158e2; }
@@ -123,9 +95,6 @@ html, body {
 .bg-yellow { background: #fbc531; }
 .bg-gray { background: #747d8c; }
 .bg-ai { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-
-
-
 
 /* ── 데이터 사용 화면 등 기타 스타일 ── */
 .period-anchor { position:relative; display:inline-block; }
@@ -141,25 +110,19 @@ html, body {
 .period-option .check { color:#6ba0ff; font-size:22px; opacity:0; }
 .period-option.selected .check { opacity:1; }
 
-
-
-
 .du-hero { padding: 20px 4px 0; }
-.du-prefix { font-size: 18px; font-weight: 500; color: var(--text); }
+.du-prefix { font-size: 18px; font-weight: 500; color: var(–text); }
 .du-row { display: flex; align-items: baseline; gap: 0; flex-wrap: nowrap; margin-top: 2px; }
 .du-num { font-size: 46px; font-weight: 500; letter-spacing: -.04em; line-height: 1; }
 .du-unit { font-size: 24px; font-weight: 500; margin-left: 6px; }
-.du-word { font-size: 20px; font-weight: 400; margin-left: 8px; color: var(--text); }
+.du-word { font-size: 20px; font-weight: 400; margin-left: 8px; color: var(–text); }
 .du-sim { font-size: 20px; font-weight: 600; }
-.du-period-sub { font-size: 18px; color: var(--muted); margin-top: 6px; }
+.du-period-sub { font-size: 18px; color: var(–muted); margin-top: 6px; }
 .du-bar-wrap { margin-top: 16px; }
 .du-bar { height: 30px; background: #2a2a2a; border-radius: 999px; overflow: hidden; }
-.du-bar-fill { height: 100%; background: var(--blue); border-radius: inherit; transition: width .3s; }
-.du-scale { display: flex; justify-content: space-between; font-size: 16px; color: var(--muted); margin-top: 8px; }
-.du-warn { color: var(--orange); font-size: 17px; font-weight: 600; margin-top: 10px; }
-
-
-
+.du-bar-fill { height: 100%; background: var(–blue); border-radius: inherit; transition: width .3s; }
+.du-scale { display: flex; justify-content: space-between; font-size: 16px; color: var(–muted); margin-top: 8px; }
+.du-warn { color: var(–orange); font-size: 17px; font-weight: 600; margin-top: 10px; }
 
 .summary-block { padding:30px 8px 8px; }
 .summary-row { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
@@ -167,7 +130,7 @@ html, body {
 .summary-unit { font-size:18px; font-weight:500; color:#f1f1f1; }
 .period-line { display:flex; justify-content:space-between; align-items:center; margin-top:20px; gap:10px; }
 .period-line .left { color:#9c9c9c; font-size:18px; font-weight:500; }
-.period-line .right { color:var(--orange); font-size:18px; font-weight:600; text-align:right; line-height:1.05; }
+.period-line .right { color:var(–orange); font-size:18px; font-weight:600; text-align:right; line-height:1.05; }
 .graph-wrap { margin-top:78px; }
 .graph { height:164px; position:relative; }
 .graph .axis { position:absolute; left:0; right:0; bottom:0; height:2px; background:rgba(255,255,255,.22); }
@@ -175,228 +138,177 @@ html, body {
 .graph-labels { display:flex; justify-content:space-between; margin-top:14px; color:#9b9b9b; font-size:16px; }
 .note { margin-top:28px; color:#f2f2f2; font-size:17px; line-height:1.55; }
 
-
-
-
-.plain-card { margin-top:22px; background:var(--panel); border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.04); overflow:hidden; }
+.plain-card { margin-top:22px; background:var(–panel); border-radius:var(–radius); box-shadow:var(–shadow); border:1px solid rgba(255,255,255,.04); overflow:hidden; }
 .plain-row { padding:20px 18px; min-height:82px; display:flex; justify-content:space-between; align-items:center; position:relative; gap:12px; }
 .plain-row.clickable { cursor:pointer; }
-.plain-row:not(:last-child)::after { content:""; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(--line); }
+.plain-row:not(:last-child)::after { content:””; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(–line); }
 .plain-title { font-size:24px; font-weight:500; letter-spacing:-.03em; line-height:1.2; }
-.plain-sub { margin-top:6px; color:var(--muted); font-size:17px; }
+.plain-sub { margin-top:6px; color:var(–muted); font-size:17px; }
 .plain-sub.blue { color:#6ba0ff; }
 .section-label { margin:18px 2px 8px; color:#808080; font-size:15px; font-weight:650; }
 
-
-
-
-.selector-pill { display:flex; align-items:center; justify-content:space-between; min-height:88px; padding:18px 22px; border-radius:999px; background:var(--panel); border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); position:relative; }
-.apps-card { margin-top:26px; background:var(--panel); border-radius:32px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); overflow:hidden; }
+.selector-pill { display:flex; align-items:center; justify-content:space-between; min-height:88px; padding:18px 22px; border-radius:999px; background:var(–panel); border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); position:relative; }
+.apps-card { margin-top:26px; background:var(–panel); border-radius:32px; border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); overflow:hidden; }
 .app-row { display:flex; gap:14px; padding:18px 16px 12px; align-items:flex-start; position:relative; }
-.app-row:not(:last-child)::after { content:""; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(--line); }
+.app-row:not(:last-child)::after { content:””; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(–line); }
 .app-icon { width:42px; height:42px; flex:0 0 auto; border-radius:12px; overflow:hidden; background:#2b2b2b; margin-top:2px; }
 .app-icon svg { width:100%; height:100%; display:block; }
 .app-meta { flex:1 1 auto; min-width:0; }
 .app-name { font-size:28px; font-weight:500; line-height:1.08; letter-spacing:-.03em; }
 .app-value { margin-top:6px; color:#a9a9a9; font-size:17px; }
 .app-bar { margin-top:14px; height:6px; border-radius:999px; background:rgba(255,255,255,.14); overflow:hidden; }
-.app-bar > span { display:block; height:100%; width:var(--w,50%); background:#4a86ff; border-radius:inherit; }
-
-
-
+.app-bar > span { display:block; height:100%; width:var(–w,50%); background:#4a86ff; border-radius:inherit; }
 
 /* 핫스팟 화면 공통 */
-.hs-card { background:var(--panel); border-radius:var(--radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); overflow:hidden; margin-top:16px; }
+.hs-card { background:var(–panel); border-radius:var(–radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); overflow:hidden; margin-top:16px; }
 .hs-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:22px 20px; min-height:80px; position:relative; }
-.hs-row:not(:last-child)::after { content:""; position:absolute; left:20px; right:20px; bottom:0; height:1px; background:var(--line); }
+.hs-row:not(:last-child)::after { content:””; position:absolute; left:20px; right:20px; bottom:0; height:1px; background:var(–line); }
 .hs-row.clickable { cursor:pointer; }
 .hs-title { font-size:24px; font-weight:500; letter-spacing:-.03em; }
-.hs-sub { margin-top:5px; font-size:16px; color:var(--muted); line-height:1.35; }
-.hs-dimmed .hs-title { color:var(--muted); }
+.hs-sub { margin-top:5px; font-size:16px; color:var(–muted); line-height:1.35; }
+.hs-dimmed .hs-title { color:var(–muted); }
 
-
-
-
-.hs-data-card { background:var(--panel); border-radius:var(--radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); padding:22px 20px; margin-top:16px; }
-.hs-data-label { font-size:17px; color:var(--muted); font-weight:500; }
+.hs-data-card { background:var(–panel); border-radius:var(–radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); padding:22px 20px; margin-top:16px; }
+.hs-data-label { font-size:17px; color:var(–muted); font-weight:500; }
 .hs-data-value { font-size:44px; font-weight:700; letter-spacing:-.04em; margin-top:4px; }
 .hs-data-bar { height:10px; background:#2a2a2a; border-radius:999px; overflow:hidden; margin-top:14px; }
-.hs-data-bar-fill { height:100%; background:var(--blue); border-radius:inherit; }
+.hs-data-bar-fill { height:100%; background:var(–blue); border-radius:inherit; }
 .hs-device-row { display:flex; align-items:center; gap:10px; margin-top:16px; }
-.hs-dot { width:10px; height:10px; border-radius:50%; background:var(--blue); flex:0 0 auto; }
+.hs-dot { width:10px; height:10px; border-radius:50%; background:var(–blue); flex:0 0 auto; }
 .hs-device-name { font-size:18px; font-weight:500; }
-.hs-device-val { font-size:16px; color:var(--muted); margin-left:auto; }
-.hs-link-row { display:flex; align-items:center; gap:8px; margin-top:12px; color:var(--muted); font-size:17px; }
+.hs-device-val { font-size:16px; color:var(–muted); margin-left:auto; }
+.hs-link-row { display:flex; align-items:center; gap:8px; margin-top:12px; color:var(–muted); font-size:17px; }
 
-
-
-
-.hs-info-card { background:var(--panel); border-radius:var(--radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); overflow:hidden; margin-top:16px; }
+.hs-info-card { background:var(–panel); border-radius:var(–radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); overflow:hidden; margin-top:16px; }
 .hs-info-row { padding:18px 20px; min-height:72px; position:relative; }
-.hs-info-row:not(:last-child)::after { content:""; position:absolute; left:20px; right:20px; bottom:0; height:1px; background:var(--line); }
-.hs-info-key { font-size:15px; color:var(--muted); margin-bottom:4px; }
+.hs-info-row:not(:last-child)::after { content:””; position:absolute; left:20px; right:20px; bottom:0; height:1px; background:var(–line); }
+.hs-info-key { font-size:15px; color:var(–muted); margin-bottom:4px; }
 .hs-info-val { font-size:22px; font-weight:500; letter-spacing:-.02em; }
 
-
-
-
-.hs-manage-data-card { background:var(--panel); border-radius:var(--radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); padding:22px 20px; margin-top:16px; }
+.hs-manage-data-card { background:var(–panel); border-radius:var(–radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); padding:22px 20px; margin-top:16px; }
 .hs-manage-data-value { font-size:40px; font-weight:700; letter-spacing:-.04em; margin-top:4px; }
 .hs-manage-data-bar { height:10px; background:#2a2a2a; border-radius:999px; overflow:hidden; margin-top:14px; }
-.hs-manage-data-bar-fill { height:100%; background:var(--blue); border-radius:inherit; }
-.hs-manage-link { display:flex; align-items:center; gap:8px; margin-top:14px; color:var(--muted); font-size:17px; }
-.hs-limit-btn { display:flex; align-items:center; justify-content:center; margin-top:18px; border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:14px 24px; font-size:19px; font-weight:500; cursor:pointer; background:transparent; color:var(--text); width:100%; }
+.hs-manage-data-bar-fill { height:100%; background:var(–blue); border-radius:inherit; }
+.hs-manage-link { display:flex; align-items:center; gap:8px; margin-top:14px; color:var(–muted); font-size:17px; }
+.hs-limit-btn { display:flex; align-items:center; justify-content:center; margin-top:18px; border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:14px 24px; font-size:19px; font-weight:500; cursor:pointer; background:transparent; color:var(–text); width:100%; }
 .hs-device-section { margin-top:8px; }
 .hs-section-label { font-size:15px; color:#808080; font-weight:650; margin:18px 2px 8px; }
-.hs-empty-card { background:var(--panel); border-radius:var(--radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); padding:28px 20px; text-align:center; font-size:20px; color:var(--muted); }
-
-
-
+.hs-empty-card { background:var(–panel); border-radius:var(–radius); border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); padding:28px 20px; text-align:center; font-size:20px; color:var(–muted); }
 
 .hs-view-tabs { display:flex; background:#202020; border-radius:999px; padding:4px; margin:16px auto 28px; width:280px; }
-.hs-v-tab { flex:1; padding:12px 0; background:transparent; border:none; color:var(--muted); font-size:15px; font-weight:600; border-radius:999px; cursor:pointer; transition:background .2s, color .2s; }
-.hs-v-tab.active { background:#3a3a3a; color:var(--text); }
-
-
-
+.hs-v-tab { flex:1; padding:12px 0; background:transparent; border:none; color:var(–muted); font-size:15px; font-weight:600; border-radius:999px; cursor:pointer; transition:background .2s, color .2s; }
+.hs-v-tab.active { background:#3a3a3a; color:var(–text); }
 
 .hs-v-date-nav { display:flex; align-items:center; justify-content:space-between; padding:0 20px 20px; }
-.hs-v-nav-btn { background:transparent; border:none; color:var(--muted); font-size:24px; cursor:pointer; padding:0 10px; font-weight:500; }
+.hs-v-nav-btn { background:transparent; border:none; color:var(–muted); font-size:24px; cursor:pointer; padding:0 10px; font-weight:500; }
 .hs-v-nav-title { font-size:18px; font-weight:500; }
 
-
-
-
-.hs-v-chart-card { background:var(--panel); border-radius:32px; padding:24px 20px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); position:relative; }
-.hs-v-ch-subtitle { color:var(--muted); font-size:15px; margin-bottom:6px; }
+.hs-v-chart-card { background:var(–panel); border-radius:32px; padding:24px 20px; border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); position:relative; }
+.hs-v-ch-subtitle { color:var(–muted); font-size:15px; margin-bottom:6px; }
 .hs-v-ch-title { font-size:32px; font-weight:700; letter-spacing:-.02em; display:flex; align-items:baseline; }
-.hs-v-ch-unit { font-size:18px; color:var(--muted); font-weight:500; margin-left:4px; }
-.hs-v-ch-desc { color:var(--muted); font-size:14px; margin-top:8px; line-height:1.4; }
-
-
-
+.hs-v-ch-unit { font-size:18px; color:var(–muted); font-weight:500; margin-left:4px; }
+.hs-v-ch-desc { color:var(–muted); font-size:14px; margin-top:8px; line-height:1.4; }
 
 .hs-v-chart-container { height:260px; position:relative; margin-top:50px; }
 .hs-v-chart-inner { position:absolute; top:0; left:0; right:50px; bottom:30px; }
 .hs-v-y-axis { position:absolute; right:0; top:0; bottom:30px; display:flex; flex-direction:column; justify-content:space-between; align-items:flex-end; pointer-events:none; z-index:1; }
-.hs-v-y-label { color:var(--muted); font-size:12px; background:var(--panel); padding-left:8px; transform:translateY(-50%); }
-
-
-
+.hs-v-y-label { color:var(–muted); font-size:12px; background:var(–panel); padding-left:8px; transform:translateY(-50%); }
 
 .hs-v-grid { width:100%; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
 .hs-v-grid-line { width:100%; height:1px; background:rgba(255,255,255,.1); }
 
-
-
-
 .hs-v-bars { width:100%; height:100%; position:absolute; top:0; left:0; display:flex; justify-content:space-around; align-items:flex-end; }
 .hs-v-bar-col { position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; cursor:pointer; }
-.hs-v-bar-col.selected::before { content:""; position:absolute; top:-40px; bottom:0; width:1px; background:#666; z-index:1; }
+.hs-v-bar-col.selected::before { content:””; position:absolute; top:-40px; bottom:0; width:1px; background:#666; z-index:1; }
 .hs-v-tooltip { position:absolute; top:-50px; background:#444; color:#fff; padding:6px 12px; border-radius:999px; font-size:13px; font-weight:500; white-space:nowrap; z-index:10; display:none; }
 .hs-v-bar-col.selected .hs-v-tooltip { display:block; }
 .hs-v-bar-track { width:22px; height:100%; display:flex; align-items:flex-end; justify-content:center; position:relative; z-index:2; }
-.hs-v-bar-fill { width:100%; background:var(--blue); border-radius:4px 4px 0 0; min-height:0; }
-
-
-
+.hs-v-bar-fill { width:100%; background:var(–blue); border-radius:4px 4px 0 0; min-height:0; }
 
 .hs-v-x-labels { position:absolute; left:0; right:50px; bottom:0; height:30px; display:flex; justify-content:space-around; align-items:center; }
 .hs-v-x-wrap { flex:1; display:flex; justify-content:center; }
-.hs-v-x-label { font-size:13px; color:var(--muted); width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:background .2s; }
-.hs-v-bar-col.selected .hs-v-x-label { background:#444; color:var(--text); font-weight:600; }
-
-
-
+.hs-v-x-label { font-size:13px; color:var(–muted); width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:background .2s; }
+.hs-v-bar-col.selected .hs-v-x-label { background:#444; color:var(–text); font-weight:600; }
 
 .hs-v-devices { border-top:1px solid rgba(255,255,255,.06); margin-top:30px; padding-top:20px; }
 .hs-v-dev-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
 .hs-v-dev-row:last-child { margin-bottom:0; }
 .hs-v-dev-left { display:flex; align-items:center; gap:10px; }
-.hs-v-dev-dot { width:10px; height:10px; border-radius:50%; background:var(--blue); }
+.hs-v-dev-dot { width:10px; height:10px; border-radius:50%; background:var(–blue); }
 .hs-v-dev-name { font-size:16px; font-weight:400; color:#e0e0e0; }
 .hs-v-dev-val { font-size:16px; font-weight:600; }
 
-
-
-
 .demo-badge { display:inline-flex; align-items:center; gap:8px; margin:10px 2px 0; padding:7px 12px; border-radius:999px; font-size:12px; color:#d4d4d4; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.06); }
-
-
-
 
 /* ══ 배터리 메인 화면 ══ */
 .bat-remain { font-size:36px; font-weight:700; letter-spacing:-.03em; margin-top:6px; }
-.bat-remain-sub { font-size:17px; color:var(--muted); margin-top:4px; }
+.bat-remain-sub { font-size:17px; color:var(–muted); margin-top:4px; }
 .bat-green-bar { height:18px; background:#2ecc5a; border-radius:999px; margin-top:14px; width:100%; }
-.bat-charged-note { font-size:16px; color:var(--muted); margin-top:10px; }
-.bat-section-card { background:var(--panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); overflow:hidden; margin-top:16px; }
+.bat-charged-note { font-size:16px; color:var(–muted); margin-top:10px; }
+.bat-section-card { background:var(–panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); overflow:hidden; margin-top:16px; }
 .bat-section-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:20px 18px; min-height:72px; position:relative; }
-.bat-section-row:not(:last-child)::after { content:""; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(--line); }
+.bat-section-row:not(:last-child)::after { content:””; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(–line); }
 .bat-section-title { font-size:22px; font-weight:500; }
-.bat-section-sub { font-size:15px; color:var(--muted); margin-top:3px; }
+.bat-section-sub { font-size:15px; color:var(–muted); margin-top:3px; }
 .bat-section-sub.blue { color:#6ba0ff; }
 .bat-today-header { display:flex; align-items:center; justify-content:space-between; padding:16px 18px 8px; cursor:pointer; }
 .bat-today-label { font-size:17px; font-weight:600; display:flex; align-items:center; gap:6px; }
-.bat-today-note { font-size:14px; color:var(--muted); padding:0 18px 6px; line-height:1.5; }
+.bat-today-note { font-size:14px; color:var(–muted); padding:0 18px 6px; line-height:1.5; }
 .bat-graph-wrap { padding:8px 18px 14px; cursor:pointer; }
 .bat-graph-box { position:relative; height:120px; background:#111; border-radius:12px; overflow:hidden; }
 .bat-graph-badge { position:absolute; top:10px; right:12px; background:#444; color:#fff; font-size:13px; font-weight:700; padding:4px 10px; border-radius:999px; display:flex; align-items:center; gap:4px; }
 .bat-graph-svg { width:100%; height:100%; }
-.bat-graph-xlabels { display:flex; justify-content:space-between; margin-top:4px; font-size:13px; color:var(--muted); }
+.bat-graph-xlabels { display:flex; justify-content:space-between; margin-top:4px; font-size:13px; color:var(–muted); }
 .bat-legend { display:flex; gap:16px; padding:0 18px 14px; flex-wrap:wrap; }
-.bat-legend-item { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); }
+.bat-legend-item { display:flex; align-items:center; gap:6px; font-size:13px; color:var(–muted); }
 .bat-legend-dot { width:9px; height:9px; border-radius:50%; flex:0 0 auto; }
-.bat-usage-pct-label { font-size:16px; color:var(--muted); padding:0 18px 12px; }
-.bat-app-list { border-top:1px solid var(--line); }
+.bat-usage-pct-label { font-size:16px; color:var(–muted); padding:0 18px 12px; }
+.bat-app-list { border-top:1px solid var(–line); }
 .bat-app-item { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid #1e1e1e; }
 .bat-app-item:last-child { border-bottom:0; }
 .bat-app-left { display:flex; align-items:center; gap:12px; }
 .bat-app-ico { width:38px; height:38px; border-radius:11px; overflow:hidden; flex:0 0 auto; background:#2b2b2b; display:flex; align-items:center; justify-content:center; font-size:20px; }
 .bat-app-name { font-size:18px; font-weight:500; }
-.bat-app-sub { font-size:13px; color:var(--muted); margin-top:2px; }
-.bat-app-pct { font-size:17px; color:var(--muted); font-weight:500; }
-.bat-more-btn { display:flex; align-items:center; justify-content:center; padding:16px; font-size:17px; color:var(--muted); cursor:pointer; }
-.bat-opt-card { background:var(--panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); overflow:hidden; margin-top:16px; }
+.bat-app-sub { font-size:13px; color:var(–muted); margin-top:2px; }
+.bat-app-pct { font-size:17px; color:var(–muted); font-weight:500; }
+.bat-more-btn { display:flex; align-items:center; justify-content:center; padding:16px; font-size:17px; color:var(–muted); cursor:pointer; }
+.bat-opt-card { background:var(–panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); overflow:hidden; margin-top:16px; }
 .bat-opt-row { display:flex; align-items:center; justify-content:space-between; padding:20px 18px; min-height:72px; position:relative; }
-.bat-opt-row:not(:last-child)::after { content:""; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(--line); }
+.bat-opt-row:not(:last-child)::after { content:””; position:absolute; left:18px; right:18px; bottom:0; height:1px; background:var(–line); }
 .bat-opt-row.clickable { cursor:pointer; }
 .bat-opt-title { font-size:22px; font-weight:500; }
-.bat-opt-sub { font-size:15px; color:var(--muted); margin-top:3px; }
-.bat-help-text { font-size:15px; color:var(--muted); line-height:1.6; margin-top:16px; padding:0 2px; }
+.bat-opt-sub { font-size:15px; color:var(–muted); margin-top:3px; }
+.bat-help-text { font-size:15px; color:var(–muted); line-height:1.6; margin-top:16px; padding:0 2px; }
 .bat-help-link { color:#6ba0ff; text-decoration:none; }
-
-
-
 
 /* ══ 배터리 활동 화면 ══ */
 .bact-date-title { font-size:30px; font-weight:700; letter-spacing:-.03em; margin-top:4px; }
-.bact-date-sub { font-size:18px; color:var(--muted); font-weight:400; }
+.bact-date-sub { font-size:18px; color:var(–muted); font-weight:400; }
 .bact-date-bar { display:flex; align-items:center; gap:0; margin:16px 0 14px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
 .bact-date-bar::-webkit-scrollbar { display:none; }
-.bact-date-item { flex:0 0 auto; min-width:44px; text-align:center; font-size:16px; color:var(--muted); padding:6px 2px; cursor:pointer; border-radius:999px; transition:background .15s,color .15s; }
+.bact-date-item { flex:0 0 auto; min-width:44px; text-align:center; font-size:16px; color:var(–muted); padding:6px 2px; cursor:pointer; border-radius:999px; transition:background .15s,color .15s; }
 .bact-date-item.active { background:#fff; color:#000; font-weight:700; }
-.bact-charge-card { background:var(--panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); padding:16px 18px 18px; margin-top:4px; }
-.bact-charge-label { font-size:15px; color:var(--muted); font-weight:600; margin-bottom:10px; }
+.bact-charge-card { background:var(–panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); padding:16px 18px 18px; margin-top:4px; }
+.bact-charge-label { font-size:15px; color:var(–muted); font-weight:600; margin-bottom:10px; }
 .bact-charge-graph { position:relative; height:120px; background:#111; border-radius:12px; overflow:hidden; }
 .bact-charge-badge { position:absolute; top:10px; right:12px; background:#444; color:#fff; font-size:13px; font-weight:700; padding:4px 10px; border-radius:999px; display:flex; align-items:center; gap:4px; }
 .bact-charge-svg { width:100%; height:100%; }
-.bact-charge-xlabels { display:flex; justify-content:space-between; margin-top:6px; font-size:13px; color:var(--muted); }
-.bact-usage-card { background:var(--panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--shadow); padding:16px 18px 18px; margin-top:14px; }
-.bact-usage-label { font-size:15px; color:var(--muted); font-weight:600; margin-bottom:10px; }
-.bact-usage-info { font-size:15px; color:var(--text); line-height:1.8; margin-bottom:14px; }
-.bact-bar-scale { display:flex; justify-content:flex-end; font-size:12px; color:var(--muted); margin-bottom:4px; gap:8px; }
+.bact-charge-xlabels { display:flex; justify-content:space-between; margin-top:6px; font-size:13px; color:var(–muted); }
+.bact-usage-card { background:var(–panel); border-radius:22px; border:1px solid rgba(255,255,255,.04); box-shadow:var(–shadow); padding:16px 18px 18px; margin-top:14px; }
+.bact-usage-label { font-size:15px; color:var(–muted); font-weight:600; margin-bottom:10px; }
+.bact-usage-info { font-size:15px; color:var(–text); line-height:1.8; margin-bottom:14px; }
+.bact-bar-scale { display:flex; justify-content:flex-end; font-size:12px; color:var(–muted); margin-bottom:4px; gap:8px; }
 .bact-bar-section { display:flex; gap:2px; height:80px; align-items:flex-end; }
 .bact-bar-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:4px; height:100%; }
 .bact-bar-col .bar { width:65%; min-width:12px; border-radius:4px 4px 0 0; background:#888; transition:height .25s; }
 .bact-bar-col .bar.active-bar { background:#4a9fff; }
 .bact-bar-col .bar.active-bar { background:#5a7fff; }
-.bact-bar-col .blabel { font-size:12px; color:var(--muted); }
+.bact-bar-col .blabel { font-size:12px; color:var(–muted); }
 .bact-bar-col.active-col .blabel { color:#fff; font-weight:700; background:#555; border-radius:999px; padding:2px 5px; }
 .bact-line-graph { position:relative; height:68px; margin-top:12px; }
 .bact-line-svg { width:100%; height:100%; }
-.bact-line-xlabels { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-top:4px; }
-.bact-legend2 { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); margin-top:8px; }
+.bact-line-xlabels { display:flex; justify-content:space-between; font-size:12px; color:var(–muted); margin-top:4px; }
+.bact-legend2 { display:flex; align-items:center; gap:8px; font-size:13px; color:var(–muted); margin-top:8px; }
 .bact-legend-dot2 { width:9px; height:9px; border-radius:50%; background:#6ba0ff; flex:0 0 auto; }
 .bact-app-list { margin-top:16px; }
 .bact-app-item { display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid #222; }
@@ -404,34 +316,22 @@ html, body {
 .bact-app-left { display:flex; align-items:center; gap:12px; }
 .bact-app-ico { width:40px; height:40px; border-radius:12px; overflow:hidden; flex:0 0 auto; background:#2b2b2b; display:flex; align-items:center; justify-content:center; font-size:20px; }
 .bact-app-name { font-size:18px; font-weight:500; }
-.bact-app-sub { font-size:13px; color:var(--muted); margin-top:2px; }
-.bact-app-pct { font-size:17px; color:var(--muted); font-weight:500; }
-
-
-
+.bact-app-sub { font-size:13px; color:var(–muted); margin-top:2px; }
+.bact-app-pct { font-size:17px; color:var(–muted); font-weight:500; }
 
   </style>
 </head>
 <body>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN 0: 메인 홈 설정 화면
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-home" class="screen active">
   <div class="home-header">
     <div class="home-title-large">설정</div>
     <button class="home-search-btn" aria-label="검색">⌕</button>
   </div>
-
-
-
 
   <div class="card account-card">
     <div class="account-info">
@@ -443,9 +343,6 @@ html, body {
       <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
     </div>
   </div>
-
-
-
 
   <div class="card group">
     <div class="setting-item clickable" data-go="screen-connections">
@@ -463,9 +360,6 @@ html, body {
       </div>
     </div>
   </div>
-
-
-
 
   <div class="card group">
     <div class="setting-item clickable">
@@ -498,9 +392,6 @@ html, body {
     </div>
   </div>
 
-
-
-
   <div class="card group">
     <div class="setting-item clickable">
       <div class="si-icon bg-green">☀</div>
@@ -517,9 +408,6 @@ html, body {
       </div>
     </div>
   </div>
-
-
-
 
   <div class="card group">
     <div class="setting-item clickable">
@@ -552,9 +440,6 @@ html, body {
     </div>
   </div>
 
-
-
-
   <div class="card group">
     <div class="setting-item clickable">
       <div class="si-icon bg-blue">🛡</div>
@@ -579,9 +464,6 @@ html, body {
     </div>
   </div>
 
-
-
-
   <div class="card group">
     <div class="setting-item clickable">
       <div class="si-icon bg-blue">🔄</div>
@@ -599,9 +481,6 @@ html, body {
     </div>
   </div>
 
-
-
-
   <div class="card group">
     <div class="setting-item clickable">
       <div class="si-icon bg-yellow">⚙</div>
@@ -611,9 +490,6 @@ html, body {
       </div>
     </div>
   </div>
-
-
-
 
   <div class="card group">
     <div class="setting-item clickable">
@@ -639,9 +515,6 @@ html, body {
     </div>
   </div>
 
-
-
-
   <div class="card group">
     <div class="setting-item clickable">
       <div class="si-icon bg-gray">🎛</div>
@@ -658,9 +531,6 @@ html, body {
       </div>
     </div>
   </div>
-
-
-
 
   <div class="card group">
     <div class="setting-item clickable">
@@ -687,15 +557,9 @@ html, body {
   </div>
 </main>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN: 배터리
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-battery" class="screen">
   <div class="top">
@@ -706,21 +570,12 @@ html, body {
     <button class="search" aria-label="검색">⌕</button>
   </div>
 
-
-
-
   <div class="bat-remain">17시간 16분 남음</div>
   <div class="bat-remain-sub">98% 사용 가능</div>
   <div class="bat-green-bar"></div>
   <div class="bat-charged-note">완전히 충전시 약 17시간 45분 사용 가능</div>
 
-
-
-
   <!-- 절전 / 백그라운드 -->
-
-
-
 
   <div class="bat-opt-card">
     <div class="bat-opt-row switch-row" data-switch>
@@ -732,13 +587,7 @@ html, body {
     </div>
   </div>
 
-
-
-
   <!-- 배터리 보호 -->
-
-
-
 
   <div class="bat-opt-card" style="margin-top:16px;">
     <div class="bat-opt-row switch-row" data-switch>
@@ -750,24 +599,16 @@ html, body {
     </div>
   </div>
 
-
-
-
   <!-- 오늘 카드 (그래프 클릭 → 배터리 활동) -->
-
-
-
 
   <div class="bat-section-card" style="margin-top:16px;">
     <div class="bat-today-header">
       <div class="bat-today-label">오늘 <span class="bat-today-caret">▼</span></div>
     </div>
-    <div class="bat-today-note">충전 안 됨</div>
-
-
-
+    <div class="bat-today-note">완전히 충전시 약 17시간 45분 사용 가능</div>
 
 <!-- 그래프 영역 → 클릭 시 배터리 활동으로 이동 -->
+
 <div class="bat-graph-wrap" data-go="screen-battery-activity">
   <div class="bat-graph-box">
     <!-- 배지 없음 (오늘은 충전 안 된 상태) -->
@@ -782,40 +623,24 @@ html, body {
   </div>
 </div>
 
-
-
-
 <div class="bat-legend">
   <div class="bat-legend-item"><div class="bat-legend-dot" style="background:#888"></div>배터리 잔량</div>
   <div class="bat-legend-item"><div class="bat-legend-dot" style="background:#888;opacity:.5"></div>예상 배터리 잔량</div>
 </div>
 
-
-
-
 <!-- 배터리 사용량 % -->
-<div class="bat-usage-pct-label">배터리 사용량: 0%</div>
 
-
-
+<div class="bat-usage-pct-label">배터리 사용량: 9%</div>
 
 <!-- 앱 목록 없음 / 자세히 보기만 -->
+
 <div class="bat-app-list">
   <div class="bat-more-btn" data-go="screen-battery-activity">자세히 보기</div>
 </div>
 
-
-
-
   </div>
 
-
-
-
   <!-- 충전 설정 / 무선 배터리 공유 / 기타 -->
-
-
-
 
   <div class="bat-opt-card" style="margin-top:16px;">
     <div class="bat-opt-row clickable" style="cursor:pointer;"><div class="bat-opt-title">충전 설정</div></div>
@@ -836,9 +661,6 @@ html, body {
     <div class="bat-opt-row clickable" style="cursor:pointer;"><div class="bat-opt-title">배터리 정보</div></div>
   </div>
 
-
-
-
   <div class="bat-help-text">
     도움말<br>
     휴대전화 배터리에 대한 정보와 관리 방법을 알아보세요.<br>
@@ -846,15 +668,9 @@ html, body {
   </div>
 </main>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN: 배터리 활동
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-battery-activity" class="screen">
   <div class="top">
@@ -865,34 +681,16 @@ html, body {
     <div style="width:40px;height:40px;"></div>
   </div>
 
-
-
-
   <!-- 날짜 표시 -->
-
-
-
 
   <div class="bact-date-title" id="bact-date-title">5월 5일</div>
   <div class="bact-date-sub" id="bact-date-sub">오늘</div>
 
-
-
-
   <!-- 날짜 스크롤 바 -->
-
-
-
 
   <div class="bact-date-bar" id="bact-date-bar"></div>
 
-
-
-
   <!-- 배터리 잔량 카드 -->
-
-
-
 
   <div class="bact-charge-card">
     <div class="bact-charge-label">배터리 잔량</div>
@@ -908,13 +706,7 @@ html, body {
     </div>
   </div>
 
-
-
-
   <!-- 배터리 사용 내역 카드 -->
-
-
-
 
   <div class="bact-usage-card">
     <div class="bact-usage-label">배터리 사용 내역</div>
@@ -924,17 +716,13 @@ html, body {
       화면 꺼져 있던 시간: 1시간 2분
     </div>
 
-
-
-
 <!-- 날짜별 막대 -->
+
 <div class="bact-bar-scale"><span style="margin-right:auto;color:var(--muted);font-size:12px;">200</span><span style="font-size:12px;color:var(--muted)">0%</span></div>
 <div class="bact-bar-section" id="bact-bar-section"></div>
 
-
-
-
 <!-- 시간별 막대 -->
+
 <div class="bact-line-graph">
   <svg class="bact-line-svg" id="bact-line-svg" viewBox="0 0 300 68" preserveAspectRatio="none">
     <g id="bact-line-bars"></g>
@@ -944,27 +732,16 @@ html, body {
 <div class="bact-line-xlabels"><span>오전 12</span><span>오후 12</span></div>
 <div class="bact-legend2"><div class="bact-legend-dot2"></div>배터리 사용</div>
 
-
-
-
 <!-- 앱 목록 -->
+
 <div class="bact-app-list" id="bact-app-list"></div>
-
-
-
 
   </div>
 </main>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN 1: 연결
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-connections" class="screen">
   <div class="top">
@@ -975,9 +752,6 @@ html, body {
     <button class="search" aria-label="검색">⌕</button>
   </div>
 
-
-
-
   <div class="card group">
     <div class="toggle-row switch-row" data-switch><div class="item-main"><div class="item-title">Wi‑Fi</div></div><div class="toggle-wrap"><div class="divider-v"></div><div class="switch"></div></div></div>
     <div class="toggle-row switch-row" data-switch><div class="item-main"><div class="item-title">블루투스</div></div><div class="toggle-wrap"><div class="divider-v"></div><div class="switch on"></div></div></div>
@@ -985,15 +759,9 @@ html, body {
     <div class="toggle-row switch-row" data-switch><div class="item-main"><div class="item-title">초광대역 (UWB)</div><div class="item-sub">주변 기기의 위치를 정확하게 알려줍니다.</div></div><div class="toggle-wrap"><div class="switch on"></div></div></div>
   </div>
 
-
-
-
   <div class="card group">
     <div class="toggle-row switch-row" data-switch><div class="item-main"><div class="item-title">비행기 탑승 모드</div></div><div class="toggle-wrap"><div class="divider-v"></div><div class="switch"></div></div></div>
   </div>
-
-
-
 
   <div class="card group">
     <div class="item clickable" data-go="screen-connections"><div class="item-main"><div class="item-title">SIM 관리자</div></div></div>
@@ -1002,16 +770,10 @@ html, body {
     <div class="item clickable" data-go="screen-hotspot-tether"><div class="item-main"><div class="item-title">모바일 핫스팟 및 테더링</div></div></div>
   </div>
 
-
-
-
   <div class="card group">
     <div class="item clickable" data-go="screen-connections"><div class="item-main"><div class="item-title">해외 로밍</div></div></div>
     <div class="item clickable" data-go="screen-connections"><div class="item-main"><div class="item-title">기타 연결 설정</div></div></div>
   </div>
-
-
-
 
   <div class="blue-card">
     <div class="big">다른 기능을 찾고 있나요?</div>
@@ -1022,15 +784,9 @@ html, body {
   </div>
 </main>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN 2: 모바일 핫스팟 및 테더링
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-hotspot-tether" class="screen">
   <div class="top">
@@ -1040,9 +796,6 @@ html, body {
     </div>
     <div style="width:40px;height:40px;"></div>
   </div>
-
-
-
 
   <div class="hs-card">
     <div class="hs-row clickable" data-go="screen-hotspot-detail" style="cursor:pointer;">
@@ -1078,20 +831,11 @@ html, body {
     </div>
   </div>
 
-
-
-
 </main>
-
-
-
 
 <!-- ══════════════════════════════
      SCREEN 3: 모바일 핫스팟 (상세)
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-hotspot-detail" class="screen">
   <div class="top">
@@ -1102,18 +846,12 @@ html, body {
     <div style="width:40px;height:40px;"></div>
   </div>
 
-
-
-
   <div class="hs-card">
     <div class="hs-row switch-row" data-switch>
       <div class="hs-title">사용 안 함</div>
       <div class="switch"></div>
     </div>
   </div>
-
-
-
 
   <div class="hs-data-card clickable" data-go="screen-hotspot-manage" style="cursor:pointer;">
     <div class="hs-data-label">오늘 공유한 모바일 데이터</div>
@@ -1126,9 +864,6 @@ html, body {
       <span>연결된 기기 없음</span>
     </div>
   </div>
-
-
-
 
   <div class="hs-info-card">
     <div class="hs-info-row">
@@ -1144,9 +879,6 @@ html, body {
       <div class="hs-info-val">5GHz 우선</div>
     </div>
   </div>
-
-
-
 
   <div class="hs-card" style="margin-top:16px;">
     <div class="hs-row hs-dimmed switch-row" data-switch>
@@ -1169,20 +901,11 @@ html, body {
     </div>
   </div>
 
-
-
-
 </main>
-
-
-
 
 <!-- ══════════════════════════════
      SCREEN 4: 모바일 핫스팟 관리
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-hotspot-manage" class="screen">
   <div class="top">
@@ -1200,9 +923,6 @@ html, body {
     </button>
   </div>
 
-
-
-
   <div class="hs-manage-data-card">
     <div class="hs-data-label">오늘 공유한 모바일 데이터</div>
     <div class="hs-manage-data-value">0 B</div>
@@ -1216,36 +936,21 @@ html, body {
     <button class="hs-limit-btn">데이터 한도 설정</button>
   </div>
 
-
-
-
   <div class="hs-device-section">
     <div class="hs-section-label">연결된 기기</div>
     <div class="hs-empty-card">기기가 없습니다</div>
   </div>
-
-
-
 
   <div class="hs-device-section">
     <div class="hs-section-label">이전에 연결한 기기</div>
     <div class="hs-empty-card" style="font-size:18px; padding:22px 20px;">이전에 연결한 기기가 없습니다</div>
   </div>
 
-
-
-
 </main>
-
-
-
 
 <!-- ══════════════════════════════
      SCREEN 5: 핫스팟 사용 내역 
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-hotspot-extra" class="screen">
   <div class="top">
@@ -1255,16 +960,10 @@ html, body {
     </div>
   </div>
 
-
-
-
   <div class="hs-view-tabs">
     <button class="hs-v-tab active" data-view="weekly">주별 보기</button>
     <button class="hs-v-tab" data-view="monthly">월별 보기</button>
   </div>
-
-
-
 
   <div class="hs-v-date-nav">
     <button class="hs-v-nav-btn" id="hs-prev-btn">‹</button>
@@ -1272,16 +971,10 @@ html, body {
     <button class="hs-v-nav-btn" id="hs-next-btn">›</button>
   </div>
 
-
-
-
   <div class="hs-v-chart-card">
     <div class="hs-v-ch-subtitle" id="hs-v-period">--</div>
     <div class="hs-v-ch-title"><span id="hs-v-val">0 B</span><span class="hs-v-ch-unit" id="hs-v-unit">/일</span></div>
     <div class="hs-v-ch-desc" id="hs-v-desc">--</div>
-
-
-
 
 <div class="hs-v-chart-container">
   <div class="hs-v-y-axis" id="hs-v-y-axis"></div>
@@ -1297,26 +990,14 @@ html, body {
   <div class="hs-v-x-labels" id="hs-v-x-labels"></div>
 </div>
 
-
-
-
 <div class="hs-v-devices" id="hs-v-devices" style="display:none;"></div>
-
-
-
 
   </div>
 </main>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN 6: 데이터 사용
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-data" class="screen">
   <div class="top">
@@ -1326,9 +1007,6 @@ html, body {
     </div>
     <div style="width:40px;height:40px;"></div>
   </div>
-
-
-
 
   <div class="du-hero">
     <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -1350,9 +1028,6 @@ html, body {
     <div class="du-warn">데이터 사용경고: 1.00TB</div>
   </div>
 
-
-
-
   <div class="plain-card">
     <div class="plain-row clickable" data-go="screen-month">
       <div><div class="plain-title">데이터 절약 모드</div><div class="plain-sub blue">사용 안 함</div></div>
@@ -1361,9 +1036,6 @@ html, body {
       <div><div class="plain-title">앱별 네트워크 설정</div></div>
     </div>
   </div>
-
-
-
 
   <div class="section-label">모바일</div>
   <div class="plain-card">
@@ -1383,9 +1055,6 @@ html, body {
     </div>
   </div>
 
-
-
-
   <div class="section-label">Wi‑Fi</div>
   <div class="plain-card">
     <div class="plain-row clickable" data-go="screen-month">
@@ -1394,15 +1063,9 @@ html, body {
   </div>
 </main>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN 7: 모바일 데이터 사용량 (월별)
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-month" class="screen">
   <div class="top">
@@ -1412,9 +1075,6 @@ html, body {
     </div>
     <button class="gear" aria-label="설정">⚙</button>
   </div>
-
-
-
 
   <div class="period-anchor">
     <div class="selector-pill">
@@ -1432,9 +1092,6 @@ html, body {
       <div class="period-option" data-period="jan"><span>1월 1일~31일</span><span class="check">✓</span></div>
     </div>
   </div>
-
-
-
 
   <section class="summary-block" style="padding-top:32px;">
     <div class="summary-row">
@@ -1455,23 +1112,14 @@ html, body {
     <div class="note">여기 표시되는 데이터 사용량은 휴대전화에서 측정된 값으로 서비스 공급자가 측정한 사용량과 다를 수 있습니다.</div>
   </section>
 
-
-
-
   <div class="apps-card" id="apps-card">
     <!-- JS Rendered Apps -->
   </div>
 </main>
 
-
-
-
 <!-- ══════════════════════════════
      SCREEN 8: 휴대전화 정보 (로컬 스토리지에 영구 저장)
 ══════════════════════════════ -->
-
-
-
 
 <main id="screen-about" class="screen">
   <div class="top">
@@ -1482,43 +1130,27 @@ html, body {
     <div style="width:40px;height:40px;"></div>
   </div>
 
-
-
-
   <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; padding: 20px;">
-
-
-
 
 <!-- 
   만약 코드 자체에 영구적으로 이미지를 고정하고 싶으시다면,
   아래 img 태그의 src="" 속성 안에 이미지의 웹 주소나 Base64 코드를 직접 넣으시면 됩니다.
 -->
+
 <img id="about-uploaded-image" src="" style="width: 100%; border-radius: 24px; display: none; box-shadow: var(--shadow); margin-bottom: 20px;" />
 
-
-
-
 <!-- 한 번 업로드하면 완전히 사라지는 버튼 -->
+
 <label id="about-upload-label" for="about-image-upload" style="padding: 16px 28px; background: #222; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; color: var(--text); font-size: 18px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s;">
   <span style="font-size:24px;">📸</span> 기기에 있는 이미지 넣기
 </label>
 <input type="file" id="about-image-upload" accept="image/*" style="display: none;">
 ```
 
-
-
-
   </div>
 </main>
 
-
-
-
 <div class="menu-backdrop" id="menu-backdrop"></div>
-
-
-
 
 <script>
   /* ── DATA ── */
@@ -1908,13 +1540,13 @@ html, body {
 
     /* 날짜별 가짜 데이터 */
     const dayData = [
-      { label:'30', fullLabel:'4월 30일 (수)', usagePct:81, screenOn:'3시간 12분', screenOff:'58분',      barH:81 },
-      { label:'01', fullLabel:'5월 1일 (목)',  usagePct:44, screenOn:'1시간 30분', screenOff:'30분',      barH:44 },
-      { label:'02', fullLabel:'5월 2일 (금)',  usagePct:58, screenOn:'2시간 5분',  screenOff:'40분',      barH:58 },
-      { label:'03', fullLabel:'5월 3일 (토)',  usagePct:67, screenOn:'2시간 48분', screenOff:'55분',      barH:67 },
+      { label:'01', fullLabel:'5월 1일 (목)',  usagePct:44, screenOn:'1시간 30분', screenOff:'30분',       barH:44 },
+      { label:'02', fullLabel:'5월 2일 (금)',  usagePct:58, screenOn:'2시간 5분',  screenOff:'40분',       barH:58 },
+      { label:'03', fullLabel:'5월 3일 (토)',  usagePct:67, screenOn:'2시간 48분', screenOff:'55분',       barH:67 },
       { label:'04', fullLabel:'5월 4일 (일)',  usagePct:75, screenOn:'3시간 1분',  screenOff:'1시간 10분', barH:75 },
       { label:'05', fullLabel:'5월 5일 (월)',  usagePct:64, screenOn:'3시간 18분', screenOff:'1시간 2분',  barH:64 },
-      { label:'06', fullLabel:'5월 6일 (화) 오늘', usagePct:12, screenOn:'38분', screenOff:'10분',       barH:12 },
+      { label:'06', fullLabel:'5월 6일 (화)',  usagePct:71, screenOn:'3시간 5분',  screenOff:'1시간 8분',  barH:71 },
+      { label:'07', fullLabel:'5월 7일 (수) 오늘', usagePct:9, screenOn:'28분', screenOff:'8분',          barH:9  },
     ];
 
 
@@ -1922,16 +1554,7 @@ html, body {
 
     /* 날짜별 앱 목록 */
     const appsByDay = {
-      0:[ // 4월 30일
-        {ico:'🎮',name:'소녀전선2: 망명',sub:'실제 실행 1시간 5분',pct:'21.0%'},
-        {ico:'🌐',name:'삼성 브라우저',sub:'실제 실행 1시간 12분',pct:'14.3%'},
-        {ico:'▶',name:'YouTube',sub:'실제 실행 44분',pct:'10.2%'},
-        {ico:'💬',name:'디시인사이드',sub:'실제 실행 9분',pct:'1.4%'},
-        {ico:'💬',name:'카카오톡',sub:'실제 실행 5분',pct:'0.9%'},
-        {ico:'⚙',name:'시스템 UI',sub:'실제 실행 1분 미만',pct:'0.7%'},
-        {ico:'🔧',name:'Google Play 서비스',sub:'실제 실행 1분 미만',pct:'0.5%'},
-      ],
-      1:[ // 5월 1일
+      0:[ // 5월 1일
         {ico:'▶',name:'YouTube',sub:'실제 실행 28분',pct:'12.5%'},
         {ico:'🌐',name:'삼성 브라우저',sub:'실제 실행 40분',pct:'9.7%'},
         {ico:'💬',name:'디시인사이드',sub:'실제 실행 5분',pct:'4.1%'},
@@ -1939,7 +1562,7 @@ html, body {
         {ico:'⚙',name:'시스템 UI',sub:'실제 실행 1분 미만',pct:'0.6%'},
         {ico:'🔔',name:'Samsung Push Service',sub:'실제 실행 1분 미만',pct:'0.4%'},
       ],
-      2:[ // 5월 2일
+      1:[ // 5월 2일
         {ico:'🎮',name:'소녀전선2: 망명',sub:'실제 실행 50분',pct:'18.4%'},
         {ico:'▶',name:'YouTube',sub:'실제 실행 35분',pct:'8.8%'},
         {ico:'🌐',name:'삼성 브라우저',sub:'실제 실행 48분',pct:'7.9%'},
@@ -1948,7 +1571,7 @@ html, body {
         {ico:'🚀',name:'노바 런처',sub:'실제 실행 1분',pct:'0.5%'},
         {ico:'⚙',name:'시스템 UI',sub:'실제 실행 1분 미만',pct:'0.5%'},
       ],
-      3:[ // 5월 3일
+      2:[ // 5월 3일
         {ico:'🎮',name:'소녀전선2: 망명',sub:'실제 실행 1시간',pct:'20.1%'},
         {ico:'🌐',name:'삼성 브라우저',sub:'실제 실행 1시간 5분',pct:'12.0%'},
         {ico:'▶',name:'YouTube',sub:'실제 실행 40분',pct:'9.3%'},
@@ -1957,7 +1580,7 @@ html, body {
         {ico:'⚙',name:'시스템 UI',sub:'실제 실행 1분 미만',pct:'0.7%'},
         {ico:'💳',name:'토스',sub:'실제 실행 1분',pct:'0.4%'},
       ],
-      4:[ // 5월 4일
+      3:[ // 5월 4일
         {ico:'🎮',name:'소녀전선2: 망명',sub:'실제 실행 1시간 8분',pct:'22.0%'},
         {ico:'🌐',name:'삼성 브라우저',sub:'실제 실행 1시간 10분',pct:'13.5%'},
         {ico:'▶',name:'YouTube',sub:'실제 실행 42분',pct:'9.1%'},
@@ -1967,7 +1590,7 @@ html, body {
         {ico:'💬',name:'카카오톡',sub:'실제 실행 4분',pct:'0.5%'},
         {ico:'🔧',name:'Google Play 서비스',sub:'실제 실행 1분 미만',pct:'0.4%'},
       ],
-      5:[ // 5월 5일
+      4:[ // 5월 5일
         {ico:'🎮',name:'소녀전선2: 망명',sub:'실제 실행 1시간 10분',pct:'23.3%'},
         {ico:'🌐',name:'삼성 브라우저',sub:'실제 실행 1시간 10분',pct:'11.8%'},
         {ico:'▶',name:'YouTube',sub:'실제 실행 42분',pct:'8.9%'},
@@ -1978,7 +1601,16 @@ html, body {
         {ico:'💳',name:'토스',sub:'실제 실행 1분',pct:'0.4%'},
         {ico:'💬',name:'카카오톡',sub:'실제 실행 1분 미만',pct:'0.4%'},
       ],
-      6:[ // 5월 6일 (오늘) — 앱 없음
+      5:[ // 5월 6일
+        {ico:'🎮',name:'소녀전선2: 망명',sub:'실제 실행 1시간 15분',pct:'22.7%'},
+        {ico:'🌐',name:'삼성 브라우저',sub:'실제 실행 1시간 8분',pct:'13.2%'},
+        {ico:'▶',name:'YouTube',sub:'실제 실행 38분',pct:'8.5%'},
+        {ico:'💬',name:'디시인사이드',sub:'실제 실행 8분',pct:'1.1%'},
+        {ico:'💬',name:'카카오톡',sub:'실제 실행 6분',pct:'0.8%'},
+        {ico:'⚙',name:'시스템 UI',sub:'실제 실행 1분 미만',pct:'0.6%'},
+        {ico:'🔧',name:'Google Play 서비스',sub:'실제 실행 1분 미만',pct:'0.5%'},
+      ],
+      6:[ // 5월 7일 (오늘) — 앱 없음
       ],
     };
 
@@ -2009,24 +1641,19 @@ html, body {
 
 
       if (selectedDay === 6) {
-        /* 오늘 5/6: 회색 막대 하나 (오후 4시 = 전체 x축의 약 67% 위치) */
-        /* viewBox 300px 기준, 오후 4시 = 16/24 * 300 ≈ 200. 중간(150)보다 살짝 오른쪽 → x=175 */
+        /* 오늘 5/7: 회색 막대 하나 + 사다리꼴 */
         barsG.innerHTML = `
           <g fill="#888" opacity="0.65">
             <rect x="175" y="14" width="10" height="106" rx="2"/>
           </g>`;
-        /* 오늘만 사다리꼴: 막대 오른쪽(x≈185)부터 */
         poly.setAttribute('points', '185,14 300,60 300,120 185,120');
         poly.setAttribute('opacity', '0.45');
         if (badge) badge.innerHTML = '';
 
-
-
-
       } else if (selectedDay === 5) {
-        /* 5/5: 충전 완료된 지난 날 → 사다리꼴 없음, 배지 없음 */
+        /* 5/6: 충전 완료된 지난 날 → 사다리꼴 없음 */
         const bw2 = W / 48;
-        const startGreen = 0.91;
+        const startGreen = 0.88;
         const endGreen   = 0.975;
         let html = `<g fill="#2ecc5a" opacity="0.92">`;
         for (let s = 35; s <= 42; s++) {
@@ -2041,18 +1668,12 @@ html, body {
         poly.setAttribute('opacity', '0');
         if (badge) badge.innerHTML = '';
 
-
-
-
       } else {
-        /* 나머지 날(idx 0~4): 충전 완료된 지난 날 → 사다리꼴 없음, 배지 없음 */
+        /* 나머지 날(idx 0~4): 사다리꼴 없음 */
         const bw2 = W / 48;
-        const startRatios = [0.89, 0.85, 0.88, 0.87, 0.86];
+        const startRatios = [0.85, 0.88, 0.87, 0.86, 0.91];
         const startGreen = startRatios[selectedDay] ?? 0.87;
         const endGreen   = 0.975;
-
-
-
 
         let html = `<g fill="#2ecc5a" opacity="0.92">`;
         for (let s = 35; s <= 42; s++) {
@@ -2065,10 +1686,6 @@ html, body {
         }
         html += `</g>`;
         barsG.innerHTML = html;
-
-
-
-
         poly.setAttribute('points', '');
         poly.setAttribute('opacity', '0');
         if (badge) badge.innerHTML = '';
@@ -2098,8 +1715,6 @@ html, body {
 
       // 날짜별 랜덤 패턴 (slot 35~43, 각 9개 값, 완전 들쑥날쑥)
       const randomPatterns = [
-        // 4/30
-        [8, 3, 9, 2, 7, 5, 9, 1, 6],
         // 5/1
         [4, 8, 2, 9, 3, 6, 8, 2, 7],
         // 5/2
@@ -2110,7 +1725,9 @@ html, body {
         [9, 2, 7, 3, 9, 4, 8, 1, 6],
         // 5/5
         [6, 9, 3, 8, 5, 9, 2, 7, 4],
-        // 5/6 오늘 — 오후 4시(slot 32) 근처 작은 막대 하나만
+        // 5/6
+        [5, 8, 2, 9, 4, 7, 9, 3, 6],
+        // 5/7 오늘 — slot 32 별도 처리
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
       ];
 
@@ -2240,7 +1857,7 @@ html, body {
       /* 날짜 타이틀 */
       const titleEl = document.getElementById('bact-date-title');
       const subEl   = document.getElementById('bact-date-sub');
-      if (titleEl) titleEl.textContent = d.fullLabel.replace(' (화) 오늘','').replace(/ \(.\)/,'');
+      if (titleEl) titleEl.textContent = d.fullLabel.replace(' (수) 오늘','').replace(/ \(.\)/,'');
       if (subEl)   subEl.textContent   = selectedDay === 6 ? '오늘' : '';
 
 
@@ -2349,9 +1966,6 @@ html, body {
 
 
 </script>
-
-
-
 
 </body>
 </html>
