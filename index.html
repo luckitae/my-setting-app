@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/><title>설정</title><meta content="설정" name="application-name"/><meta content="설정" name="apple-mobile-web-app-title"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="yes" name="mobile-web-app-capable"/><meta content="#000000" name="theme-color"/><link href="app-icon.png" id="touch-icon" rel="apple-touch-icon" sizes="512x512"/><link href="app-icon.png" id="favicon" rel="icon" type="image/png"/><link href="manifest.webmanifest" id="manifest-link" rel="manifest"/><style id="app-style">/* 영상의 어두운 카드, 둥근 막대, 촘촘한 행 간격. 별도 상태표시줄은 만들지 않는다. */
+:root{color-scheme:dark;--bg:#000;--panel:#171719;--panel-2:#242426;--text:#f3f3f5;--muted:#a0a0a7;--line:#38383b;--blue:#4b9eff;--orange:#ffaf7c;--radius:25px;--shadow:none;--top-inset:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}body{font-size:16px;line-height:1.4}button,input,select{font:inherit}button{color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}button:disabled{cursor:default;opacity:.25}button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--blue);outline-offset:3px}button svg{display:block}a{color:var(--blue)}[hidden]{display:none!important}
+.screen{display:none;width:100%;max-width:440px;min-height:100vh;min-height:100svh;margin:auto;padding:0 10px calc(26px + env(safe-area-inset-bottom,0px));padding-top:var(--top-inset)}.screen.active{display:block}.screen.active:not(#screen-home){animation:screen-in .13s ease-out}@keyframes screen-in{from{opacity:.6;transform:translateX(5px)}to{opacity:1;transform:none}}.top{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:64px;padding:4px 4px;position:sticky;top:var(--top-inset);z-index:20;background:rgba(0,0,0,.97)}.top-left{display:flex;align-items:center;gap:7px;min-width:0}.title{font-size:18px;font-weight:650;letter-spacing:-.035em;line-height:1.3}.back,.search,.gear{display:flex;align-items:center;justify-content:center;width:36px;height:44px;padding:0;flex-shrink:0}.back svg{width:24px;height:24px}.search svg,.gear svg{width:23px;height:23px}.title{touch-action:manipulation}
+.card,.plain-card,.hs-card,.hs-info-card,.bat-section-card,.bat-opt-card,.bact-card,.apps-card{background:var(--panel);border:0;border-radius:var(--radius);box-shadow:none;overflow:hidden}.group{margin-top:18px}.item,.toggle-row,.plain-row,.hs-row,.bat-opt-row,.bat-section-row{display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;padding:16px 18px;min-height:61px;user-select:none;-webkit-tap-highlight-color:transparent}.item-main{min-width:0;flex:1}.item-title,.plain-title,.hs-title,.bat-opt-title,.bat-section-title{font-size:17px;font-weight:450;letter-spacing:-.025em;line-height:1.3}.item-sub,.plain-sub,.hs-sub,.bat-opt-sub,.bat-section-sub{margin-top:3px;color:var(--muted);font-size:12px;line-height:1.5}.blue{color:#83b5ff!important}.clickable,.switch-row,[data-go],[data-back]{cursor:pointer}.item:not(:last-child)::after,.toggle-row:not(:last-child)::after,.plain-row:not(:last-child)::after,.hs-row:not(:last-child)::after,.bat-opt-row:not(:last-child)::after,.bat-section-row:not(:last-child)::after,.hs-info-row:not(:last-child)::after{content:'';position:absolute;height:.5px;background:var(--line);left:18px;right:18px;bottom:0}.toggle-wrap{display:flex;align-items:center;gap:13px;flex-shrink:0}.divider-v{width:.5px;height:25px;background:var(--line)}.switch{display:inline-block;position:relative;width:37px;height:22px;border-radius:20px;background:#5a5a60;flex-shrink:0;vertical-align:middle;cursor:pointer}.switch::after{content:'';position:absolute;width:16px;height:16px;top:3px;left:3px;border-radius:50%;background:#f5f5f6;box-shadow:0 1px 2px #0003;transition:transform .15s}.switch.on{background:#3b77ff}.switch.on::after{transform:translateX(15px)}.hs-dimmed{cursor:default}.hs-dimmed .hs-title,.hs-dimmed .hs-sub{color:#626269}.hs-dimmed .switch{opacity:.48;cursor:default}.plain-card,.hs-card,.hs-info-card,.bat-opt-card{margin-top:15px}.blue-card{background:#132036;padding:19px;border-radius:var(--radius);margin-top:20px}.blue-card .big{font-size:17px}.blue-links{display:grid;gap:14px;color:#85b7ff;font-size:14px;margin-top:20px}
+/* 설정 홈 */
+.home-sticky{position:fixed;top:var(--top-inset);left:50%;transform:translateX(-50%);max-width:440px;width:100%;display:flex;align-items:center;justify-content:space-between;background:#000f;padding:12px 24px;height:56px;z-index:30;opacity:0;pointer-events:none;transition:opacity .1s}.home-sticky.visible{opacity:1;pointer-events:auto}.home-sticky-title{font-size:19px;font-weight:650}.home-sticky-search{width:34px;height:34px;display:grid;place-items:center}.home-header{height:clamp(226px,35svh,318px);display:flex;align-items:center;justify-content:center;position:relative;padding:0 24px 50px}.home-title-large{font-size:30px;font-weight:550;letter-spacing:-.03em;user-select:none;-webkit-touch-callout:none}.home-search-btn{position:absolute;right:14px;bottom:27px;width:40px;height:40px;display:grid;place-items:center}.home-search-btn svg,.home-sticky-search svg{width:22px;height:22px}.account-card{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;min-height:84px}.account-name{font-size:17px;font-weight:550}.account-sub{font-size:12px;color:var(--muted);margin-top:4px}.account-avatar{display:grid;place-items:center;background:#a9bdeb;width:53px;height:53px;border-radius:50%;margin-left:15px;flex-shrink:0}.account-avatar svg{width:31px;height:31px;fill:#ebf0ff}.setting-item{display:flex;align-items:center;gap:14px;padding:15px 17px;position:relative;min-height:65px}.setting-item:not(:last-child)::after{content:'';position:absolute;bottom:0;left:62px;right:18px;height:.5px;background:var(--line)}.si-icon{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;color:#fff}.si-icon svg{width:19px;height:19px}.si-text{flex:1;min-width:0}.si-title{font-size:15px;font-weight:450;letter-spacing:-.025em}.si-sub{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}.bg-blue{background:#3676eb}.bg-purple{background:#7956e3}.bg-orange{background:#e57843}.bg-green{background:#83bf45}.bg-pink{background:#d9548b}.bg-red{background:#d95353}.bg-yellow{background:#ce9d30}.bg-gray{background:#74747c}.bg-ai{background:linear-gradient(135deg,#3568ea,#8debd0)}
+/* 배터리 */
+.bat-top-row{display:flex;align-items:baseline;justify-content:space-between;padding:11px 18px 0;gap:8px}.bat-pct-big{font-size:31px;font-weight:600;letter-spacing:-.04em}.bat-remain-right{font-size:12px;color:var(--text);text-align:right;font-variant-numeric:tabular-nums}.bat-bar-track{height:20px;border-radius:20px;margin:8px 18px 0;background:#1d1d20;border:.5px solid #343439;overflow:hidden}.bat-bar-fill{height:100%;background:linear-gradient(90deg,#87df64,#13bd55);border-radius:0}.bat-note-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted);padding:10px 18px 20px}.bat-info-i{width:17px;height:17px;border:1px solid #999;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}.bat-section-card{margin-top:0}.wk-head{display:flex;align-items:center;gap:8px;padding:17px 18px 21px;font-size:16px;font-weight:500}.wk-head .caret{font-size:11px}.wk-body{display:flex;align-items:stretch;padding:0 8px 0 17px}.wk-plot{flex:1;min-width:0;height:128px}.wk-svg{width:100%;height:100%;display:block;overflow:visible}.wk-axis{width:41px;position:relative;height:128px;flex-shrink:0}.wk-axis span{position:absolute;left:6px;font-size:10px;color:var(--muted);transform:translateY(-50%);white-space:nowrap}.wk-avg-badge{background:#69696c;color:#171719!important;font-weight:650;border-radius:4px;padding:1px 3px;font-size:9px!important}.wk-days{display:flex;padding:6px 49px 0 17px;position:relative}.wk-day{flex:1;display:flex;justify-content:center;align-items:center;color:var(--muted);font-size:10px;min-width:0;padding:0;min-height:24px}.wk-day span{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:50%}.wk-day.today span{border:1px solid #c3c3c8}.wk-day.selected span{background:#aeb0b6;color:#18181b;border:0}.wk-unit{position:absolute;right:12px;bottom:4px;font-size:10px;color:var(--muted)}.wk-legend{padding:13px 18px 0}.wk-legend-row{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:10px;margin-bottom:5px;line-height:1.3}.wk-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0}.wk-hatch{width:10px;height:9px;background:repeating-linear-gradient(45deg,#737378,#737378 1px,transparent 1px,transparent 4px);flex-shrink:0}.bat-usage-pct-label{font-size:12px;color:#ccc;padding:19px 18px 4px}.bat-mini-app{display:flex;align-items:center;gap:12px;padding:12px 18px;position:relative}.bat-mini-app:not(:last-child)::after{content:'';position:absolute;left:61px;right:18px;bottom:0;height:.5px;background:var(--line)}.bat-mini-ico{width:29px;height:29px;border-radius:9px;overflow:hidden;flex-shrink:0}.bat-mini-name{flex:1;min-width:0;font-size:14px;font-weight:450;line-height:1.3}.bat-mini-pct{color:var(--muted);font-size:12px;white-space:nowrap}.bat-app-list{border-top:.5px solid var(--line);margin:0 18px}.bat-more-btn{display:flex;justify-content:center;align-items:center;min-height:46px;font-size:13px;color:var(--muted);cursor:pointer}.bat-opt-row{min-height:56px;padding:16px 18px}.bat-help-text{font-size:12px;color:var(--muted);line-height:1.7;padding:20px 8px}.bat-help-link{text-decoration:underline}.empty-apps{padding:17px 18px;font-size:12px;color:var(--muted)}
+/* 배터리 활동 */
+.bact-date-title{font-size:12px;color:var(--muted);margin:3px 18px 18px}.bact-date-bar{display:flex;gap:2px;margin:0 10px 15px;justify-content:space-between}.bact-date-item{flex:1;min-width:0;max-width:38px;height:38px;border-radius:50%;color:var(--muted);font-size:12px;padding:0;display:grid;place-items:center}.bact-date-item.active{background:#49494d;color:white}.bact-sec-label{font-size:11px;color:var(--muted);padding:20px 9px 8px}.bact-card{border-radius:24px}.bact-charge-body{display:flex;padding:31px 9px 0 18px}.bact-charge-plot{flex:1;min-width:0;height:139px;position:relative}.bact-charge-svg{width:100%;height:100%;display:block;overflow:visible}.bact-charge-axis{width:39px;flex-shrink:0;position:relative;height:139px}.bact-charge-axis span,.bact-hour-axis span{position:absolute;left:6px;font-size:10px;color:var(--muted);transform:translateY(-50%)}.bact-charge-badge{position:absolute;top:-21px;left:0;transform:translateX(-50%);background:#606067;border-radius:20px;padding:2px 6px;color:#fff;font-size:10px;white-space:nowrap;z-index:1;line-height:1.4}.bact-charge-badge:empty{display:none}.bact-xlabels{display:flex;justify-content:space-between;position:relative;padding:5px 48px 0 18px;font-size:9px;color:var(--muted);line-height:1.3}.bact-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px;padding:17px 18px 14px}.bact-daily-head{display:flex;align-items:center;justify-content:space-between;padding:17px 18px 4px}.bact-daily-title{font-size:19px;font-weight:650;letter-spacing:-.02em}.bact-daily-info{color:var(--muted);font-size:11px;line-height:1.65;padding:0 18px 24px}.bact-hour-wrap{display:flex;padding:23px 9px 0 18px}.bact-hour-plot{flex:1;min-width:0;height:94px}.bact-hour-axis{width:39px;height:94px;position:relative}.bact-app-list{margin:0 18px}.bact-app-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 0;min-height:72px;position:relative}.bact-app-item:not(:last-child)::after{content:'';position:absolute;left:45px;right:0;bottom:0;height:.5px;background:var(--line)}.bact-app-left{display:flex;align-items:center;gap:12px;min-width:0}.bact-app-ico{width:32px;height:32px;border-radius:10px;overflow:hidden;flex-shrink:0}.bact-app-name{font-size:15px;line-height:1.3;word-break:keep-all}.bact-app-sub{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3}.bact-app-pct{font-size:12px;color:var(--muted);white-space:nowrap;flex-shrink:0}.bact-charge-plot,.bact-hour-plot{touch-action:pan-y}.chart-tip{font-size:11px;color:#d4d4da;padding:8px 18px;min-height:31px}
+/* 핫스팟 */
+.hs-card:first-of-type{margin-top:4px}.hs-data-card,.hs-manage-data-card{background:var(--panel);border-radius:var(--radius);padding:22px 18px;margin-top:16px}.hs-data-label{font-size:11px;color:var(--muted)}.hs-data-value,.hs-manage-data-value{font-size:29px;font-weight:650;letter-spacing:-.035em;margin-top:2px}.hs-data-bar,.hs-manage-data-bar{height:25px;background:#ececf0;overflow:hidden;border-radius:30px;margin-top:13px}.hs-data-bar-fill,.hs-manage-data-bar-fill{height:100%;background:#3c77ff;border-radius:0}.hs-link-row,.hs-manage-link{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px;margin-top:17px}.link-icon svg{width:16px;height:16px}.hs-device-row{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12px}.hs-dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}.hs-device-name{flex:1}.hs-device-val{color:var(--muted)}.hs-info-row{padding:17px 18px;position:relative}.hs-info-key{font-size:11px;color:var(--muted);margin-bottom:3px}.hs-info-val{font-size:16px}.hs-limit-btn{display:block;border:1px solid #8b8b92;border-radius:30px;font-size:12px;padding:7px 13px;width:auto;margin:22px auto 0;min-height:34px}.hs-device-section{margin-top:17px}.hs-section-label{font-size:11px;color:var(--muted);margin:14px 9px 6px}.hs-empty-card{background:var(--panel);border-radius:var(--radius);padding:20px 18px!important;text-align:center;font-size:14px!important;color:#d0d0d4}.previous-device{display:flex;align-items:center;gap:12px;text-align:left}.previous-device svg{width:30px;height:30px}.previous-device .name{font-size:14px;color:#fff}.previous-device .sub{font-size:11px;color:var(--muted)}.previous-device .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);margin-left:auto}.hs-view-tabs{display:flex;gap:5px;padding:0;background:none;margin:12px 12px 18px;border-radius:30px}.hs-v-tab{flex:1;font-size:13px;color:var(--muted);border-radius:30px;padding:12px 0}.hs-v-tab.active{color:white;background:#303033;font-weight:550}.hs-v-chart-card{background:var(--panel);border-radius:var(--radius);padding:0 18px 24px;position:relative}.hs-v-date-nav{display:flex;align-items:center;justify-content:space-between;margin:0 -1px 28px;padding:8px 0 0}.hs-v-nav-title{font-size:14px}.hs-v-nav-btn{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#2e2e31;font-size:22px;font-weight:300}.hs-v-ch-subtitle{font-size:12px;color:var(--muted);margin-bottom:1px}.hs-v-ch-title{font-size:29px;font-weight:650;line-height:1.15;letter-spacing:-.025em}.hs-v-ch-unit{font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}.hs-v-ch-desc{color:var(--muted);font-size:11px;margin-top:6px}.hs-v-chart-container{height:258px;margin-top:47px;position:relative}.hs-v-chart-inner{position:absolute;left:3px;right:42px;top:0;bottom:31px}.hs-v-grid{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between}.hs-v-grid-line{height:.5px;background:#59595f;width:100%}.hs-v-grid-line:first-child{opacity:0}.hs-v-y-axis{position:absolute;right:0;top:0;bottom:31px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;pointer-events:none}.hs-v-y-label{font-size:10px;color:var(--muted);transform:translateY(-50%);white-space:nowrap}.hs-v-y-label:last-child{transform:translateY(45%)}.hs-v-bars{position:absolute;inset:0;display:flex;align-items:flex-end}.hs-v-bar-col{position:relative;flex:1;height:100%;padding:0;display:flex;align-items:flex-end;justify-content:center;min-width:0;cursor:pointer}.hs-v-bar-col::before{position:absolute;content:'';left:50%;top:-24px;bottom:0;width:.5px;background:#92929a;display:none}.hs-v-bar-col.selected::before{display:block}.hs-v-bar-track{width:20px;height:100%;display:flex;align-items:flex-end;z-index:1;pointer-events:none}.hs-v-bar-fill{width:100%;background:var(--blue);border-radius:12px 12px 0 0}.hs-v-tooltip{position:absolute;top:-34px;left:50%;transform:translateX(-50%);border-radius:20px;background:#5a5a60;font-size:10px;white-space:nowrap;padding:4px 8px;display:none;z-index:3;pointer-events:none}.hs-v-bar-col.selected .hs-v-tooltip{display:block}.hs-v-x-labels{position:absolute;bottom:0;left:3px;right:42px;height:27px;display:flex}.hs-v-x-wrap{flex:1;display:flex;justify-content:center}.hs-v-x-label{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;color:var(--muted);font-size:10px}.hs-v-x-label.selected{background:#55555c;color:white}.hs-v-devices{margin-top:20px;padding-top:10px}.hs-v-dev-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px}.hs-v-dev-left{display:flex;align-items:center;gap:8px}.hs-v-dev-dot{width:7px;height:7px;background:var(--blue);border-radius:50%}.hs-v-dev-val{font-size:12px;white-space:nowrap}
+/* 모바일 / Wi-Fi: 동일한 일별 기록을 서로 다른 매체로 집계한다. */
+.du-hero{padding:12px 18px 20px}.du-prefix{font-size:15px}.du-row{display:flex;align-items:baseline;gap:5px;white-space:nowrap}.du-num{font-size:39px;font-weight:500;letter-spacing:-.035em}.du-unit{font-size:20px}.du-word{font-size:16px;margin-left:3px}.du-sim{font-size:15px;font-weight:550;padding-top:7px}.du-period-sub{font-size:13px;color:var(--muted);margin-top:4px}.du-bar-wrap{margin-top:16px}.du-bar{height:24px;border-radius:30px;background:#303035;overflow:hidden}.du-bar-fill{height:100%;background:#497bff;border-radius:30px}.du-scale{display:flex;justify-content:space-between;margin-top:7px;color:var(--muted);font-size:11px}.du-warn{color:var(--orange);font-size:12px;margin-top:12px}.section-label{font-size:11px;color:var(--muted);margin:20px 9px 6px}.period-anchor{position:relative;width:100%;margin-top:8px}.selector-pill{background:var(--panel);border-radius:30px;min-height:59px;display:flex;align-items:center;justify-content:space-between;padding:8px 18px}.period-btn{display:flex;align-items:center;gap:12px;color:#80b2ff;font-size:15px;min-height:40px}.period-menu{display:none;position:absolute;top:66px;left:0;width:100%;max-height:60vh;overflow-y:auto;border-radius:25px;background:#29292d;z-index:60;box-shadow:0 8px 30px #0008}.period-menu.open{display:block}.period-option{display:flex;align-items:center;justify-content:space-between;font-size:15px;min-height:56px;padding:15px 20px;cursor:pointer}.period-option.selected{color:#83b7ff}.period-option .check{visibility:hidden}.period-option.selected .check{visibility:visible}.menu-backdrop{position:fixed;inset:0;background:#0004;z-index:50;display:none}.menu-backdrop.open{display:block}.summary-block{padding:25px 18px 0!important}.summary-row{display:flex;align-items:baseline;gap:7px}.summary-value{font-size:36px;letter-spacing:-.03em}.summary-unit{font-size:15px}.period-line{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:17px;font-size:12px;color:var(--muted)}.period-line .right{color:var(--orange);text-align:right}.graph-wrap{margin-top:35px!important}.graph{height:156px;position:relative}.graph svg{width:100%;height:100%;display:block;overflow:visible}.graph-labels{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:11px}.note{font-size:12px;line-height:1.6;margin-top:22px;color:#c9c9cf}.apps-card{margin-top:24px}.app-row{display:flex;align-items:flex-start;gap:12px;padding:18px 18px 17px;position:relative}.app-row:not(:last-child)::after{content:'';position:absolute;bottom:0;left:61px;right:18px;height:.5px;background:var(--line)}.app-icon{width:31px;height:31px;flex-shrink:0;border-radius:10px;overflow:hidden;margin-top:1px}.app-meta{flex:1;min-width:0}.app-name{font-size:16px;font-weight:450;line-height:1.3}.app-value{font-size:12px;color:var(--muted);margin-top:3px}.app-bar{height:4px;border-radius:4px;margin-top:13px;background:#37373c;overflow:hidden}.app-bar>span{display:block;width:var(--w);height:100%;background:var(--blue);border-radius:4px}.icon-img,.icon-svg{width:100%;height:100%;display:block;object-fit:cover}.icon-frame{overflow:hidden;flex-shrink:0}
+/* 기존 정보 사진 기능 유지 */
+#screen-about{max-width:100%}#about-upload-label{font-size:15px!important}#about-uploaded-image{max-height:none;object-fit:contain}#about-image-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:10px 0}.about-note{font-size:12px;color:var(--muted);text-align:center;padding:15px}
+/* 일반 화면에는 나타나지 않는 구성 편집기: 설정 제목 길게 누르기 또는 ?edit=1 */
+.editor-mask{position:fixed;inset:0;background:#0009;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(6px)}.editor{width:100%;max-width:510px;max-height:92vh;max-height:92svh;overflow-y:auto;border-radius:26px;background:#202024;padding:20px;box-shadow:0 20px 100px #0009}.editor-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.editor-head h2{font-size:20px;margin:0}.editor-head button{width:36px;height:36px;font-size:23px}.editor p{font-size:12px;color:var(--muted);line-height:1.6}.editor h3{font-size:14px;margin:23px 0 10px}.editor label{display:block;font-size:12px;color:#c6c6cf;margin:12px 0 6px}.editor input:not([type=file]),.editor select{width:100%;border:1px solid #494952;border-radius:12px;background:#141418;color:#f4f4f5;min-height:43px;padding:10px;font-size:14px;max-width:100%;min-width:0}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.editor-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.editor-btn{border-radius:22px;background:#3a3a43;padding:11px 15px;min-height:41px;font-size:13px}.editor-btn.primary{background:#416ef5;color:white}.editor-btn.danger{color:#ffb8b3}.editor-icon-preview{width:58px;height:58px;border-radius:17px;overflow:hidden}.editor-icon-top{display:flex;align-items:center;gap:14px}.editor-icon-top select{flex:1;width:auto}.editor-status{font-size:12px;line-height:1.6;white-space:pre-wrap;background:#141418;border-radius:12px;padding:12px;color:#c2dbd0;margin-top:15px;word-break:break-word}.editor-footer{font-size:11px;color:var(--muted);padding-top:16px}.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 36px);padding:12px 19px;background:#393940;border-radius:24px;color:white;font-size:13px;line-height:1.4;z-index:150;box-shadow:0 5px 30px #0005}.search-input{display:block;width:100%;background:#232328;border:0;border-radius:25px;color:#fff;font-size:17px;padding:14px 18px;outline:none}.search-results{margin-top:18px}.search-result{display:block;width:100%;text-align:left;background:var(--panel);padding:16px 18px;border-bottom:.5px solid var(--line)}.search-result:first-child{border-radius:22px 22px 0 0}.search-result:last-child{border-radius:0 0 22px 22px}.search-result small{display:block;color:var(--muted);margin-top:4px;font-size:11px}
+@media(max-width:360px){.screen{padding-left:8px;padding-right:8px}.title{font-size:17px}.wk-plot,.wk-axis{height:127px}.hs-v-chart-container{height:226px}.hs-v-bar-track{width:17px}.hs-v-ch-title{font-size:25px}.bact-app-name{font-size:14px}.bact-app-ico{width:29px;height:29px}.editor-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.bact-xlabels{display:grid;grid-template-columns:1fr 1fr}.bact-xlabels>span:nth-child(2){text-align:left}.period-option{border:0;background:none;color:inherit} .period-option.selected{color:#83b7ff}
+</style></head>
+<body><noscript><p style="padding:24px">이 HTML 앱은 JavaScript가 실행되는 브라우저에서 열어 주세요.</p></noscript><div hidden="" id="boot-error" role="alert" style="padding:30px;color:#ffb6b6;white-space:pre-wrap"></div>
+
+<main class="screen active" id="screen-home">
+
+<div class="home-sticky" id="home-sticky">
+<span class="home-sticky-title">설정</span>
+<button aria-label="검색" class="home-sticky-search">⌕</button>
+</div>
+<div class="home-header">
+<div class="home-title-large">설정</div>
+<button aria-label="검색" class="home-search-btn">⌕</button>
+</div>
+<div class="card account-card">
+<div class="account-info">
+
+<div class="account-name">김기태</div>
+<div class="account-sub">삼성 계정</div>
+</div>
+<div class="account-avatar">
+<svg viewbox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable" data-go="screen-connections">
+<div class="si-icon bg-blue">📶</div>
+<div class="si-text">
+<div class="si-title">연결</div>
+<div class="si-sub">Wi-Fi · 블루투스 · SIM 관리자</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">💻</div>
+<div class="si-text">
+<div class="si-title">기기 간 연결</div>
+<div class="si-sub">Quick Share · Samsung DeX · Android Auto</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-ai">✨</div>
+<div class="si-text">
+<div class="si-title">Galaxy AI</div>
+<div class="si-sub">글쓰기 어시스트 · 노트 어시스트 · 포토 어시스트</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-purple">✔</div>
+<div class="si-text">
+<div class="si-title">모드 및 루틴</div>
+<div class="si-sub">모드 · 루틴</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-purple">🔊</div>
+<div class="si-text">
+<div class="si-title">소리 및 진동</div>
+<div class="si-sub">소리 모드 · 벨소리</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-orange">🔔</div>
+<div class="si-text">
+<div class="si-title">알림</div>
+<div class="si-sub">상태표시줄 · 방해 금지</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-green">☀</div>
+<div class="si-text">
+<div class="si-title">디스플레이</div>
+<div class="si-sub">밝기 · 편안하게 화면 보기 · 내비게이션 바</div>
+</div>
+</div>
+<div class="setting-item clickable" data-go="screen-battery">
+<div class="si-icon bg-green">🔋</div>
+<div class="si-text">
+<div class="si-title">배터리</div>
+<div class="si-sub">절전 모드 · 충전</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-pink">🖼</div>
+<div class="si-text">
+<div class="si-title">배경화면 및 스타일</div>
+<div class="si-sub">배경화면 · 컬러 팔레트</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-pink">🎨</div>
+<div class="si-text">
+<div class="si-title">테마</div>
+<div class="si-sub">테마 · 배경화면 · 아이콘</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">🏠</div>
+<div class="si-text">
+<div class="si-title">홈 화면</div>
+<div class="si-sub">레이아웃 · 앱 아이콘 배지</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">🔒</div>
+<div class="si-text">
+<div class="si-title">잠금화면 및 AOD</div>
+<div class="si-sub">화면 잠금 및 생체 인식 · Always On Display</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">🛡</div>
+<div class="si-text">
+<div class="si-title">보안 및 개인정보 보호</div>
+<div class="si-sub">보안 위험 자동 차단 · 권한 사용 현황</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-purple">📍</div>
+<div class="si-text">
+<div class="si-title">위치</div>
+<div class="si-sub">위치 요청</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-red">🚨</div>
+<div class="si-text">
+<div class="si-title">안전 및 긴급</div>
+<div class="si-sub">의료정보 · 재난문자</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">🔄</div>
+<div class="si-text">
+<div class="si-title">계정 및 백업</div>
+<div class="si-sub">계정 관리 · Smart Switch</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">G</div>
+<div class="si-text">
+<div class="si-title">Google</div>
+<div class="si-sub">Google 서비스</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-yellow">⚙</div>
+<div class="si-text">
+<div class="si-title">유용한 기능</div>
+<div class="si-sub">실험실 · 측면 버튼</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-green">❤</div>
+<div class="si-text">
+<div class="si-title">디지털 웰빙 및 자녀 보호 기능</div>
+<div class="si-sub">사용 시간 · 앱 타이머</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-purple">🗑</div>
+<div class="si-text">
+<div class="si-title">디바이스 케어</div>
+<div class="si-sub">저장공간 · 메모리 · 앱 보호</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">📱</div>
+<div class="si-text">
+<div class="si-title">애플리케이션</div>
+<div class="si-sub">기본 앱 · 애플리케이션 설정</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-gray">🎛</div>
+<div class="si-text">
+<div class="si-title">일반</div>
+<div class="si-sub">언어 및 키보드 · 날짜 및 시간</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-green">🧍</div>
+<div class="si-text">
+<div class="si-title">접근성</div>
+<div class="si-sub">시각 보조 · 청각 보조 · 입력 및 동작</div>
+</div>
+</div>
+</div>
+<div class="card group">
+<div class="setting-item clickable">
+<div class="si-icon bg-blue">⬇</div>
+<div class="si-text">
+<div class="si-title">소프트웨어 업데이트</div>
+<div class="si-sub">다운로드 및 설치</div>
+</div>
+</div>
+<div class="setting-item clickable">
+<div class="si-icon bg-yellow">💡</div>
+<div class="si-text">
+<div class="si-title">팁과 사용 설명서</div>
+<div class="si-sub">유용한 도움말 · 새로운 기능</div>
+</div>
+</div>
+<div class="setting-item clickable" data-go="screen-about">
+<div class="si-icon bg-gray">ℹ</div>
+<div class="si-text">
+<div class="si-title">휴대전화 정보</div>
+<div class="si-sub">상태 · 법률 정보 · 휴대전화 이름</div>
+</div>
+</div>
+</div>
+</main>
+
+<main class="screen" id="screen-battery">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-home">‹</button>
+<div class="title">배터리</div>
+</div>
+<button aria-label="검색" class="search">⌕</button>
+</div>
+<div class="bat-top-row">
+<div class="bat-pct-big">76%</div>
+<div class="bat-remain-right">20시간 6분 남음</div>
+</div>
+<div class="bat-bar-track"><div class="bat-bar-fill" style="width:76%"></div></div>
+<div class="bat-note-row">
+<span>완전히 충전 시 약 1일 2시간 동안 사용 가능</span>
+<span class="bat-info-i">i</span>
+</div>
+
+<div class="bat-section-card" style="margin-top:0;">
+<div class="wk-head">일일 사용량 <span style="font-size:13px;color:var(--muted)">▼</span></div>
+<div class="wk-body">
+<div class="wk-plot"><svg class="wk-svg" id="wk-svg-main" preserveaspectratio="none" viewbox="0 0 300 175"></svg></div>
+<div class="wk-axis">
+<span style="top:4px">200</span>
+<span id="wk-avg-main" style="top:48%">97</span>
+<span class="wk-avg-badge" id="wk-badge-main" style="top:62%">평균</span>
+<span style="top:calc(100% - 4px)">0</span>
+</div>
+</div>
+<div class="wk-days" id="wk-days-main"></div>
+<div class="wk-legend">
+<div class="wk-legend-row"><span class="wk-dot"></span>최근 7일</div>
+<div class="wk-legend-row"><span class="wk-hatch"></span><span id="wk-legavg-main">평균 사용량: 60%</span></div>
+</div>
+
+<div class="bat-usage-pct-label">배터리 사용량: 1%</div>
+
+<div id="bat-mini-apps"></div>
+<div class="bat-app-list">
+<div class="bat-more-btn" data-go="screen-battery-activity">자세히 보기</div>
+</div>
+</div>
+
+<div class="bat-opt-card">
+<div class="bat-opt-row switch-row" data-switch="">
+<div class="bat-opt-title">절전 모드</div>
+<div class="switch"></div>
+</div>
+<div class="bat-opt-row clickable" style="cursor:pointer;">
+<div class="bat-opt-title">백그라운드 앱 사용 제한</div>
+</div>
+</div>
+
+<div class="bat-opt-card" style="margin-top:16px;">
+<div class="bat-opt-row switch-row" data-switch="">
+<div>
+<div class="bat-opt-title">배터리 보호</div>
+<div class="bat-opt-sub blue">기본</div>
+</div>
+<div class="switch on"></div>
+</div>
+<div class="bat-opt-row clickable" style="cursor:pointer;"><div class="bat-opt-title">배터리 정보</div></div>
+</div>
+
+<div class="bat-opt-card" style="margin-top:16px;">
+<div class="bat-opt-row clickable" style="cursor:pointer;"><div class="bat-opt-title">충전 설정</div></div>
+<div class="bat-opt-row clickable" style="cursor:pointer;"><div class="bat-opt-title">무선 배터리 공유</div></div>
+</div>
+<div class="bat-opt-card" style="margin-top:16px;">
+<div class="bat-opt-row switch-row" data-switch="">
+<div>
+<div class="bat-opt-title">화면 밝기 자동 감소</div>
+<div class="bat-opt-sub">배터리가 5% 이하이면 화면이 어두워집니다.</div>
+</div>
+<div class="switch"></div>
+</div>
+</div>
+<div class="bat-help-text">
+    도움말<br/>
+    휴대전화 배터리에 대한 정보와 관리 방법을 알아보세요.<br/>
+<a class="bat-help-link" href="#">갤럭시 배터리 정보</a>
+</div>
+</main>
+
+<main class="screen" id="screen-battery-activity">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-battery">‹</button>
+<div class="title">배터리 활동</div>
+</div>
+<div style="width:40px;height:40px;"></div>
+</div>
+
+<div class="bact-date-title" id="bact-date-title">5월 15일 오늘</div>
+<div class="bact-date-bar" id="bact-date-bar"></div>
+
+<div class="bact-sec-label">배터리 잔량</div>
+<div class="bact-card">
+<div class="bact-charge-body">
+<div class="bact-charge-plot">
+<div class="bact-charge-badge" id="bact-badge"></div>
+<svg class="bact-charge-svg" id="bact-charge-svg" preserveaspectratio="none" style="width:100%;height:100%;display:block" viewbox="0 0 300 120">
+<g id="bact-charge-bars"></g>
+<polygon fill="#3a3a3a" id="bact-charge-poly" opacity="0.55" points=""></polygon>
+</svg>
+</div>
+<div class="bact-charge-axis">
+<span style="top:4px">100</span>
+<span style="top:calc(100% - 4px)">0</span>
+</div>
+</div>
+<div class="bact-xlabels"><span>오전 12</span><span>오후 12</span><span class="wk-unit">(%)</span></div>
+<div aria-live="polite" class="chart-tip" hidden="" id="charge-tip"></div><div class="bact-legend-grid">
+<div class="wk-legend-row"><span class="wk-dot" style="background:#888"></span>배터리 잔량</div>
+<div class="wk-legend-row"><span class="wk-dot" style="background:#2ecc5a"></span>충전</div>
+<div class="wk-legend-row"><span class="wk-dot" style="background:#888;opacity:.5"></span>예상 배터리 잔량</div>
+<div class="wk-legend-row"><span class="wk-dot" style="background:#19c8d8"></span>절전 모드</div>
+</div>
+</div>
+
+<div class="bact-sec-label">배터리 사용 내역</div>
+<div class="bact-card">
+<div class="bact-daily-head">
+<div class="bact-daily-title" id="bact-daily-title">일일 사용량: 5%</div>
+<span class="bat-info-i">i</span>
+</div>
+<div class="bact-daily-info" id="bact-usage-info"></div>
+<div class="wk-body">
+<div class="wk-plot"><svg class="wk-svg" id="wk-svg-detail" preserveaspectratio="none" viewbox="0 0 300 175"></svg></div>
+<div class="wk-axis">
+<span style="top:4px">200</span>
+<span id="wk-avg-detail" style="top:48%">97</span>
+<span class="wk-avg-badge" id="wk-badge-detail" style="top:62%">평균</span>
+<span style="top:calc(100% - 4px)">0</span>
+</div>
+</div>
+<div class="wk-days" id="wk-days-detail"></div>
+<div class="wk-legend">
+<div class="wk-legend-row"><span class="wk-dot"></span>최근 7일</div>
+<div class="wk-legend-row"><span class="wk-hatch"></span><span id="wk-legavg-detail">평균 사용량: 60%</span></div>
+</div>
+<div class="bact-hour-wrap">
+<div class="bact-hour-plot">
+<svg id="bact-line-svg" preserveaspectratio="none" style="width:100%;height:100%;display:block" viewbox="0 0 300 68">
+<g id="bact-line-bars"></g>
+<line id="bact-white-line" opacity="0" stroke="white" stroke-width="1.5" x1="169" x2="169" y1="0" y2="68"></line>
+</svg>
+</div>
+<div class="bact-hour-axis">
+<span style="top:4px">5</span>
+<span style="top:calc(100% - 4px)">0</span>
+</div>
+</div>
+<div class="bact-xlabels"><span>오전 12</span><span>오후 12</span><span class="wk-unit">(%)</span></div>
+<div class="wk-legend" style="padding-bottom:18px;">
+<div class="wk-legend-row"><span class="wk-dot"></span>배터리 사용</div>
+</div>
+<div aria-live="polite" class="chart-tip" hidden="" id="hour-tip"></div></div>
+
+<div class="bact-sec-label">앱 및 기능별 사용량</div>
+<div class="bact-card" style="margin-bottom:20px;">
+<div class="bact-app-list" id="bact-app-list"></div>
+</div>
+</main>
+
+<main class="screen" id="screen-connections">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-home">‹</button>
+<div class="title">연결</div>
+</div>
+<button aria-label="검색" class="search">⌕</button>
+</div>
+<div class="card group">
+<div class="toggle-row switch-row" data-switch=""><div class="item-main"><div class="item-title">Wi‑Fi</div></div><div class="toggle-wrap"><div class="divider-v"></div><div class="switch"></div></div></div>
+<div class="toggle-row switch-row" data-switch=""><div class="item-main"><div class="item-title">블루투스</div></div><div class="toggle-wrap"><div class="divider-v"></div><div class="switch on"></div></div></div>
+<div class="toggle-row switch-row" data-switch=""><div class="item-main"><div class="item-title">NFC 및 비접촉 결제</div></div><div class="toggle-wrap"><div class="divider-v"></div><div class="switch"></div></div></div>
+<div class="toggle-row switch-row" data-switch=""><div class="item-main"><div class="item-title">초광대역 (UWB)</div><div class="item-sub">주변 기기의 위치를 정확하게 알려줍니다.</div></div><div class="toggle-wrap"><div class="switch on"></div></div></div>
+</div>
+<div class="card group">
+<div class="toggle-row switch-row" data-switch=""><div class="item-main"><div class="item-title">비행기 탑승 모드</div></div><div class="toggle-wrap"><div class="divider-v"></div><div class="switch"></div></div></div>
+</div>
+<div class="card group">
+<div class="item clickable" data-go="screen-connections"><div class="item-main"><div class="item-title">SIM 관리자</div></div></div>
+<div class="item clickable" data-go="screen-connections"><div class="item-main"><div class="item-title">모바일 네트워크</div></div></div>
+<div class="item clickable" data-go="screen-data"><div class="item-main"><div class="item-title">데이터 사용</div></div></div>
+<div class="item clickable" data-go="screen-hotspot-tether"><div class="item-main"><div class="item-title">모바일 핫스팟 및 테더링</div></div></div>
+</div>
+<div class="card group">
+<div class="item clickable" data-go="screen-connections"><div class="item-main"><div class="item-title">해외 로밍</div></div></div>
+<div class="item clickable" data-go="screen-connections"><div class="item-main"><div class="item-title">기타 연결 설정</div></div></div>
+</div>
+<div class="blue-card">
+<div class="big">다른 기능을 찾고 있나요?</div>
+<div class="blue-links">
+<div>삼성 클라우드</div><div>모바일 네트워크 설정 초기화</div>
+<div>Windows와 연결</div><div>Android Auto</div><div>Quick Share</div>
+</div>
+</div>
+</main>
+
+<main class="screen" id="screen-hotspot-tether">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-connections">‹</button>
+<div class="title">모바일 핫스팟 및 테더링</div>
+</div>
+<div style="width:40px;height:40px;"></div>
+</div>
+<div class="hs-card">
+<div class="hs-row clickable" data-go="screen-hotspot-detail" style="cursor:pointer;">
+<div class="hs-title">모바일 핫스팟</div>
+<div class="toggle-wrap">
+<div class="divider-v"></div>
+<button aria-checked="false" aria-label="모바일 핫스팟 사용" class="switch" id="hotspot-main-switch" role="switch" type="button"></button>
+</div>
+</div>
+<div class="hs-row switch-row" data-switch="">
+<div>
+<div class="hs-title">블루투스 테더링</div>
+<div class="hs-sub">블루투스로 내 휴대전화의 인터넷 연결을<br/>다른 기기와 함께 사용할 수 있습니다.</div>
+</div>
+<div class="toggle-wrap">
+<div class="divider-v"></div>
+<div class="switch"></div>
+</div>
+</div>
+<div class="hs-row hs-dimmed switch-row" data-switch="">
+<div>
+<div class="hs-title">USB 테더링</div>
+<div class="hs-sub">연결된 USB 장치 없음</div>
+</div>
+<div class="switch"></div>
+</div>
+<div class="hs-row hs-dimmed switch-row" data-switch="">
+<div>
+<div class="hs-title">이더넷 테더링</div>
+<div class="hs-sub">연결된 USB 이더넷 어댑터 없음</div>
+</div>
+<div class="switch"></div>
+</div>
+</div>
+</main>
+
+<main class="screen" id="screen-hotspot-detail">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-hotspot-tether">‹</button>
+<div class="title">모바일 핫스팟</div>
+</div>
+<div style="width:40px;height:40px;"></div>
+</div>
+<div class="hs-card">
+<div class="hs-row switch-row" data-switch="" id="hotspot-state-row" tabindex="0">
+<div class="hs-title" id="hotspot-state-label">사용 안 함</div>
+<button aria-checked="false" aria-label="모바일 핫스팟 사용" class="switch" id="hotspot-detail-switch" role="switch" type="button"></button>
+</div>
+</div>
+<div class="hs-data-card clickable" data-go="screen-hotspot-manage" style="cursor:pointer;">
+<div class="hs-data-label">오늘 공유한 모바일 데이터</div>
+<div class="hs-data-value">0 B</div>
+<div class="hs-data-bar">
+<div class="hs-data-bar-fill" style="width:0%"></div>
+</div><div class="hs-device-row" hidden="" id="hs-today-device"><span class="hs-dot"></span><span class="hs-device-name" id="hs-today-device-name"></span><span class="hs-device-val" id="hs-today-device-value"></span></div>
+<div class="hs-link-row">
+<span class="link-icon"></span>
+<span>연결된 기기 없음</span>
+</div>
+</div>
+<div class="hs-info-card">
+<div class="hs-info-row">
+<div class="hs-info-key">네트워크 이름</div>
+<div class="hs-info-val">iptime_secure</div>
+</div>
+<div class="hs-info-row">
+<div class="hs-info-key">비밀번호</div>
+<div class="hs-info-val">31415926535</div>
+</div>
+<div class="hs-info-row">
+<div class="hs-info-key">밴드</div>
+<div class="hs-info-val">5GHz 우선</div>
+</div>
+</div>
+<div class="hs-card" style="margin-top:16px;">
+<div class="hs-row hs-dimmed switch-row" data-switch="">
+<div>
+<div class="hs-title">자동 핫스팟</div>
+<div class="hs-sub">핫스팟 자동 실행을 사용하려면 주변 기기 찾기를 켜세요.</div>
+</div>
+<div class="toggle-wrap"><div class="divider-v"></div><div class="switch"></div></div>
+</div>
+<div class="hs-row switch-row" data-switch="">
+<div class="hs-title">일회용 비밀번호</div>
+<div class="toggle-wrap"><div class="divider-v"></div><div class="switch on"></div></div>
+</div>
+<div class="hs-row switch-row" data-switch="">
+<div>
+<div class="hs-title">실시간 트래픽 우선 처리</div>
+<div class="hs-sub">지연 시간에 민감한 게임이나 영상통화 등에서 실시간 네트워크 트래픽을 우선합니다.</div>
+</div>
+<div class="switch"></div>
+</div>
+</div>
+</main>
+
+<main class="screen" id="screen-hotspot-manage">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-hotspot-detail">‹</button>
+<div class="title">모바일 핫스팟 관리</div>
+</div>
+<button aria-label="추가 설정" class="gear" data-go="screen-hotspot-extra" style="font-size:22px;">
+<svg fill="none" height="22" viewbox="0 0 26 22" width="26">
+<rect fill="white" height="6" rx="1.5" width="4" x="0" y="16"></rect>
+<rect fill="white" height="11" rx="1.5" width="4" x="6" y="11"></rect>
+<rect fill="white" height="16" rx="1.5" width="4" x="12" y="6"></rect>
+<rect fill="white" height="21" rx="1.5" width="4" x="18" y="1"></rect>
+</svg>
+</button>
+</div>
+<div class="hs-manage-data-card">
+<div class="hs-data-label">오늘 공유한 모바일 데이터</div>
+<div class="hs-manage-data-value">0 B</div>
+<div class="hs-manage-data-bar">
+<div class="hs-manage-data-bar-fill" style="width:0%"></div>
+</div>
+<div class="hs-manage-link">
+<span class="link-icon"></span>
+<span>연결된 기기 없음</span>
+</div>
+<button class="hs-limit-btn" id="hs-limit-button">데이터 한도 설정</button>
+</div>
+<div class="hs-device-section">
+<div class="hs-section-label">연결된 기기</div>
+<div class="hs-empty-card">기기가 없습니다</div>
+</div>
+<div class="hs-device-section">
+<div class="hs-section-label">이전에 연결한 기기</div>
+<div class="hs-empty-card" id="previous-devices" style="font-size:18px; padding:22px 20px;">이전에 연결한 기기가 없습니다</div>
+</div>
+</main>
+
+<main class="screen" id="screen-hotspot-extra">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-hotspot-manage">‹</button>
+<div class="title">핫스팟 사용 내역</div>
+</div>
+</div>
+<div class="hs-view-tabs" role="tablist">
+<button class="hs-v-tab active" data-view="weekly" role="tab">주별 보기</button>
+<button class="hs-v-tab" data-view="monthly" role="tab">월별 보기</button>
+</div>
+
+<div class="hs-v-chart-card"><div class="hs-v-date-nav">
+<button aria-label="이전 기간" class="hs-v-nav-btn" id="hs-prev-btn">‹</button>
+<div class="hs-v-nav-title" id="hs-v-nav-title">--</div>
+<button aria-label="다음 기간" class="hs-v-nav-btn" id="hs-next-btn">›</button>
+</div>
+<div class="hs-v-ch-subtitle" id="hs-v-period">--</div>
+<div class="hs-v-ch-title"><span id="hs-v-val">0 B</span><span class="hs-v-ch-unit" id="hs-v-unit">/일</span></div>
+<div class="hs-v-ch-desc" id="hs-v-desc">--</div>
+<div class="hs-v-chart-container">
+<div class="hs-v-y-axis" id="hs-v-y-axis"></div>
+<div class="hs-v-chart-inner">
+<div class="hs-v-grid">
+<div class="hs-v-grid-line"></div>
+<div class="hs-v-grid-line"></div>
+<div class="hs-v-grid-line"></div>
+<div class="hs-v-grid-line"></div>
+</div>
+<div class="hs-v-bars" id="hs-v-bars"></div>
+</div>
+<div class="hs-v-x-labels" id="hs-v-x-labels"></div>
+</div>
+<div class="hs-v-devices" id="hs-v-devices" style="display:none;"></div>
+</div>
+</main>
+
+<main class="screen" id="screen-data">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-connections">‹</button>
+<div class="title">데이터 사용</div>
+</div>
+<div style="width:40px;height:40px;"></div>
+</div>
+<div class="du-hero">
+<div style="display:flex; justify-content:space-between; align-items:flex-start;">
+<div>
+<div class="du-prefix">모바일 데이터</div>
+<div class="du-row">
+<span class="du-num" id="du-num">11.08</span>
+<span class="du-unit">GB</span>
+<span class="du-word">사용</span>
+</div>
+</div>
+<div class="du-sim">SIM 1</div>
+</div>
+<div class="du-period-sub" id="du-period-sub">5월 1일-5월 31일</div>
+<div class="du-bar-wrap">
+<div class="du-bar"><div class="du-bar-fill" id="du-bar-fill" style="width:1.1%"></div></div>
+<div class="du-scale"><span>0byte</span><span>1.00TB</span></div>
+</div>
+<div class="du-warn">데이터 사용경고: 1.00TB</div>
+</div>
+<div class="plain-card">
+<div class="plain-row clickable">
+<div><div class="plain-title">데이터 절약 모드</div><div class="plain-sub blue">사용 안 함</div></div>
+</div>
+<div class="plain-row clickable">
+<div><div class="plain-title">앱별 네트워크 설정</div></div>
+</div>
+</div>
+<div class="section-label">모바일</div>
+<div class="plain-card">
+<div class="plain-row switch-row" data-switch="">
+<div><div class="plain-title">모바일 데이터</div><div class="plain-sub">모바일 네트워크를 사용하여 인터넷에 접속할 수 있습니다.</div></div>
+<div class="switch on"></div>
+</div>
+<div class="plain-row switch-row" data-switch="">
+<div><div class="plain-title">부팅 시 네트워크 접속여부 묻기</div></div>
+<div class="switch on"></div>
+</div>
+<div class="plain-row clickable" data-go="screen-month" data-network="mobile">
+<div><div class="plain-title">모바일 데이터 사용량</div><div class="plain-sub" id="mobile-usage-line">11.08 GB 사용됨 (5월 1일~31일)</div></div>
+</div>
+<div class="plain-row clickable">
+<div><div class="plain-title">데이터 측정일 및 사용량 경고</div><div class="plain-sub blue">매월 1일</div></div>
+</div>
+</div>
+<div class="section-label">Wi‑Fi</div>
+<div class="plain-card">
+<div class="plain-row clickable" data-go="screen-month" data-network="wifi">
+<div><div class="plain-title">Wi‑Fi 데이터 사용량</div><div class="plain-sub" id="wifi-usage-line">27.49 GB 사용됨 (4월 5일 ~ 5월 3일)</div></div>
+</div>
+</div>
+</main>
+
+<main class="screen" id="screen-month">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-data">‹</button>
+<div class="title">모바일 데이터 사용량</div>
+</div>
+<button aria-label="설정" class="gear">⚙</button>
+</div>
+<div class="period-anchor">
+<div class="selector-pill">
+<button class="period-btn" id="month-period-btn" type="button">
+<span id="month-period-label">5월 1일~31일</span>
+<span class="caret">▾</span>
+</button>
+<button aria-label="설정" class="gear">⚙</button>
+</div>
+<div class="period-menu" id="month-menu">
+<div class="period-option selected" data-period="may"><span>5월 1일~31일</span><span class="check">✓</span></div>
+<div class="period-option" data-period="apr"><span>4월 1일~30일</span><span class="check">✓</span></div>
+<div class="period-option" data-period="mar"><span>3월 1일~31일</span><span class="check">✓</span></div>
+<div class="period-option" data-period="feb"><span>2월 1일~28일</span><span class="check">✓</span></div>
+<div class="period-option" data-period="jan"><span>1월 1일~31일</span><span class="check">✓</span></div>
+</div>
+</div>
+<section class="summary-block">
+<div class="summary-row">
+<div class="summary-value" id="month-total">11.08</div>
+<div class="summary-unit">GB 사용됨</div>
+</div>
+<div class="period-line">
+<div class="left" id="month-subperiod">5월 1일-5월 31일</div>
+<div class="right">1.0TB<br/>경고</div>
+</div>
+<div class="graph-wrap" style="margin-top:74px;">
+<div class="graph" id="month-graph"></div>
+<div class="graph-labels"><span id="month-axis-left">5월 1일</span><span id="month-axis-right">6월 1일</span></div>
+</div>
+<div class="note">여기 표시되는 데이터 사용량은 휴대전화에서 측정된 값으로 서비스 공급자가 측정한 사용량과 다를 수 있습니다.</div>
+</section>
+<div class="apps-card" id="apps-card">
+
+</div>
+</main>
+
+<main class="screen" id="screen-about">
+<div class="top">
+<div class="top-left">
+<button aria-label="뒤로" class="back" data-back="screen-home">‹</button>
+<div class="title">휴대전화 정보</div>
+</div>
+<div style="width:40px;height:40px;"></div>
+</div>
+<div id="about-image-wrap">
+
+<img alt="사용자가 지정한 휴대전화 정보 이미지" id="about-uploaded-image" src="" style="width: 100%; border-radius: 24px; display: none; box-shadow: var(--shadow); margin-bottom: 20px;"/>
+
+<label for="about-image-upload" id="about-upload-label" style="padding: 16px 28px; background: #222; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; color: var(--text); font-size: 18px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s;">
+<span style="font-size:24px;">📸</span> 기기에 있는 이미지 넣기
+</label>
+<input accept="image/*" id="about-image-upload" style="display: none;" type="file"/>
+
+  </div>
+</main>
+<div class="menu-backdrop" id="menu-backdrop"></div>
+
+
+<main class="screen" id="screen-search">
+<div class="top"><div class="top-left"><button aria-label="뒤로" class="back" data-back="screen-home" id="search-back"></button><div class="title">검색</div></div></div>
+<input aria-label="설정 검색" autocomplete="off" class="search-input" id="search-input" placeholder="설정 검색" type="search"/><div class="search-results" id="search-results"></div>
+</main>
+<div class="editor-mask" hidden="" id="editor-mask">
+<section aria-labelledby="editor-heading" aria-modal="true" class="editor" role="dialog">
+<div class="editor-head"><h2 id="editor-heading">화면 구성</h2><button aria-label="닫기" id="editor-close" type="button">×</button></div>
+<p>실제 단말 정보를 읽지 않는 설정 화면 모형입니다. 수치는 하나의 시간순 모의 기록에서 계산합니다. 현재 잔량은 원본의 76%로 유지합니다.</p>
+<p id="editor-current"></p>
+<h3>앱 이름</h3><label for="editor-title-input">홈 화면에 표시할 이름</label><input id="editor-title-input" maxlength="30" value="설정"/><div class="editor-actions"><button class="editor-btn" id="editor-save-title">이름 저장</button></div>
+<h3>아이콘</h3><label for="editor-icon-select">변경할 아이콘</label>
+<div class="editor-icon-top"><div class="editor-icon-preview" id="editor-icon-preview"></div><select id="editor-icon-select"></select></div>
+<input accept="image/*" hidden="" id="editor-icon-file" type="file"/>
+<div class="editor-actions"><button class="editor-btn primary" id="editor-icon-choose">이미지 선택</button><button class="editor-btn" id="editor-icon-reset">기본 아이콘</button></div>
+<p>앱 목록 아이콘은 배터리와 데이터 사용량 화면에 동시에 적용됩니다. 홈 화면 아이콘은 아래 PNG도 저장해 HTML과 같은 폴더에 두세요. 사진은 정사각형으로 가운데를 자릅니다.</p>
+<h3>기준일 갱신</h3>
+<label for="editor-date">새 기준일</label><input id="editor-date" type="date"/><label for="editor-target-pct">갱신 후 배터리 잔량 (%)</label><input id="editor-target-pct" type="number" min="1" max="100" step="1" value="76"/>
+<label for="editor-flags">새로 추가할 날짜의 평일·휴일 (선택)</label><input autocomplete="off" id="editor-flags" inputmode="numeric" placeholder="예: 1 1 0  ·  비우면 토·일은 휴일"/>
+<p>1 = 평일, 0 = 휴일. 이전 기준일 다음 날부터 새 기준일까지 순서대로 입력하세요. 이미 지난 기록을 다시 무작위 생성하지 않습니다. 기준 시각은 16:03이며 실제 시계와 자동 동기화하지 않습니다.</p>
+<div class="editor-actions"><button class="editor-btn primary" id="editor-advance">날짜 갱신</button><button class="editor-btn" id="editor-audit">기록 검사</button></div>
+<h3>파일로 보관</h3>
+<div class="editor-actions"><button class="editor-btn primary" id="editor-export-html">HTML 내보내기</button><button class="editor-btn" id="editor-export-icon">홈 아이콘 PNG 저장</button><button class="editor-btn" id="editor-export-manifest">manifest 저장</button></div>
+<p>내보낸 index_new.html을 index.html로 바꾸어 사용하세요. 브라우저 저장이 차단되어도 HTML에 아이콘과 기준 기록을 함께 보관할 수 있습니다. 홈 화면 설치에는 app-icon.png와 manifest.webmanifest를 같은 위치에 두고 브라우저의 홈 화면 추가 기능을 사용하세요.</p>
+<div aria-live="polite" class="editor-status" id="editor-status" role="status">설정 제목을 길게 누르거나 주소에 ?edit=1을 붙이면 이 화면을 열 수 있습니다.</div>
+<div class="editor-footer">이 편집기는 일반 화면에 표시되지 않습니다. 충전·통신·배터리 토글은 모형의 표시 상태이며 실제 기기 설정을 변경하지 않습니다.</div>
+</section>
+</div>
+<div aria-live="polite" class="toast" hidden="" id="toast" role="status"></div>
+<script id="scenario-config" type="application/json">{
+  "version": 2,
+  "projectId": "setting-app-v2",
+  "seed": 20260824,
+  "startDate": "2026-08-18",
+  "snapshotDate": "2026-08-24",
+  "snapshotMinute": 963,
+  "capacityWh": 19.25,
+  "initialPct": 90,
+  "targetPct": 76,
+  "anchors": [
+    [
+      "2026-08-24",
+      963,
+      76
+    ]
+  ],
+  "dayKinds": [
+    [
+      "2026-08-18",
+      1
+    ],
+    [
+      "2026-08-19",
+      1
+    ],
+    [
+      "2026-08-20",
+      1
+    ],
+    [
+      "2026-08-21",
+      1
+    ],
+    [
+      "2026-08-22",
+      0
+    ],
+    [
+      "2026-08-23",
+      0
+    ],
+    [
+      "2026-08-24",
+      1
+    ]
+  ]
+}</script><script id="appearance-config" type="application/json">{
+  "version": 2,
+  "title": "설정",
+  "icons": {},
+  "homeIconData": "",
+  "aboutImageData": "",
+  "deviceName": "iPad",
+  "hotspotOn": false,
+  "hotspotLimitBytes": 0,
+  "toggles": {}
+}</script><script id="simulation-engine">/*
+ * SettingModel v2 — 모든 화면이 공유하는 결정론적 모의 기록.
+ * 단위: 시간 min, 전력 W, 에너지 Wh, 데이터 정수 byte(10진 단위).
+ * 실제 단말/삼성의 측정 알고리즘이 아니다. 아래 계수는 모형의 가정이다.
+ * SOC는 일정한 유효 용량에 대한 에너지 비율로 근사한다.
+ * 에너지 보존: E1 = E0 + cellChargeWh - cellDischargeWh.
+ */
+(function (root) {
+  'use strict';
+  const VERSION = 2, DAY_MS = 86400000;
+  const APPS = [
+    {id:'uma', name:'우마무스메 프리티더비', power:2.80, rate:0.045, color:'#82ba70'},
+    {id:'browser', name:'삼성 브라우저', power:0.80, rate:0.36, color:'#7462df'},
+    {id:'youtube', name:'YouTube', power:1.05, rate:2.20, color:'#fa233b'},
+    {id:'instagram', name:'Instagram', power:1.20, rate:1.00, color:'#e14b85'},
+    {id:'dc', name:'디시인사이드', power:0.62, rate:0.14, color:'#4855a5'},
+    {id:'kakao', name:'카카오톡', power:0.48, rate:0.028, color:'#f9de23'},
+    {id:'nova', name:'노바 런처', power:0.35, rate:0, color:'#338aad'},
+    {id:'toss', name:'토스', power:0.65, rate:0.08, color:'#347cff'},
+    {id:'system', name:'시스템 UI', power:0, rate:0, color:'#3d4948'},
+    {id:'services', name:'Google Play 서비스', power:0, rate:0, color:'#388ce5'},
+    {id:'hotspot', name:'모바일 핫스팟 및 테더링', power:0, rate:0, color:'#348ef4'}
+  ];
+  const N = APPS.length, SYS = 8, SERVICES = 9, HOTSPOT = 10;
+  const PHYSICS = Object.freeze({
+    adapterMaxW:15, efficiency:0.90, chargeMaxW:11, taperStart:0.80,
+    cellularMaxMbps:25, wifiMaxMbps:100, screenW:0.72,
+    systemIdleW:0.085, serviceIdleW:0.025, hotspotIdleW:0.58,
+    hotspotWPerMbps:0.065, bridgeGameW:4.10, bridgeMinutes:180
+  });
+  const zero = () => Array(N).fill(0);
+  const sum = a => a.reduce((x,y) => x+y,0);
+  function parseDate(s) {
+    if (typeof s !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(s)) throw new Error('날짜는 YYYY-MM-DD 형식이어야 합니다.');
+    const [y,m,d] = s.split('-').map(Number);
+    if (y < 2000 || y > 2099) throw new Error('연도 범위는 2000~2099입니다.');
+    const t = Date.UTC(y,m-1,d), dt = new Date(t);
+    if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m-1 || dt.getUTCDate() !== d) throw new Error('존재하지 않는 날짜입니다: '+s);
+    return t / DAY_MS;
+  }
+  function dateString(day) { return new Date(day*DAY_MS).toISOString().slice(0,10); }
+  function addDays(s,n) { return dateString(parseDate(s)+n); }
+  function weekday(s) { return new Date(parseDate(s)*DAY_MS).getUTCDay(); }
+  function monthStart(s) { parseDate(s); return s.slice(0,7)+'-01'; }
+  function addMonths(s,n) {
+    const [y,m] = s.split('-').map(Number);
+    return new Date(Date.UTC(y,m-1+n,1)).toISOString().slice(0,10);
+  }
+  function hashText(s) {
+    let h = 2166136261;
+    for (let i=0;i<s.length;i++) h=Math.imul(h^s.charCodeAt(i),16777619);
+    return (h>>>0).toString(16).padStart(8,'0');
+  }
+  function noise(seed,day,index,salt) {
+    let x=(seed ^ Math.imul(day,374761393) ^ Math.imul(index+1,668265263) ^ Math.imul(salt,1274126177))>>>0;
+    x=Math.imul(x^(x>>>13),1274126177); x^=x>>>16;
+    return (x>>>0)/4294967296;
+  }
+  function validateConfig(c) {
+    if (!c || c.version!==VERSION) throw new Error('지원하지 않는 기록 버전입니다.');
+    const from=parseDate(c.startDate), to=parseDate(c.snapshotDate);
+    if (to<from || to-from>6) throw new Error('배터리 기록은 오늘 포함 최근 7일만 보관합니다.');
+    if (!Number.isInteger(c.snapshotMinute) || c.snapshotMinute<1 || c.snapshotMinute>1439) throw new Error('기준 시각이 올바르지 않습니다.');
+    if (!Number.isInteger(c.seed) || c.seed<0 || c.seed>2147483647) throw new Error('시드 값이 올바르지 않습니다.');
+    if (!(c.capacityWh>=10 && c.capacityWh<=40) || !(c.initialPct>=0 && c.initialPct<=100)) throw new Error('배터리 용량 또는 초기 잔량이 올바르지 않습니다.');
+    if (!(c.targetPct>=1 && c.targetPct<=100)) throw new Error('현재 배터리 잔량은 1~100%여야 합니다.');
+    if (!Array.isArray(c.anchors) || !c.anchors.length || c.anchors.length>7 || !Array.isArray(c.dayKinds) || c.dayKinds.length>7) throw new Error('기준 기록 형식이 올바르지 않습니다.');
+    let last=-Infinity;
+    for (const a of c.anchors) {
+      if (!Array.isArray(a) || a.length!==3) throw new Error('기준점 형식 오류');
+      const day=parseDate(a[0]), key=day*1440+a[1];
+      if (day<from || day>to || !Number.isInteger(a[1]) || a[1]<1 || a[1]>1439 || a[2]!==76 || key<=last) throw new Error('기준점의 순서 또는 값이 올바르지 않습니다.');
+      last=key;
+    }
+    const end=c.anchors[c.anchors.length-1];
+    if (end[0]!==c.snapshotDate || end[1]!==c.snapshotMinute) throw new Error('마지막 기준점과 현재 날짜가 일치하지 않습니다.');
+    const seen=new Set();
+    for (const k of c.dayKinds) {
+      if (!Array.isArray(k) || k.length!==2 || (k[1]!==0 && k[1]!==1)) throw new Error('평일/휴일 플래그는 1 또는 0입니다.');
+      const day=parseDate(k[0]);
+      if (day<from || day>to || seen.has(k[0])) throw new Error('중복되거나 범위를 벗어난 날짜 플래그입니다.');
+      seen.add(k[0]);
+    }
+    return true;
+  }
+  function advanceConfig(old,date,flags,targetPct) {
+    validateConfig(old);
+    const gap=parseDate(date)-parseDate(old.snapshotDate);
+    if(gap<=0 || gap>366) throw new Error('이전 기준일보다 뒤의 날짜로, 한 번에 최대 366일 갱신할 수 있습니다.');
+    if(flags && flags.length && flags.length!==gap) throw new Error(`새 날짜는 ${gap}일입니다. 플래그도 ${gap}개 입력하거나 모두 비워 주세요.`);
+    targetPct=Number(targetPct);
+    if(!Number.isFinite(targetPct)||targetPct<1||targetPct>100) throw new Error('배터리 잔량은 1~100%로 입력하세요.');
+    const c=JSON.parse(JSON.stringify(old));
+    const newKinds=[];
+    for(let i=-6;i<=0;i++) {
+      const d=addDays(date,i);
+      let flag;
+      if(parseDate(d)>parseDate(old.snapshotDate)) {
+        const k=parseDate(d)-parseDate(old.snapshotDate)-1;
+        flag=flags&&flags.length?Number(flags[k]):((weekday(d)===0||weekday(d)===6)?0:1);
+      } else {
+        const oldKind=(old.dayKinds||[]).find(x=>x[0]===d);
+        flag=oldKind?oldKind[1]:((weekday(d)===0||weekday(d)===6)?0:1);
+      }
+      if(flag!==0&&flag!==1) throw new Error('플래그는 1(평일), 0(휴일)만 가능합니다.');
+      newKinds.push([d,flag]);
+    }
+    c.startDate=addDays(date,-6);
+    c.snapshotDate=date;
+    c.targetPct=Math.round(targetPct);
+    c.anchors=[[date,c.snapshotMinute,c.targetPct]];
+    c.dayKinds=newKinds;
+    validateConfig(c);
+    return c;
+  }
+
+  /* 충전기가 부하에 먼저 전력을 공급한다. 셀의 동시 충/방전을 만들지 않는다.
+     taperStart 이상에서는 허용 충전 전력을 SOC에 비례하여 줄인다(CC/CV 경향의 근사).
+     저장 공간을 넘는 전력은 받아들이지 않는다. 단순 SOC 잘라내기로 에너지를 버리지 않는다. */
+  function electricalStep(energyWh,loadW,adapterW,minutes,capacityWh) {
+    if (![energyWh,loadW,adapterW,minutes,capacityWh].every(Number.isFinite) || capacityWh<=0 || energyWh<0 || energyWh>capacityWh+1e-9 || loadW<0 || adapterW<0 || adapterW>PHYSICS.adapterMaxW+1e-9 || minutes<=0) throw new Error('전력 적분 입력 오류');
+    const hours=minutes/60, availableW=adapterW*PHYSICS.efficiency;
+    const fromAdapterW=Math.min(loadW,availableW);
+    const dischargeWh=Math.min(energyWh,Math.max(0,loadW-fromAdapterW)*hours);
+    const soc=energyWh/capacityWh;
+    const taper=Math.min(1,Math.max(0,(1-soc)/(1-PHYSICS.taperStart)));
+    const chargeW=Math.min(Math.max(0,availableW-loadW),PHYSICS.chargeMaxW*taper,Math.max(0,(capacityWh-energyWh)/hours));
+    const chargeWh=chargeW*hours, adapterLoadWh=fromAdapterW*hours;
+    const servedWh=adapterLoadWh+dischargeWh, requestedWh=loadW*hours;
+    const energyNextWh=energyWh+chargeWh-dischargeWh;
+    const adapterInputWh=(adapterLoadWh+chargeWh)/PHYSICS.efficiency;
+    return {energyNextWh,chargeWh,dischargeWh,adapterLoadWh,adapterInputWh,
+      lossWh:adapterInputWh-adapterLoadWh-chargeWh,loadWh:servedWh,
+      poweredFraction:requestedWh>0 ? Math.min(1,servedWh/requestedWh):1};
+  }
+
+  function makePlan(c,date,holiday) {
+    const dn=parseDate(date), p=Array.from({length:1440},()=>({app:-1,wifi:false,hs:false,rate:0,hsRate:0,bgRate:0}));
+    const times=holiday ? [280,135,90,28,18,21,4,5] : [70,56,31,9,8,7,2,2];
+    let cursor=holiday ? 8*60 : 17*60+30;
+    const end=holiday ? 22*60 : 22*60;
+    const queue=[];
+    times.forEach((base,id)=>{
+      let count=Math.round(base*(.86+.28*noise(c.seed,dn,id,1)));
+      while(count>0) { const len=Math.min(count,18+Math.floor(noise(c.seed,dn,count+id,2)*22));queue.push({id,len});count-=len; }
+    });
+    // 세션 순서를 결정: RNG 상태와 화면 방문 순서는 기록에 영향을 주지 않는다.
+    queue.sort((a,b)=>noise(c.seed,dn,a.id*100+a.len,3)-noise(c.seed,dn,b.id*100+b.len,3));
+    queue.forEach((s,k)=>{
+      for(let j=0;j<s.len && cursor<end;j++,cursor++) p[cursor].app=s.id;
+      cursor+=2+Math.floor(noise(c.seed,dn,k,4)*(holiday?10:4));
+    });
+    // 핫스팟 사용 기록은 의도적으로 항상 0 B로 유지한다.
+    // 주/월 화면은 날짜 탐색만 무한히 가능하고, 과거/미래 어느 기간도 사용량을 생성하지 않는다.
+    const hsWindows=[];
+    for(let m=0;m<1440;m++) {
+      const q=p[m], r=noise(c.seed,dn,Math.floor(m/4),20), j=noise(c.seed,dn,m,21);
+      q.wifi=(m>=22*60 || m<7*60 || (holiday && m<14*60));
+      q.rate=q.app>=0 ? APPS[q.app].rate*(.55+.90*r)*(.80+.40*j):0;
+      q.bgRate=.0015+.018*(noise(c.seed,dn,Math.floor(m/11),22)>.9);
+      q.hs=false;
+      q.hsRate=0;
+      // 핫스팟은 셀룰러 공유. 같은 구간의 자체 모바일 사용량과 함께 용량을 제한한다.
+      let cell=q.hsRate+(q.wifi?0:q.rate+q.bgRate);
+      if(cell>PHYSICS.cellularMaxMbps) {const f=PHYSICS.cellularMaxMbps/cell;q.hsRate*=f;if(!q.wifi){q.rate*=f;q.bgRate*=f;}}
+      if(q.wifi && q.rate+q.bgRate>PHYSICS.wifiMaxMbps) {const f=PHYSICS.wifiMaxMbps/(q.rate+q.bgRate);q.rate*=f;q.bgRate*=f;}
+    }
+    return p;
+  }
+
+  function minuteLoad(q,extra) {
+    const power=zero(), fg=zero();
+    power[SYS]=PHYSICS.systemIdleW;
+    power[SERVICES]=PHYSICS.serviceIdleW+(q.wifi?.02:.045)+q.bgRate*(q.wifi?.02:.06);
+    if(q.app>=0) {
+      fg[q.app]=1;
+      power[q.app]=PHYSICS.screenW+APPS[q.app].power+(q.rate>0 ? (q.wifi?.07:.16)+q.rate*(q.wifi?.02:.06):0);
+    } else if(extra>0) {
+      // 잔량 76%에 맞추는 보조 플레이 세션. 시간과 소비 전력을 함께 기록한다.
+      fg[0]=extra;
+      power[0]=PHYSICS.bridgeGameW*extra;
+    }
+    if(q.hs) power[HOTSPOT]=PHYSICS.hotspotIdleW+q.hsRate*PHYSICS.hotspotWPerMbps;
+    return {power,fg,total:sum(power)};
+  }
+  function newBin(t,energyWh) {
+    return {t0:t,t1:t,startWh:energyWh,endWh:energyWh,chargeWh:0,dischargeWh:0,loadWh:0,adapterLoadWh:0,adapterInputWh:0,lossWh:0,
+      screenOnMin:0,screenOffMin:0,powerOffMin:0,unpluggedMin:0,hotspotMin:0,
+      appWh:zero(),fgMin:zero(),mobile:zero(),wifi:zero(),deviceBytes:0,saverMin:0};
+  }
+  function makeDay(date,holiday,startWh) {
+    return {date,holiday,startWh,endWh:startWh,minutes:0,bins:[],levels:[[0,startWh]],
+      appWh:zero(),fgMin:zero(),mobile:zero(),wifi:zero(),chargeWh:0,dischargeWh:0,loadWh:0,adapterLoadWh:0,adapterInputWh:0,lossWh:0,
+      screenOnMin:0,screenOffMin:0,powerOffMin:0,unpluggedMin:0,hotspotMin:0,deviceBytes:0,saverMin:0,
+      bridgeSessions:[],anchorSnapshots:[],maxStepBalanceError:0,maxPowerW:0,maxCellMbps:0,maxWifiMbps:0,firstAdapterOn:false,lastAdapterOn:false};
+  }
+  function simulate(c) {
+    validateConfig(c);
+    const kinds=new Map(c.dayKinds), anchorMap=new Map();
+    for(const a of c.anchors) {if(!anchorMap.has(a[0]))anchorMap.set(a[0],[]);anchorMap.get(a[0]).push(a);}
+    let energy=c.capacityWh*c.initialPct/100, plugged=false;
+    const days=[], byDate=new Map();
+    const from=parseDate(c.startDate), end=parseDate(c.snapshotDate);
+    for(let dn=from;dn<=end;dn++) {
+      const date=dateString(dn), holiday=kinds.has(date)?kinds.get(date)===0:(weekday(date)===0||weekday(date)===6);
+      const plan=makePlan(c,date,holiday), stop=date===c.snapshotDate?c.snapshotMinute:1440;
+      const day=makeDay(date,holiday,energy);
+      function record(m,adapterW,extra) {
+        const q=plan[m], load=minuteLoad(q,extra);
+        const r=electricalStep(energy,load.total,adapterW,1,c.capacityWh);
+        let bin=day.bins[day.bins.length-1];
+        if(!bin || m>=bin.t0+30) {bin=newBin(m,energy);day.bins.push(bin);}
+        const f=r.poweredFraction, on=sum(load.fg)*f;
+        bin.t1=m+1;bin.endWh=r.energyNextWh;
+        for(const key of ['chargeWh','dischargeWh','loadWh','adapterLoadWh','adapterInputWh','lossWh']) bin[key]+=r[key];
+        bin.screenOnMin+=on;bin.screenOffMin+=f-on;bin.powerOffMin+=1-f;
+        if(adapterW===0)bin.unpluggedMin+=f;
+        if(q.hs)bin.hotspotMin+=f;
+        for(let i=0;i<N;i++) {bin.appWh[i]+=load.total>0?r.dischargeWh*load.power[i]/load.total:0;bin.fgMin[i]+=load.fg[i]*f;}
+        const fgBytes=Math.round(q.rate*1e6/8*60*f), bgBytes=Math.round(q.bgRate*1e6/8*60*f), hsBytes=Math.round(q.hsRate*1e6/8*60*f);
+        const traffic=q.wifi?bin.wifi:bin.mobile;
+        if(q.app>=0)traffic[q.app]+=fgBytes;
+        traffic[SERVICES]+=bgBytes;bin.mobile[HOTSPOT]+=hsBytes;bin.deviceBytes+=hsBytes;
+        day.maxStepBalanceError=Math.max(day.maxStepBalanceError,Math.abs(r.energyNextWh-energy-r.chargeWh+r.dischargeWh));
+        day.maxPowerW=Math.max(day.maxPowerW,load.total);
+        day.maxCellMbps=Math.max(day.maxCellMbps,q.hsRate+(q.wifi?0:q.rate+q.bgRate));
+        day.maxWifiMbps=Math.max(day.maxWifiMbps,q.wifi?q.rate+q.bgRate:0);
+        if(m===0)day.firstAdapterOn=adapterW>0;
+        day.lastAdapterOn=adapterW>0;
+        energy=r.energyNextWh;
+        if((m+1)%5===0 || m+1===stop || (anchorMap.get(date)||[]).some(a=>a[1]===m+1)) day.levels.push([m+1,energy]);
+      }
+      function normal(a,b) {
+        for(let m=a;m<b;m++) {
+          if(energy/c.capacityWh<.23)plugged=true;
+          if(m>=22*60 && m<23*60+40 && energy/c.capacityWh<.96)plugged=true;
+          if(energy/c.capacityWh>=.975)plugged=false;
+          record(m,plugged?PHYSICS.adapterMaxW:0,0);
+        }
+      }
+      function bridge(a,b,targetPct) {
+        const initial=energy, goal=c.capacityWh*targetPct/100;
+        function trial(adapterW,extra,save) {
+          let e=initial;
+          let extraMinutes=extra*plan.slice(a,b).filter(q=>q.app<0).length;
+          for(let m=a;m<b;m++) {
+            const duty=plan[m].app<0?Math.min(1,Math.max(0,extraMinutes)):0;
+            extraMinutes-=duty;
+            // 마지막 1분은 분리 상태. 끝나는 순간의 상태와 원본 잔량을 동시에 유지한다.
+            const aw=m===b-1?0:adapterW;
+            if(save)record(m,aw,duty);
+            else e=electricalStep(e,minuteLoad(plan[m],duty).total,aw,1,c.capacityWh).energyNextWh;
+          }
+          return save?energy:e;
+        }
+        const base=trial(0,0,false);
+        let adapterW=0,extra=0;
+        if(base<goal-1e-10) {
+          let lo=0,hi=PHYSICS.adapterMaxW;
+          if(trial(hi,0,false)<goal-1e-8)throw new Error(`${date}: 현재 시각까지 76%로 충전할 시간이 부족합니다.`);
+          for(let i=0;i<48;i++){const mid=(lo+hi)/2;if(trial(mid,0,false)<goal)lo=mid;else hi=mid;}
+          adapterW=(lo+hi)/2;
+        } else if(base>goal+1e-10) {
+          let lo=0,hi=1;
+          if(trial(0,hi,false)>goal+1e-8)throw new Error(`${date}: 76%에 맞출 수 있는 사용 시간이 부족합니다.`);
+          for(let i=0;i<48;i++){const mid=(lo+hi)/2;if(trial(0,mid,false)>goal)lo=mid;else hi=mid;}
+          extra=(lo+hi)/2;
+        }
+        trial(adapterW,extra,true);
+        if(Math.abs(energy-goal)>1e-7)throw new Error('기준 잔량 적분 오차');
+        plugged=false;
+        day.bridgeSessions.push({from:a,to:b,targetPct,adapterW,extraGameFraction:extra});
+        // 과거의 부분 일자도 에너지/시간/byte 합계를 변경 없이 검증할 수 있도록 고정한다.
+        const checkpoint={minute:b,startWh:day.startWh,endWh:energy,chargeWh:0,dischargeWh:0,screenOnMin:0,screenOffMin:0,powerOffMin:0,deviceBytes:0,appWh:zero(),fgMin:zero(),mobile:zero(),wifi:zero()};
+        for(const bin of day.bins) {
+          for(const k of ['chargeWh','dischargeWh','screenOnMin','screenOffMin','powerOffMin','deviceBytes'])checkpoint[k]+=bin[k];
+          for(const k of ['appWh','fgMin','mobile','wifi'])for(let i=0;i<N;i++)checkpoint[k][i]+=bin[k][i];
+        }
+        day.anchorSnapshots.push(checkpoint);
+      }
+      let cursor=0;
+      for(const anchor of anchorMap.get(date)||[]) {
+        if(anchor[1]>stop)break;
+        const start=Math.max(cursor,anchor[1]-PHYSICS.bridgeMinutes);
+        normal(cursor,start);bridge(start,anchor[1],anchor[2]);cursor=anchor[1];
+      }
+      normal(cursor,stop);
+      day.minutes=stop;day.endWh=energy;
+      if(day.levels[day.levels.length-1][0]!==stop)day.levels.push([stop,energy]);
+      for(const bin of day.bins) {
+        for(const k of ['chargeWh','dischargeWh','loadWh','adapterLoadWh','adapterInputWh','lossWh','screenOnMin','screenOffMin','powerOffMin','unpluggedMin','hotspotMin','deviceBytes','saverMin'])day[k]+=bin[k];
+        for(const k of ['appWh','fgMin','mobile','wifi'])for(let i=0;i<N;i++)day[k][i]+=bin[k][i];
+      }
+      day.startPct=day.startWh/c.capacityWh*100;day.endPct=day.endWh/c.capacityWh*100;
+      day.usagePct=day.dischargeWh/c.capacityWh*100;
+      day.mobileBytes=sum(day.mobile);day.wifiBytes=sum(day.wifi);
+      days.push(day);byDate.set(date,day);
+    }
+    const data={version:VERSION,config:JSON.parse(JSON.stringify(c)),days,byDate,apps:APPS,physics:PHYSICS};
+    data.audit=audit(data);
+    if(!data.audit.ok)throw new Error('기록의 물리/합계 검사에 실패했습니다: '+data.audit.errors.join(', '));
+    return data;
+  }
+  function totalRange(data,start,endExclusive) {
+    const out={days:0,minutes:0,chargeWh:0,dischargeWh:0,screenOnMin:0,screenOffMin:0,unpluggedMin:0,deviceBytes:0,mobileBytes:0,wifiBytes:0,appWh:zero(),fgMin:zero(),mobile:zero(),wifi:zero()};
+    for(const d of data.days) {
+      if(d.date<start || d.date>=endExclusive)continue;
+      out.days++;
+      for(const k of ['minutes','chargeWh','dischargeWh','screenOnMin','screenOffMin','unpluggedMin','deviceBytes','mobileBytes','wifiBytes'])out[k]+=d[k];
+      for(const k of ['appWh','fgMin','mobile','wifi'])for(let i=0;i<N;i++)out[k][i]+=d[k][i];
+    }
+    return out;
+  }
+  function monthTotal(data,month) {const start=monthStart(month);return totalRange(data,start,addMonths(start,1));}
+  function audit(data) {
+    const errors=[], c=data.config, C=c.capacityWh;
+    let prev=null,maxEnergyError=0,maxAppError=0,maxTimeError=0,maxAdapterError=0,checkedBins=0;
+    for(const d of data.days) {
+      if(prev && Math.abs(prev.endWh-d.startWh)>1e-9)errors.push(d.date+' 자정 잔량');
+      if(d.endWh < -1e-9 || d.endWh>C+1e-9)errors.push(d.date+' 잔량 범위');
+      const e=Math.abs(d.endWh-d.startWh-d.chargeWh+d.dischargeWh);
+      const a=Math.abs(sum(d.appWh)-d.dischargeWh);
+      const t=Math.abs(d.screenOnMin+d.screenOffMin+d.powerOffMin-d.minutes);
+      maxEnergyError=Math.max(maxEnergyError,e,d.maxStepBalanceError);maxAppError=Math.max(maxAppError,a);maxTimeError=Math.max(maxTimeError,t);
+      if(e>1e-7||a>1e-7||t>1e-7)errors.push(d.date+' 일일 보존식');
+      if(sum(d.mobile)!==d.mobileBytes || sum(d.wifi)!==d.wifiBytes || d.mobile[HOTSPOT]!==d.deviceBytes || !Number.isSafeInteger(d.mobileBytes) || !Number.isSafeInteger(d.wifiBytes))errors.push(d.date+' 데이터 합계');
+      if(Math.abs(sum(d.fgMin)-d.screenOnMin)>1e-7)errors.push(d.date+' 앱 사용 시간');
+      let last=d.startWh;
+      for(const b of d.bins) {
+        checkedBins++;
+        const err=Math.abs(b.endWh-b.startWh-b.chargeWh+b.dischargeWh);
+        const gridErr=Math.max(Math.abs(b.loadWh-b.adapterLoadWh-b.dischargeWh),Math.abs(b.adapterInputWh-b.lossWh-b.adapterLoadWh-b.chargeWh));
+        maxAdapterError=Math.max(maxAdapterError,gridErr);maxEnergyError=Math.max(maxEnergyError,err);
+        if(Math.abs(last-b.startWh)>1e-9 || err>1e-7 || gridErr>1e-7 || Math.abs(sum(b.appWh)-b.dischargeWh)>1e-7)errors.push(d.date+' 시간대 보존식');
+        if(b.chargeWh<0||b.dischargeWh<0||b.deviceBytes<0||b.deviceBytes!==b.mobile[HOTSPOT])errors.push(d.date+' 시간대 음수/합계');
+        last=b.endWh;
+      }
+      if(d.maxCellMbps>PHYSICS.cellularMaxMbps+1e-7||d.maxWifiMbps>PHYSICS.wifiMaxMbps+1e-7)errors.push(d.date+' 회선 용량');
+      for(const p of d.levels)if(p[1]<-1e-8||p[1]>C+1e-8)errors.push(d.date+' 샘플 잔량 범위');
+      prev=d;
+    }
+    const last=data.days[data.days.length-1];
+    if(Math.abs(last.endPct-c.targetPct)>1e-6)errors.push('현재 잔량');
+    return {ok:errors.length===0,errors:[...new Set(errors)],checkedDays:data.days.length,checkedBins,maxEnergyError,maxAppError,maxTimeError,maxAdapterError,currentPct:last.endPct};
+  }
+  root.SettingModel={VERSION,APPS,PHYSICS,HOTSPOT,parseDate,dateString,addDays,weekday,monthStart,addMonths,hashText,validateConfig,advanceConfig,electricalStep,simulate,totalRange,monthTotal,audit,sum};
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script id="app-ui">/* 화면은 SettingModel의 기록을 읽기만 한다. 그래프 안에서 난수를 만들지 않는다. */
+(function () {
+  'use strict';
+  const M=window.SettingModel, $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const jsonText=x=>JSON.stringify(x,null,2).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+  const sum=M.sum;
+  const sourceConfig=JSON.parse($('scenario-config').textContent), sourceAssets=JSON.parse($('appearance-config').textContent);
+  const sourceHash=M.hashText(JSON.stringify(sourceConfig)), assetHash=M.hashText(JSON.stringify(sourceAssets));
+  const storePrefix='setting-app-v2:';
+  function getStored(key) {try{return JSON.parse(localStorage.getItem(storePrefix+key)||'null');}catch(_){return null;}}
+  function putStored(key,value) {try{localStorage.setItem(storePrefix+key,JSON.stringify(value));return true;}catch(_){return false;}}
+  const storedConfig=getStored('scenario'), storedAssets=getStored('appearance');
+  let config=sourceConfig, assets=sourceAssets;
+  if(storedConfig && storedConfig.base===sourceHash) {
+    try {M.validateConfig(storedConfig.value);config=storedConfig.value;}catch(_){/* 원본의 정상 설정 사용 */}
+  }
+  if(storedAssets && storedAssets.base===assetHash && storedAssets.value && typeof storedAssets.value==='object')assets={...sourceAssets,...storedAssets.value};
+  assets.icons=assets.icons && typeof assets.icons==='object'?assets.icons:{};
+  assets.toggles=assets.toggles && typeof assets.toggles==='object'?assets.toggles:{};
+  let data;
+  try {data=M.simulate(config);}catch(err){
+    $('boot-error').hidden=false;$('boot-error').textContent='모의 기록을 불러오지 못했습니다: '+err.message;
+    // 잘못된 데이터로 그래프를 그리지 않는다.
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));return;
+  }
+  let currentScreen='screen-home', selectedBatDate=config.snapshotDate, monthKey=M.monthStart(config.snapshotDate), network='mobile';
+  let hsType='weekly', hsOffset=0, hsSelected=null, searchReturn='screen-home';
+  let returnFocus=null, toastTimer;
+  const scrollPositions={};
+  const DAYS=['일','월','화','수','목','금','토'];
+  function prettyDate(s,withYear=false){const [y,m,d]=s.split('-').map(Number);return (withYear?y+'년 ':'')+m+'월 '+d+'일';}
+  function monthLabel(s){const [y,m]=s.split('-').map(Number);return m+'월';}
+  function timeText(min){const m=Math.max(0,Math.floor(min+1e-8));return m>=60?Math.floor(m/60)+'시간 '+m%60+'분':m+'분';}
+  function appTime(min){return min>0 && min<1?'1분 미만':timeText(min);}
+  function clock(m){return String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.floor(m%60)).padStart(2,'0');}
+  function pct(x){return Number(x.toFixed(1)).toString()+'%';}
+  function bytes(n,space=false){
+    if(n===0)return '0 B'; const units=['B','KB','MB','GB','TB'];let i=0,v=n;
+    while(v>=1000&&i<4){v/=1000;i++;}
+    return (i===0?Math.round(v):v.toFixed(2))+(space?' ':'')+units[i];
+  }
+  function axisBytes(n){if(!n)return '0B';const u=[1e12,1e9,1e6,1e3,1];const l=['TB','GB','MB','KB','B'];let i=u.findIndex(x=>n>=x);return Number((n/u[i]).toFixed(2))+l[i];}
+  function niceCeil(v){if(!(v>0))return 1;const p=10**Math.floor(Math.log10(v));const f=v/p;return ([1,1.5,2,2.5,3,4,5,6,8,10].find(x=>x>=f-1e-9)||10)*p;}
+  function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4200);}
+  function persistAssets(){const ok=putStored('appearance',{base:assetHash,value:assets});if(!ok)toast('브라우저 저장을 사용할 수 없습니다. HTML 내보내기로 변경 내용을 보관하세요.');return ok;}
+  function simpleSVG(body){return '<svg class="icon-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">'+body+'</svg>';}
+  const paths={
+    back:'<path d="m15 5-7 7 7 7"/>', search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/>',
+    wifi:'<path d="M3 8a15 15 0 0 1 18 0M6 12a10 10 0 0 1 12 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r=".6" fill="currentColor"/>',
+    devices:'<rect x="3" y="5" width="14" height="12" rx="1.5"/><path d="M5 20h9"/><rect x="15" y="10" width="6" height="11" rx="1"/>',
+    spark:'<path d="m12 2 2.7 7.3L22 12l-7.3 2.7L12 22l-2.7-7.3L2 12l7.3-2.7ZM20 2v4M18 4h4"/>',
+    check:'<circle cx="12" cy="12" r="8"/><path d="m8 12 3 3 5-6"/>', sound:'<path d="m4 9 5 0 5-4v14l-5-4H4ZM18 8a6 6 0 0 1 0 8"/>',
+    bell:'<path d="M5 17h14l-2-3V9a5 5 0 0 0-10 0v5l-2 3ZM10 20h4"/>', sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1 1M18 18l1 1M19 5l-1 1M6 18l-1 1"/>',
+    battery:'<rect x="7" y="4" width="10" height="17" rx="2"/><path d="M10 2h4M10 8v9M14 8v9"/>', image:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m4 18 6-6 4 4 3-3 4 4"/><circle cx="16" cy="8" r="1"/>',
+    palette:'<path d="M20 12c0-5-4-9-9-9S2 7 2 12s4 9 9 9h2c2 0 3-2 2-3-1-2 0-3 2-3s3-1 3-3Z"/><circle cx="8" cy="8" r="1"/><circle cx="13" cy="6" r="1"/><circle cx="17" cy="10" r="1"/>',
+    home:'<path d="m3 11 9-8 9 8M6 9v12h5v-6h3v6h4V9"/>', lock:'<rect x="5" y="10" width="14" height="12" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4M12 14v4"/>',
+    shield:'<path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6Z"/>', pin:'<path d="M19 9c0 6-7 13-7 13S5 15 5 9a7 7 0 0 1 14 0Z"/><circle cx="12" cy="9" r="2"/>',
+    alert:'<path d="m12 3 10 18H2Z M12 9v5M12 17v1"/>', sync:'<path d="M20 8A8 8 0 0 0 5 6L2 9M2 4v5h5M4 16a8 8 0 0 0 15 2l3-3M22 20v-5h-5"/>',
+    heart:'<path d="M12 21 3 12C-2 5 6-1 12 6c6-7 14-1 9 6Z"/>', gear:'<path d="m9 3 6 0 .7 3 3 1 2.3 3-2 2 1 3-3 3-3-1-2 3-4-1-.5-3-3-1-1-4 3-2-.5-3Z"/><circle cx="12" cy="12" r="3"/>',
+    phone:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/>', sliders:'<path d="M4 3v18M12 3v18M20 3v18M2 7h4M10 16h4M18 9h4"/>', person:'<circle cx="12" cy="4" r="2"/><path d="m4 9 8 2 8-2M12 11v5M12 16l-5 6M12 16l5 6"/>',
+    down:'<path d="M12 2v14m-5-5 5 5 5-5M4 19v3h16v-3"/>', info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v7M12 6v1"/>',
+    bulb:'<path d="M8 17c0-3-4-3-4-8a8 8 0 0 1 16 0c0 5-4 5-4 8ZM9 20h6M10 23h4"/>', link:'<path d="m10 14 4-4M8 16l-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0M16 8l1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0"/>',
+    tablet:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M10 19h4"/>', bars:'<path d="M5 20v-5M10 20V10M15 20V6M20 20V2"/>'
+  };
+  function lineIcon(name){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[name]||paths.gear)+'</svg>';}
+  function validImage(s){return typeof s==='string' && /^data:image\/(png|jpeg|webp);base64,[a-zA-Z0-9+/=]+$/.test(s);}
+  function builtIcon(id){
+    if(id==='__home__')return simpleSVG('<rect width="48" height="48" rx="12" fill="#747b8a"/><g transform="translate(7 7) scale(1.42)" fill="none" stroke="white" stroke-width="1.8" stroke-linejoin="round">'+paths.gear+'</g>');
+    if(id==='youtube')return simpleSVG('<rect width="48" height="48" rx="13" fill="#f6f6f6"/><rect x="6" y="12" width="36" height="25" rx="8" fill="#ed1738"/><path d="m20 18 12 7-12 7Z" fill="white"/>');
+    if(id==='browser')return simpleSVG('<rect width="48" height="48" rx="14" fill="#7561df"/><circle cx="24" cy="23" r="13" fill="#f5efff"/><ellipse cx="24" cy="24" rx="20" ry="6" transform="rotate(24 24 24)" fill="none" stroke="#c3b4ff" stroke-width="3"/><path d="m36 31 3-1" stroke="#7561df" stroke-width="3"/>');
+    if(id==='instagram')return simpleSVG('<defs><linearGradient id="ig-icon" x2=".9" y2="0"><stop stop-color="#ffca68"/><stop offset=".4" stop-color="#f04961"/><stop offset=".75" stop-color="#c632ab"/><stop offset="1" stop-color="#7150d8"/></linearGradient></defs><rect width="48" height="48" rx="13" fill="url(#ig-icon)"/><rect x="10" y="10" width="28" height="28" rx="8" fill="none" stroke="white" stroke-width="3"/><circle cx="24" cy="24" r="7" fill="none" stroke="white" stroke-width="3"/><circle cx="33" cy="15" r="2" fill="white"/>');
+    if(id==='kakao')return simpleSVG('<rect width="48" height="48" rx="14" fill="#ffe31b"/><ellipse cx="24" cy="22" rx="18" ry="14" fill="#33272a"/><path d="m14 31-2 10 12-7" fill="#33272a"/><text x="24" y="25" text-anchor="middle" fill="#ffe31b" font-family="sans-serif" font-size="9" font-weight="bold">TALK</text>');
+    if(id==='toss')return simpleSVG('<rect width="48" height="48" rx="14" fill="#eff5ff"/><path d="M9 19c7-5 11-7 21-9 2 15-5 27-16 28C7 36 4 28 9 19" fill="#42a6df"/><path d="M23 8c18-2 24 17 11 28l-16 4Z" fill="#1769ef"/>');
+    if(id==='services')return simpleSVG('<rect width="48" height="48" rx="14" fill="#1c222c"/><path d="m13 6 14 9-6 9-14-9Z" fill="#40c482"/><path d="m27 15 15 9-15 10-6-10Z" fill="#49a1f8"/><path d="m27 34-14 9 8-19Z" fill="#ffcd45"/><path d="m7 15 14 9-8 19-6-4Z" fill="#ef6d60"/>');
+    const app=M.APPS.find(a=>a.id===id), color=app?app.color:'#68758a';
+    const l={uma:'U',dc:'dc',nova:'N',system:'system',hotspot:'wifi'}[id]||id.slice(0,1).toUpperCase();
+    let inner=(l==='system'||l==='wifi')?'<g transform="translate(9 9) scale(1.25)" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+paths[l==='wifi'?'wifi':'gear']+'</g>':'<text x="24" y="32" font-size="24" font-weight="700" font-family="sans-serif" text-anchor="middle" fill="white">'+l+'</text>';
+    return simpleSVG('<rect width="48" height="48" rx="14" fill="'+color+'"/>'+inner);
+  }
+  let iconSerial=0;
+  function iconHTML(id){
+    const src=id==='__home__'?assets.homeIconData:assets.icons[id];
+    if(validImage(src))return '<img class="icon-img" src="'+src+'" alt="" draggable="false">';
+    // SVG의 그라데이션 ID는 각 인스턴스마다 고유해야 한다.
+    return builtIcon(id).replaceAll('ig-icon','ig-icon-'+(++iconSerial));
+  }
+  function applyIcons(){
+    document.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=iconHTML(el.dataset.icon);});
+    const homeNames=['wifi','devices','spark','check','sound','bell','sun','battery','image','palette','home','lock','shield','pin','alert','sync','google','gear','heart','shield','phone','sliders','person','down','bulb','info'];
+    document.querySelectorAll('#screen-home .si-icon').forEach((el,i)=>{el.innerHTML=homeNames[i]==='google'?'<b style="font-size:21px">G</b>':lineIcon(homeNames[i]);});
+    document.querySelectorAll('.back').forEach(el=>el.innerHTML=lineIcon('back'));
+    document.querySelectorAll('.search,.home-search-btn,.home-sticky-search').forEach(el=>el.innerHTML=lineIcon('search'));
+    document.querySelectorAll('.gear').forEach(el=>el.innerHTML=lineIcon(el.dataset.go==='screen-hotspot-extra'?'bars':'gear'));
+    document.querySelectorAll('.link-icon').forEach(el=>el.innerHTML=lineIcon('link'));
+  }
+  function applyIdentity(){
+    const title=typeof assets.title==='string'&&assets.title.trim()?assets.title.trim().slice(0,30):'설정';
+    document.title=title;document.querySelector('meta[name="apple-mobile-web-app-title"]').content=title;document.querySelector('meta[name="application-name"]').content=title;
+    const icon=validImage(assets.homeIconData)?assets.homeIconData:null;
+    if(icon)$('favicon').href=icon;
+    // iOS 설치 아이콘은 표준 PNG 경로를 사용한다. PNG 저장 버튼으로 같은 파일을 배포한다.
+    $('touch-icon').href='app-icon.png'+(icon?'?v='+M.hashText(icon):'');
+  }
+  function closeMenus(){$('month-menu').classList.remove('open');$('menu-backdrop').classList.remove('open');$('month-period-btn').setAttribute('aria-expanded','false');}
+  function updateSticky(){const h=document.querySelector('.home-header');$('home-sticky').classList.toggle('visible',currentScreen==='screen-home'&&h.getBoundingClientRect().bottom<=56);}
+  function showScreen(id,back=false,pop=false){
+    if(!$(id) || !$(id).classList.contains('screen'))return;
+    scrollPositions[currentScreen]=window.scrollY;
+    currentScreen=id;closeMenus();
+    document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('active',el.id===id));
+    if(id==='screen-battery'||id==='screen-battery-activity')renderBattery();
+    if(id==='screen-hotspot-extra')renderHotspotChart();
+    if(id==='screen-data')renderDataOverview();
+    if(id==='screen-month')renderMonth();
+    if(id==='screen-about')renderAbout();
+    window.scrollTo({top:back?(scrollPositions[id]||0):0,behavior:'auto'});
+    if(!pop){try{history.pushState({screen:id},'', '#'+id.replace('screen-',''));}catch(_){}}
+    updateSticky();
+    requestAnimationFrame(clampHSTooltip);
+  }
+  window.showScreen=showScreen;
+  window.addEventListener('popstate',e=>showScreen(e.state&&e.state.screen?e.state.screen:'screen-home',true,true));
+  window.addEventListener('scroll',updateSticky,{passive:true});
+  function viewDates(){return Array.from({length:7},(_,i)=>M.addDays(config.snapshotDate,i-6)).filter(s=>data.byDate.has(s));}
+  function averagePower(){
+    const recent=data.days.filter(d=>d.date<config.snapshotDate).slice(-7);
+    const days=recent.length?recent:[data.days[data.days.length-1]];
+    return Math.max(.001,sum(days.map(d=>d.loadWh))/(sum(days.map(d=>d.minutes-d.powerOffMin))/60||1));
+  }
+  function amountPcts(day){
+    const raw=day.appWh.map(x=>x/config.capacityWh*1000), base=raw.map(Math.floor);
+    let count=Math.round(sum(raw))-sum(base);
+    const rank=raw.map((v,i)=>({i,r:v-base[i]})).sort((a,b)=>b.r-a.r||a.i-b.i);
+    for(let k=0;k<count;k++)base[rank[k].i]++;
+    return base.map(x=>(x/10).toFixed(1)+'%');
+  }
+  function appItems(day){
+    const val=amountPcts(day),mins=day.fgMin.map(Math.floor),remainder=Math.round(day.screenOnMin)-sum(mins);
+    const order=day.fgMin.map((v,i)=>({i,r:v-mins[i]})).sort((a,b)=>b.r-a.r||a.i-b.i);
+    for(let k=0;k<remainder;k++)mins[order[k].i]++;
+    return M.APPS.map((a,i)=>({...a,i,wh:day.appWh[i],minutes:day.fgMin[i],displayMinutes:mins[i],pct:val[i]})).filter(a=>a.wh>1e-12||a.minutes>0).sort((a,b)=>b.wh-a.wh||a.i-b.i);
+  }
+  function renderWeekChart(suffix){
+    const dates=viewDates(), records=dates.map(d=>data.byDate.get(d)), W=300,H=175,N=dates.length,cw=W/N;
+    const previous=M.totalRange(data,M.addDays(config.snapshotDate,-13),M.addDays(config.snapshotDate,-6));
+    const avg=previous.days?previous.dischargeWh/config.capacityWh*100/previous.days:0;
+    const previousValues=dates.map(d=>{const p=data.byDate.get(M.addDays(d,-7));return p?p.usagePct:null;});
+    const scale=Math.max(200,Math.ceil(Math.max(avg,...records.map(d=>d.usagePct),...previousValues.map(v=>v||0))/50)*50), y=v=>H*(1-v/scale);
+    const svg=$('wk-svg-'+suffix), pat='week-hatch-'+suffix;
+    let out='<defs><pattern id="'+pat+'" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V5" stroke="#8c8c93" stroke-width="1"/></pattern></defs>';
+    for(let i=0;i<N;i++)out+=`<rect x="${i*cw}" y="0" width="${cw}" height="${H}" fill="${i%2?'#19191c':'#000'}"/>`;
+    if(previousValues.every(v=>v!==null)) {
+      // 지난 7일의 실제 소모량: 가공 곡선 대신 선형 연결로 과도한 굴곡/음수를 막는다.
+      const points=[[0,y(previousValues[0])],...previousValues.map((v,i)=>[cw*(i+.5),y(v)]),[W,y(previousValues[N-1])],[W,H],[0,H]];
+      out+='<polygon points="'+points.map(p=>p.join(',')).join(' ')+'" fill="url(#'+pat+')" opacity=".65"/>';
+    }
+    out+=`<line x1="0" y1="${y(avg)}" x2="${W}" y2="${y(avg)}" stroke="#88888e" stroke-width=".7" stroke-dasharray="4 4"/>`;
+    records.forEach((d,i)=>{
+      const bw=14,top=y(d.usagePct);
+      out+=`<rect x="${cw*(i+.5)-bw/2}" y="${top}" width="${bw}" height="${H-top}" rx="7" fill="${selectedBatDate===d.date?'#75b2ff':'#4b9eff'}" data-bat-date="${d.date}" data-usage-pct="${d.usagePct}"/>`;
+      out+=`<rect x="${i*cw}" y="0" width="${cw}" height="${H}" fill="transparent" role="button" tabindex="0" data-bat-date="${d.date}" aria-label="${esc(prettyDate(d.date)+' 사용량 '+pct(d.usagePct))}"/>`;
+    });
+    svg.innerHTML=out;svg.dataset.scale=scale;svg.dataset.average=avg;
+    const axis=svg.parentElement.nextElementSibling;axis.querySelector('span').textContent=scale;
+    const avgTop=(1-avg/scale)*100;$('wk-avg-'+suffix).textContent=Math.round(avg);$('wk-avg-'+suffix).style.top=avgTop+'%';
+    $('wk-badge-'+suffix).style.top=Math.min(91,avgTop+10)+'%';
+    $('wk-legavg-'+suffix).textContent='지난주 평균 사용량: '+pct(avg);
+    $('wk-days-'+suffix).innerHTML=dates.map(date=>`<button class="wk-day${date===config.snapshotDate?' today':''}${date===selectedBatDate?' selected':''}" data-bat-date="${date}" aria-pressed="${date===selectedBatDate}" aria-label="${prettyDate(date)}"><span>${DAYS[M.weekday(date)]}</span></button>`).join('')+'<span class="wk-unit">(%)</span>';
+  }
+  function energyAt(day,m){
+    if(m<=0)return day.startWh;if(m>=day.minutes)return day.endWh;
+    const p=day.levels;
+    let lo=0,hi=p.length-1;
+    while(lo+1<hi){const mid=(lo+hi)>>1;if(p[mid][0]<=m)lo=mid;else hi=mid;}
+    const a=p[lo],b=p[hi];return a[1]+(b[1]-a[1])*(m-a[0])/(b[0]-a[0]);
+  }
+  function renderCharge(day){
+    const svg=$('bact-charge-svg'),W=300,H=120,C=config.capacityWh, x=m=>m/1440*W,y=e=>H*(1-e/C);
+    let out='';for(let h=0;h<24;h+=3)out+=`<rect x="${x(h*60)}" y="0" width="${x(180)}" height="${H}" fill="${h%6===0?'#000':'#202023'}"/>`;
+    // 15분 막대와 경계선 모두 동일한 연속 잔량 샘플에서 만들어진다.
+    for(let m=0;m<day.minutes;m+=15) {
+      const stop=Math.min(day.minutes,m+15), e=energyAt(day,m), b=day.bins.find(b=>b.t0<=m&&b.t1>m);
+      const color=b&&b.chargeWh>1e-7?'#30cb77':'#b6bdc9';
+      const width=Math.max(.3,x(stop)-x(m)-1.1);
+      out+=`<rect x="${x(m)+.25}" y="${y(e)}" width="${width}" height="${H-y(e)}" rx=".5" fill="${color}" opacity=".89"/>`;
+    }
+    const observed=day.levels.map(p=>x(p[0])+','+y(p[1])).join(' ');
+    out+='<polyline points="'+observed+'" fill="none" stroke="#c5ccd8" stroke-width=".6" opacity=".8"/>';
+    if(day.date===config.snapshotDate&&day.minutes<1440){
+      const endEnergy=Math.max(0,day.endWh-averagePower()*(1440-day.minutes)/60),ex=x(day.minutes),ey=y(day.endWh);
+      const zeroMinute=Math.min(1440,day.minutes+day.endWh/averagePower()*60);
+      out+=`<polygon points="${ex},${ey} ${x(zeroMinute)},${y(endEnergy)} ${W},${H} ${ex},${H}" fill="#aeb5c4" opacity=".32"/>`;
+      out+=`<line x1="${ex}" x2="${ex}" y1="0" y2="${H}" stroke="#e8e8eb" stroke-width=".7" opacity=".8"/>`;
+    }
+    svg.innerHTML=out;svg.dataset.startPct=day.startPct;svg.dataset.endPct=day.endPct;svg.dataset.cutoff=day.minutes;
+    const badge=$('bact-badge');badge.textContent=day.date===config.snapshotDate?Math.round(day.endPct)+'%':'';badge.style.left=Math.min(96,day.minutes/1440*100)+'%';
+    $('charge-tip').hidden=true;
+  }
+  function renderHourly(day){
+    const svg=$('bact-line-svg'),W=300,H=68,values=day.bins.map(b=>b.dischargeWh/config.capacityWh*100);
+    const scale=Math.max(5,niceCeil(Math.max(...values,0)));
+    let out='';for(let h=0;h<24;h+=3)out+=`<rect x="${h/24*W}" y="0" width="${W/8}" height="${H}" fill="${h%6===0?'#000':'#202023'}"/>`;
+    day.bins.forEach((b,i)=>{const h=values[i]/scale*H;out+=`<rect x="${b.t0/1440*W+.3}" y="${H-h}" width="${Math.max(.25,(b.t1-b.t0)/1440*W-1)}" height="${h}" rx="1" fill="#4b9eff" data-energy-wh="${b.dischargeWh}"/>`;});
+    if(day.date===config.snapshotDate)out+=`<line x1="${day.minutes/1440*W}" x2="${day.minutes/1440*W}" y1="0" y2="${H}" stroke="#ececf1" stroke-width=".6"/>`;
+    svg.innerHTML=out;svg.dataset.scale=scale;svg.dataset.totalPct=day.usagePct;
+    document.querySelector('.bact-hour-axis span').textContent=scale;
+    $('hour-tip').hidden=true;
+  }
+  function renderBattery(){
+    const now=data.byDate.get(config.snapshotDate),day=data.byDate.get(selectedBatDate)||now;
+    selectedBatDate=day.date;
+    document.querySelector('.bat-pct-big').textContent=Math.round(now.endPct)+'%';
+    document.querySelector('.bat-bar-fill').style.width=now.endPct+'%';
+    const full=config.capacityWh/averagePower()*60,remain=now.endWh/averagePower()*60;
+    document.querySelector('.bat-remain-right').textContent=timeText(remain)+' 남음';
+    document.querySelector('.bat-note-row>span').textContent='완전히 충전 시 약 '+timeText(full)+' 동안 사용 가능';
+    document.querySelector('.bat-usage-pct-label').textContent=(day.date===config.snapshotDate?'배터리 사용량: ':prettyDate(day.date)+' 사용량: ')+pct(day.usagePct);
+    const apps=appItems(day);
+    $('bat-mini-apps').innerHTML=apps.slice(0,3).map(a=>`<div class="bat-mini-app"><div class="bat-mini-ico" data-icon="${a.id}">${iconHTML(a.id)}</div><div class="bat-mini-name">${esc(a.name)}</div><div class="bat-mini-pct">${a.pct}</div></div>`).join('')||'<div class="empty-apps">집계된 사용량이 없습니다.</div>';
+    $('bact-date-title').textContent=prettyDate(day.date)+(day.date===config.snapshotDate?' 오늘':' ('+DAYS[M.weekday(day.date)]+')');
+    $('bact-date-bar').innerHTML=viewDates().map(date=>`<button class="bact-date-item${date===day.date?' active':''}" data-bat-date="${date}" aria-pressed="${date===day.date}" aria-label="${prettyDate(date)}">${Number(date.slice(-2))}</button>`).join('');
+    $('bact-daily-title').textContent='일일 사용량: '+pct(day.usagePct);
+    const onMinutes=Math.round(day.screenOnMin),offMinutes=Math.round(day.powerOffMin);
+    $('bact-usage-info').innerHTML='화면 켜져 있던 시간: '+timeText(onMinutes)+'<br>화면 꺼져 있던 시간: '+timeText(day.minutes-onMinutes-offMinutes)+(offMinutes>0?'<br>전원 꺼져 있던 시간: '+timeText(offMinutes):'');
+    $('bact-app-list').innerHTML=apps.map(a=>`<div class="bact-app-item" data-app-id="${a.id}" data-raw-pct="${a.wh/config.capacityWh*100}" title="${a.wh.toFixed(6)} Wh"><div class="bact-app-left"><div class="bact-app-ico" data-icon="${a.id}">${iconHTML(a.id)}</div><div><div class="bact-app-name">${esc(a.name)}</div><div class="bact-app-sub">${a.minutes>0?'화면에 표시 '+(a.displayMinutes?timeText(a.displayMinutes):'1분 미만'):(a.id==='hotspot'?'핫스팟 사용 '+appTime(day.hotspotMin):'백그라운드 사용')}</div></div></div><div class="bact-app-pct">${a.pct}</div></div>`).join('')||'<div class="empty-apps">집계된 사용량이 없습니다.</div>';
+    renderWeekChart('main');renderWeekChart('detail');renderCharge(day);renderHourly(day);
+  }
+  function renderHotspotSummary(){
+    const today=data.byDate.get(config.snapshotDate), value=today.deviceBytes, on=!!assets.hotspotOn;
+    $('hotspot-main-switch').classList.toggle('on',on);$('hotspot-detail-switch').classList.toggle('on',on);
+    for(const id of ['hotspot-main-switch','hotspot-detail-switch'])$(id).setAttribute('aria-checked',String(on));
+    $('hotspot-state-label').textContent=on?'사용 중':'사용 안 함';
+    document.querySelector('.hs-data-value').textContent=bytes(value);document.querySelector('.hs-manage-data-value').textContent=bytes(value);
+    document.querySelector('.hs-data-value').dataset.bytes=value;document.querySelector('.hs-manage-data-value').dataset.bytes=value;
+    // 한도가 없으면 전부 공유 데이터(채워진 파란 막대). 0 B는 빈 막대.
+    const limit=Number(assets.hotspotLimitBytes)||0, ratio=limit>0?Math.min(100,value/limit*100):(value?100:0);
+    document.querySelectorAll('.hs-data-bar-fill,.hs-manage-data-bar-fill').forEach(el=>el.style.width=ratio+'%');
+    $('hs-today-device').hidden=value===0;$('hs-today-device-name').textContent=assets.deviceName||'iPad';$('hs-today-device-value').textContent=bytes(value);
+    const hasPast=data.days.some(d=>d.deviceBytes>0);
+    $('previous-devices').innerHTML=hasPast?`<div class="previous-device">${lineIcon('tablet')}<div><div class="name">${esc(assets.deviceName||'iPad')}</div><div class="sub">연결 안 됨</div></div><span class="dot"></span></div>`:'이전에 연결한 기기가 없습니다';
+    $('hs-limit-button').textContent=limit>0?'데이터 한도: '+bytes(limit):'데이터 한도 설정';
+  }
+  function hotspotBytesForDate(date){
+    // 핫스팟 기록은 모든 날짜에서 0 B로 고정한다.
+    return 0;
+  }
+  function hotspotMonthBytes(month){
+    const next=M.addMonths(month,1);let total=0;
+    for(let d=month;d<next;d=M.addDays(d,1)) total+=hotspotBytesForDate(d);
+    return total;
+  }
+  function hsRecords(){
+    if(hsType==='weekly'){
+      const end=M.addDays(config.snapshotDate,hsOffset*7),start=M.addDays(end,-6),items=[];
+      for(let i=0;i<7;i++){const date=M.addDays(start,i),value=hotspotBytesForDate(date);items.push({key:date,date,value,known:true,x:date.slice(-2),label:prettyDate(date)+' ('+DAYS[M.weekday(date)]+')'});}
+      const total=sum(items.map(i=>i.value));
+      return {items,title:prettyDate(start)+'~'+(start.slice(0,7)===end.slice(0,7)?Number(end.slice(-2))+'일':prettyDate(end)),period:'지난 7일',average:total/7,total,start,end,unit:'/일'};
+    }
+    const end=M.addMonths(M.monthStart(config.snapshotDate),hsOffset),items=[];
+    for(let i=-5;i<=0;i++){const date=M.addMonths(end,i),value=hotspotMonthBytes(date);items.push({key:date,date,value,known:true,x:date.slice(5,7),label:monthLabel(date)});}
+    const total=sum(items.map(i=>i.value));
+    return {items,title:Number(end.slice(0,4))+'년 '+monthLabel(end),period:'지난 6개월',average:total/items.length,total,start:items[0].date,end,unit:'/월'};
+  }
+  function clampHSTooltip(){
+    if(currentScreen!=='screen-hotspot-extra')return;
+    const tip=document.querySelector('.hs-v-bar-col.selected .hs-v-tooltip'),box=document.querySelector('.hs-v-chart-card');
+    if(!tip||!box)return;tip.style.transform='translateX(-50%)';
+    const r=tip.getBoundingClientRect(),b=box.getBoundingClientRect();let shift=0;
+    if(r.left<b.left+10)shift=b.left+10-r.left;if(r.right+shift>b.right-10)shift+=b.right-10-(r.right+shift);
+    tip.style.transform='translateX(calc(-50% + '+shift+'px))';
+  }
+  function renderHotspotChart(){
+    const d=hsRecords();if(!d.items.some(i=>i.key===hsSelected&&i.known))hsSelected=[...d.items].reverse().find(i=>i.known)?.key;
+    const chosen=d.items.find(i=>i.key===hsSelected),max=Math.max(...d.items.map(i=>i.value),0),step=niceCeil(max>0?max/3:100e6),scale=step*3;
+    $('hs-v-nav-title').textContent=d.title;$('hs-v-period').textContent=d.period;$('hs-v-val').textContent=bytes(d.average);$('hs-v-unit').textContent=d.unit;
+    $('hs-v-val').dataset.bytes=d.average;
+    $('hs-v-desc').textContent=hsType==='weekly'?'이번 주 총 사용량은 '+bytes(d.total)+'입니다.':(chosen?monthLabel(chosen.date):'이번 달')+' 총 사용량은 '+bytes(chosen?chosen.value:0)+'입니다.';
+    $('hs-v-desc').dataset.bytes=hsType==='weekly'?d.total:(chosen?.value||0);
+    $('hs-v-y-axis').innerHTML=[3,2,1,0].map(i=>'<div class="hs-v-y-label">'+axisBytes(step*i)+'</div>').join('');
+    $('hs-v-bars').innerHTML=d.items.map(i=>`<button type="button" class="hs-v-bar-col${i.key===hsSelected?' selected':''}" data-hs-key="${i.key}" ${i.known?'':'disabled'} aria-label="${esc(i.label+' '+(i.known?bytes(i.value):'기록 없음'))}" aria-pressed="${i.key===hsSelected}" data-bytes="${i.value}"><span class="hs-v-tooltip">${esc(i.label)} &nbsp;${bytes(i.value)}</span><span class="hs-v-bar-track"><span class="hs-v-bar-fill" style="height:${i.value/scale*100}%"></span></span></button>`).join('');
+    $('hs-v-bars').dataset.scale=scale;
+    $('hs-v-x-labels').innerHTML=d.items.map(i=>`<div class="hs-v-x-wrap"><button class="hs-v-x-label${i.key===hsSelected?' selected':''}" data-hs-key="${i.key}" ${i.known?'':'disabled'} aria-label="${esc(i.label)}">${i.x}</button></div>`).join('');
+    $('hs-v-devices').style.display=chosen&&chosen.value>0?'block':'none';
+    $('hs-v-devices').innerHTML=chosen&&chosen.value>0?`<div class="hs-v-dev-row"><div class="hs-v-dev-left"><span class="hs-v-dev-dot"></span><span>${esc(assets.deviceName||'iPad')}</span></div><span class="hs-v-dev-val">${bytes(chosen.value)}</span></div>`:'';
+    $('hs-next-btn').disabled=hsOffset>=0;
+    $('hs-prev-btn').disabled=false;
+    document.querySelectorAll('.hs-v-tab').forEach(el=>{el.classList.toggle('active',el.dataset.view===hsType);el.setAttribute('aria-selected',String(el.dataset.view===hsType));});
+    requestAnimationFrame(clampHSTooltip);
+  }
+  function periodLabel(month){const start=M.monthStart(month),next=M.addMonths(start,1),last=M.addDays(next,-1);return (start.slice(0,4)!==config.snapshotDate.slice(0,4)?start.slice(0,4)+'년 ':'')+Number(start.slice(5,7))+'월 1일~'+Number(last.slice(-2))+'일';}
+  function monthList(){const list=[];for(let d=M.monthStart(config.snapshotDate);d>=M.monthStart(config.startDate);d=M.addMonths(d,-1))list.push(d);return list;}
+  function renderDataOverview(){
+    const current=M.monthStart(config.snapshotDate),stats=M.monthTotal(data,current),parts=bytes(stats.mobileBytes,true).split(' '),num=parts[0],limit=1e12;
+    $('du-num').textContent=num;$('du-num').dataset.bytes=stats.mobileBytes;document.querySelector('.du-unit').textContent=parts[1];
+    $('du-bar-fill').style.width=Math.min(100,stats.mobileBytes/limit*100)+'%';
+    $('du-period-sub').textContent=periodLabel(current);
+    $('mobile-usage-line').textContent=bytes(stats.mobileBytes,true)+' 사용됨 ('+periodLabel(current)+')';
+    $('wifi-usage-line').textContent=bytes(stats.wifiBytes,true)+' 사용됨 ('+periodLabel(current)+')';
+  }
+  function renderMonth(){
+    if(!monthList().includes(monthKey))monthKey=M.monthStart(config.snapshotDate);
+    const stats=M.monthTotal(data,monthKey),total=network==='mobile'?stats.mobileBytes:stats.wifiBytes,vals=stats[network];
+    const start=monthKey,next=M.addMonths(start,1),startDay=M.parseDate(start),daysInMonth=M.parseDate(next)-startDay;
+    document.querySelector('#screen-month .title').textContent=network==='mobile'?'모바일 데이터 사용량':'Wi-Fi 데이터 사용량';
+    $('month-period-label').textContent=periodLabel(start);const parts=bytes(total,true).split(' ');$('month-total').textContent=parts[0];document.querySelector('.summary-unit').textContent=parts[1]+' 사용됨';$('month-total').dataset.bytes=total;
+    $('month-subperiod').textContent=periodLabel(start);$('month-axis-left').textContent=prettyDate(start);$('month-axis-right').textContent=prettyDate(next);
+    document.querySelector('#screen-month .period-line .right').textContent=network==='mobile'?'1.00TB 경고':'';
+    $('month-menu').innerHTML=monthList().map(m=>`<button class="period-option${m===monthKey?' selected':''}" data-month="${m}" style="width:100%"><span>${periodLabel(m)}</span><span class="check">✓</span></button>`).join('');
+    const W=300,H=140,scale=niceCeil(Math.max(total,1)*1.08),positions=[[0,H]];let cumulative=0,lastX=0;
+    const observed=data.days.filter(d=>d.date>=start&&d.date<next);
+    for(const d of observed){
+      cumulative+=network==='mobile'?d.mobileBytes:d.wifiBytes;
+      lastX=(M.parseDate(d.date)-startDay+d.minutes/1440)/daysInMonth*W;
+      positions.push([lastX,H*(1-cumulative/scale)]);
+    }
+    const line=positions.map(p=>p.join(',')).join(' '),area=line+` ${lastX},${H} 0,${H}`;
+    $('month-graph').innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${periodLabel(start)} 누적 사용량 ${bytes(total)}"><line x1="0" y1="${H}" x2="${W}" y2="${H}" stroke="#77777e" stroke-width=".7"/><line x1="0" y1="0" x2="${W}" y2="0" stroke="#343439" stroke-width=".6"/><polygon points="${area}" fill="#4b9eff" opacity=".65"/><polyline points="${line}" fill="none" stroke="#76b8ff" stroke-width="1.2"/><text x="${W}" y="-5" text-anchor="end" font-size="9" fill="#a0a0a7">${axisBytes(scale)}</text></svg>`;
+    $('month-graph').dataset.bytes=cumulative;$('month-graph').dataset.lastX=lastX;$('month-graph').dataset.days=daysInMonth;
+    const apps=M.APPS.map((a,i)=>({...a,value:vals[i]})).filter(a=>a.value>0).sort((a,b)=>b.value-a.value),max=Math.max(...apps.map(a=>a.value),1);
+    $('apps-card').innerHTML=apps.map(a=>`<div class="app-row" data-app-id="${a.id}" data-bytes="${a.value}" title="${a.value.toLocaleString('ko-KR')} byte"><div class="app-icon" data-icon="${a.id}">${iconHTML(a.id)}</div><div class="app-meta"><div class="app-name">${esc(a.name)}</div><div class="app-value">${bytes(a.value)}</div><div class="app-bar"><span style="--w:${a.value/max*100}%" data-ratio="${a.value/max}"></span></div></div></div>`).join('')||'<div class="empty-apps">사용 내역이 없습니다.</div>';
+  }
+  function renderAbout(){
+    let image=assets.aboutImageData;
+    if(!validImage(image)){try{const legacy=localStorage.getItem('savedAboutImage');if(validImage(legacy))image=legacy;}catch(_){}}
+    $('about-uploaded-image').src=validImage(image)?image:'';$('about-uploaded-image').style.display=validImage(image)?'block':'none';
+    $('about-upload-label').style.display=validImage(image)?'none':'flex';
+  }
+  function initSwitches(){
+    document.querySelectorAll('[data-switch]').forEach((row,i)=>{
+      if(row.id==='hotspot-state-row')return;
+      const sw=row.querySelector('.switch');if(!sw)return;
+      const key='row-'+i;row.dataset.toggleKey=key;
+      sw.setAttribute('role','switch');sw.setAttribute('aria-label',row.querySelector('.hs-title,.item-title,.plain-title,.bat-opt-title')?.textContent||'설정');
+      if(row.classList.contains('hs-dimmed')){row.setAttribute('aria-disabled','true');sw.setAttribute('aria-disabled','true');return;}
+      row.tabIndex=0;
+      if(Object.prototype.hasOwnProperty.call(assets.toggles,key))sw.classList.toggle('on',!!assets.toggles[key]);
+      sw.setAttribute('aria-checked',String(sw.classList.contains('on')));
+    });
+  }
+  function renderAll(){renderBattery();renderHotspotSummary();renderHotspotChart();renderDataOverview();renderMonth();renderAbout();applyIcons();applyIdentity();}
+  const searchable=[
+    ['배터리','절전 모드 · 충전','screen-battery'],['배터리 활동','배터리 잔량 · 일일 사용량','screen-battery-activity'],['연결','Wi-Fi · 블루투스','screen-connections'],
+    ['모바일 핫스팟 및 테더링','인터넷 공유','screen-hotspot-tether'],['모바일 핫스팟','이름 · 비밀번호 · 오늘 공유한 데이터','screen-hotspot-detail'],['모바일 핫스팟 관리','연결한 기기 · 데이터 한도','screen-hotspot-manage'],['핫스팟 사용 내역','주별 보기 · 월별 보기','screen-hotspot-extra'],['데이터 사용','모바일 · Wi-Fi','screen-data'],['모바일 데이터 사용량','앱별 네트워크 사용량','screen-month'],['휴대전화 정보','사진','screen-about']
+  ];
+  function renderSearch(){const q=$('search-input').value.trim().toLowerCase();const matches=searchable.filter(x=>!q||(x[0]+' '+x[1]).toLowerCase().includes(q));$('search-results').innerHTML=matches.map(x=>`<button class="search-result" data-go="${x[2]}">${x[0]}<small>${x[1]}</small></button>`).join('')||'<div class="empty-apps">검색 결과가 없습니다.</div>';}
+  function openSearch(){searchReturn=currentScreen;showScreen('screen-search');$('search-input').value='';renderSearch();$('search-input').focus();}
+
+  document.addEventListener('click',e=>{
+    const t=e.target.closest('button,[data-go],[data-back],[data-switch],[data-bat-date]');
+    if(!t)return;
+    if(t.disabled||t.closest('[aria-disabled="true"]'))return;
+    if(t.id==='hotspot-main-switch'||t.id==='hotspot-detail-switch'||t.id==='hotspot-state-row'){
+      e.preventDefault();e.stopPropagation();assets.hotspotOn=!assets.hotspotOn;renderHotspotSummary();persistAssets();return;
+    }
+    if(t.dataset.batDate){selectedBatDate=t.dataset.batDate;renderBattery();return;}
+    if(t.dataset.hsKey){hsSelected=t.dataset.hsKey;renderHotspotChart();return;}
+    if(t.dataset.view){hsType=t.dataset.view;hsOffset=0;hsSelected=null;renderHotspotChart();return;}
+    if(t.dataset.month){monthKey=t.dataset.month;renderMonth();closeMenus();return;}
+    if(t.dataset.toggleKey){const sw=t.querySelector('.switch');sw.classList.toggle('on');sw.setAttribute('aria-checked',String(sw.classList.contains('on')));assets.toggles[t.dataset.toggleKey]=sw.classList.contains('on');persistAssets();return;}
+    if(t.dataset.back){showScreen(t.id==='search-back'?searchReturn:t.dataset.back,true);return;}
+    if(t.dataset.go){if(t.dataset.network){network=t.dataset.network;monthKey=M.monthStart(config.snapshotDate);}showScreen(t.dataset.go);return;}
+    if(t.matches('.search,.home-search-btn,.home-sticky-search')){openSearch();return;}
+  });
+  // 버튼이 아닌 차트/설정 행에도 키보드 접근을 제공한다.
+  document.addEventListener('keydown',e=>{
+    if((e.key==='Enter'||e.key===' ')&&e.target.tagName!=='BUTTON'&&(e.target.dataset.batDate||e.target.dataset.toggleKey)){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
+    if(e.key==='Escape'){closeMenus();if(!$('editor-mask').hidden)closeEditor();}
+    if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==='e'){e.preventDefault();openEditor();}
+  });
+  $('hs-prev-btn').addEventListener('click',()=>{hsOffset--;hsSelected=null;renderHotspotChart();});
+  $('hs-next-btn').addEventListener('click',()=>{if(hsOffset<0){hsOffset++;hsSelected=null;renderHotspotChart();}});
+  $('month-period-btn').addEventListener('click',()=>{const on=!$('month-menu').classList.contains('open');$('month-menu').classList.toggle('open',on);$('menu-backdrop').classList.toggle('open',on);$('month-period-btn').setAttribute('aria-expanded',String(on));});
+  $('menu-backdrop').addEventListener('click',closeMenus);
+  $('search-input').addEventListener('input',renderSearch);
+  document.querySelectorAll('#screen-month .gear').forEach(b=>b.addEventListener('click',()=>toast('모바일 데이터 경고 기준은 원본과 같은 1.00TB입니다.')));
+  $('hs-limit-button').addEventListener('click',()=>{
+    const value=prompt('하루 데이터 한도(GB)를 입력하세요. 0은 한도 없음입니다.',String((assets.hotspotLimitBytes||0)/1e9));
+    if(value===null)return;if(!/^\d+(\.\d{1,6})?$/.test(value)||Number(value)>10000){toast('0~10000 사이의 GB 값을 입력하세요.');return;}
+    assets.hotspotLimitBytes=Math.round(Number(value)*1e9);persistAssets();renderHotspotSummary();
+  });
+  $('bact-charge-svg').parentElement.addEventListener('pointerdown',e=>{
+    const rect=$('bact-charge-svg').getBoundingClientRect(),day=data.byDate.get(selectedBatDate),m=Math.max(0,Math.min(1440,Math.round((e.clientX-rect.left)/rect.width*1440/5)*5));
+    const observed=m<=day.minutes,energy=observed?energyAt(day,m):Math.max(0,day.endWh-averagePower()*(m-day.minutes)/60);
+    $('charge-tip').hidden=false;$('charge-tip').textContent=clock(m)+' · '+(observed?'배터리 잔량 ':'예상 배터리 잔량 ')+pct(energy/config.capacityWh*100);
+  });
+  $('bact-line-svg').parentElement.addEventListener('pointerdown',e=>{
+    const rect=$('bact-line-svg').getBoundingClientRect(),day=data.byDate.get(selectedBatDate),m=Math.floor(Math.max(0,Math.min(.99999,(e.clientX-rect.left)/rect.width))*48)*30,b=day.bins.find(x=>x.t0===m);
+    $('hour-tip').hidden=false;$('hour-tip').textContent=b?clock(b.t0)+'~'+clock(b.t1)+' · '+pct(b.dischargeWh/config.capacityWh*100):clock(m)+' 이후는 아직 집계되지 않았습니다.';
+  });
+
+  /* 편집 / 내보내기. 모든 이미지는 파일을 읽어 PNG로 축소한 뒤 내부에 보관한다. */
+  function readImage(file,size,cover){
+    return new Promise((resolve,reject)=>{
+      if(!file || !file.type.startsWith('image/')){reject(new Error('이미지 파일을 선택하세요.'));return;}
+      if(file.size>20*1024*1024){reject(new Error('20MB 이하의 이미지를 선택하세요.'));return;}
+      const url=URL.createObjectURL(file),img=new Image();
+      img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('읽을 수 없는 이미지입니다. PNG 또는 JPG로 저장한 뒤 선택하세요.'));};
+      img.onload=()=>{
+        try{
+          if(!img.naturalWidth||!img.naturalHeight)throw new Error('이미지 크기를 읽을 수 없습니다.');
+          const canvas=document.createElement('canvas');
+          if(cover){canvas.width=canvas.height=size;const side=Math.min(img.naturalWidth,img.naturalHeight);canvas.getContext('2d').drawImage(img,(img.naturalWidth-side)/2,(img.naturalHeight-side)/2,side,side,0,0,size,size);}
+          else {const scale=Math.min(1,size/img.naturalWidth);canvas.width=Math.round(img.naturalWidth*scale);canvas.height=Math.round(img.naturalHeight*scale);if(canvas.height>6000)throw new Error('세로 길이가 너무 긴 이미지입니다.');canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);}
+          resolve(canvas.toDataURL('image/png'));
+        }catch(err){reject(err);}finally{URL.revokeObjectURL(url);}
+      };img.src=url;
+    });
+  }
+  function refreshEditor(){
+    $('editor-title-input').value=assets.title||'설정';$('editor-date').value=M.addDays(config.snapshotDate,1);$('editor-date').min=M.addDays(config.snapshotDate,1);
+    $('editor-current').textContent='기준일 '+config.snapshotDate+' '+clock(config.snapshotMinute)+' · 현재 잔량 '+config.targetPct+'% · 배터리 기록 7일';$('editor-target-pct').value=config.targetPct;
+    $('editor-icon-preview').innerHTML=iconHTML($('editor-icon-select').value||'__home__');
+  }
+  function openEditor(){
+    returnFocus=document.activeElement;$('editor-mask').hidden=false;document.body.style.overflow='hidden';refreshEditor();$('editor-close').focus();
+    document.querySelectorAll('.screen').forEach(el=>el.inert=true);
+  }
+  function closeEditor(){
+    $('editor-mask').hidden=true;document.body.style.overflow='';document.querySelectorAll('.screen').forEach(el=>el.inert=false);if(returnFocus&&returnFocus.focus)returnFocus.focus();
+  }
+  $('editor-mask').addEventListener('click',e=>{if(e.target===$('editor-mask'))closeEditor();});
+  $('editor-mask').addEventListener('keydown',e=>{
+    if(e.key!=='Tab')return;const focusable=[...$('editor-mask').querySelectorAll('button,input,select,[tabindex="0"]')].filter(el=>!el.disabled&&el.offsetParent!==null),first=focusable[0],last=focusable[focusable.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  });
+  $('editor-close').addEventListener('click',closeEditor);
+  $('editor-icon-select').innerHTML='<option value="__home__">홈 화면 앱 아이콘</option>'+M.APPS.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join('');
+  $('editor-icon-select').addEventListener('change',()=>{$('editor-icon-preview').innerHTML=iconHTML($('editor-icon-select').value);});
+  $('editor-icon-choose').addEventListener('click',()=>$('editor-icon-file').click());
+  $('editor-icon-file').addEventListener('change',async e=>{
+    const id=$('editor-icon-select').value;
+    try{const image=await readImage(e.target.files[0],id==='__home__'?512:192,true);if(id==='__home__')assets.homeIconData=image;else assets.icons[id]=image;applyIcons();applyIdentity();refreshEditor();const ok=persistAssets();$('editor-status').textContent=ok?'이미지를 저장했습니다. 앱 목록 아이콘은 모든 화면에 동일하게 적용됩니다.':'메모리에 적용했습니다. 브라우저 저장이 막혀 있으므로 HTML을 내보내세요.';}
+    catch(err){$('editor-status').textContent=err.message;}finally{e.target.value='';}
+  });
+  $('editor-icon-reset').addEventListener('click',()=>{const id=$('editor-icon-select').value;if(id==='__home__')assets.homeIconData='';else delete assets.icons[id];persistAssets();applyIcons();applyIdentity();refreshEditor();});
+  $('editor-save-title').addEventListener('click',()=>{const title=$('editor-title-input').value.trim();if(!title||title.length>30){$('editor-status').textContent='앱 이름은 1~30자로 입력하세요.';return;}assets.title=title;persistAssets();applyIdentity();$('editor-status').textContent='앱 이름을 저장했습니다. 홈 화면에 설치할 때는 HTML과 manifest도 함께 저장하세요.';});
+  $('editor-advance').addEventListener('click',async()=>{
+    const b=$('editor-advance');b.disabled=true;$('editor-status').textContent='기존 기록을 유지하며 날짜를 갱신하는 중입니다…';
+    await new Promise(r=>setTimeout(r,30));
+    try{
+      const text=$('editor-flags').value.trim(),flags=text?text.split(/[\s,]+/):[];
+      if(flags.some(x=>x!=='0'&&x!=='1'))throw new Error('평일은 1, 휴일은 0만 입력하세요.');
+      const next=M.advanceConfig(config,$('editor-date').value,flags,$('editor-target-pct').value),nextData=M.simulate(next);
+      config=next;data=nextData;selectedBatDate=config.snapshotDate;monthKey=M.monthStart(config.snapshotDate);hsOffset=0;hsSelected=null;
+      const saved=putStored('scenario',{base:sourceHash,value:config});renderAll();refreshEditor();$('editor-flags').value='';
+      $('editor-status').textContent='갱신 완료: '+config.snapshotDate+' · '+config.targetPct+'%\n배터리 기록은 오늘 포함 최근 7일만 유지합니다. 핫스팟 주/월 기록은 날짜 기반으로 필요할 때 계산합니다.'+(saved?'':'\n브라우저 저장을 사용할 수 없습니다. HTML을 내보내세요.');
+    }catch(err){$('editor-status').textContent=err.message;}finally{b.disabled=false;}
+  });
+  function runAudit(){
+    const a=M.audit(data);$('editor-status').textContent=(a.ok?'검사 통과':'검사 실패')+'\n'+a.checkedDays+'일 / '+a.checkedBins+'개 시간 구간\n현재 잔량: '+a.currentPct.toFixed(6)+'%\n에너지 보존 최대 오차: '+a.maxEnergyError.toExponential(2)+' Wh\n앱별 소모량 합계 오차: '+a.maxAppError.toExponential(2)+' Wh\n시간 합계 오차: '+a.maxTimeError.toExponential(2)+'분\n'+(a.errors.join('\n')||'날짜 경계, 앱별 합계, 전력 공급, 핫스팟과 모바일 데이터 합계 모두 일치합니다.');
+  }
+  $('editor-audit').addEventListener('click',runAudit);
+  function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+  function exportHTML(){
+    const clone=document.documentElement.cloneNode(true);
+    clone.querySelector('#scenario-config').textContent=jsonText(config);clone.querySelector('#appearance-config').textContent=jsonText(assets);
+    clone.querySelectorAll('.screen').forEach(el=>{el.classList.toggle('active',el.id==='screen-home');el.removeAttribute('inert');});
+    clone.querySelector('#editor-mask').hidden=true;clone.querySelector('#toast').hidden=true;clone.querySelector('#home-sticky').classList.remove('visible');clone.querySelector('#month-menu').classList.remove('open');clone.querySelector('#menu-backdrop').classList.remove('open');
+    clone.querySelector('body').style.overflow='';clone.querySelector('#manifest-link').href='manifest.webmanifest';
+    downloadBlob(new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'}),'index_new.html');
+  }
+  $('editor-export-html').addEventListener('click',exportHTML);
+  async function homePNG(){
+    if(validImage(assets.homeIconData)){const bytes=Uint8Array.from(atob(assets.homeIconData.split(',')[1]),c=>c.charCodeAt(0));return new Blob([bytes],{type:'image/png'});}
+    const image=await readImage(new File([builtIcon('__home__')],'icon.svg',{type:'image/svg+xml'}),512,true);
+    return new Blob([Uint8Array.from(atob(image.split(',')[1]),c=>c.charCodeAt(0))],{type:'image/png'});
+  }
+  $('editor-export-icon').addEventListener('click',async()=>{try{downloadBlob(await homePNG(),'app-icon.png');}catch(err){$('editor-status').textContent=err.message;}});
+  $('editor-export-manifest').addEventListener('click',()=>downloadBlob(new Blob([JSON.stringify({name:assets.title||'설정',short_name:assets.title||'설정',lang:'ko',start_url:'./index.html',scope:'./',display:'standalone',background_color:'#000000',theme_color:'#000000',icons:[{src:'app-icon.png',sizes:'512x512',type:'image/png',purpose:'any'}]},null,2)],{type:'application/manifest+json'}),'manifest.webmanifest'));
+  $('about-image-upload').addEventListener('change',async e=>{try{assets.aboutImageData=await readImage(e.target.files[0],1200,false);persistAssets();renderAbout();}catch(err){toast(err.message);}finally{e.target.value='';}});
+  // 스크롤로 인한 오작동을 피하려고 12px 이상 이동하면 길게 누르기를 취소한다.
+  function longPress(el,fn){let timer,start;el.addEventListener('pointerdown',e=>{if(e.button&&e.button!==0)return;start=[e.clientX,e.clientY];timer=setTimeout(()=>{timer=null;fn();},750);});const stop=()=>{clearTimeout(timer);timer=null;};el.addEventListener('pointerup',stop);el.addEventListener('pointercancel',stop);el.addEventListener('pointerleave',stop);el.addEventListener('pointermove',e=>{if(start&&Math.hypot(e.clientX-start[0],e.clientY-start[1])>12)stop();});el.addEventListener('contextmenu',e=>e.preventDefault());}
+  longPress(document.querySelector('.home-title-large'),openEditor);longPress(document.querySelector('.home-sticky-title'),openEditor);longPress($('about-uploaded-image'),()=>$('about-image-upload').click());
+  document.querySelectorAll('.bat-help-link').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast('이 화면은 실제 휴대전화 설정이 아닌 모의 UI입니다.');}));
+  $('boot-error').hidden=true;
+  initSwitches();renderAll();renderSearch();
+  const hash=location.hash.replace('#',''),initial=$('screen-'+hash)?'screen-'+hash:'screen-home';
+  try{history.replaceState({screen:initial},'');}catch(_){}
+  showScreen(initial,false,true);
+  // 검사 자동화용 읽기 API. 화면과 동일한 객체를 반환하며 데이터의 복제판을 만들지 않는다.
+  window.SettingApp={get config(){return config;},get data(){return data;},get assets(){return assets;},get state(){return {currentScreen,selectedBatDate,monthKey,network,hsType,hsOffset,hsSelected};},audit:()=>M.audit(data),openEditor,exportHTML,renderAll,bytes};
+  if(new URLSearchParams(location.search).get('edit')==='1')openEditor();
+})();
+</script></body>
+</html>
